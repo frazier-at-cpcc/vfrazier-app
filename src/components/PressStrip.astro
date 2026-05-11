@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+const items = (await getCollection('press')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+<section class="press" aria-label="Featured in and on">
+  <div class="inner">
+    <div class="label">As featured<br/>in &amp; on</div>
+    <ul class="items">
+      {items.map((p) => (
+        <li class="item">
+          <span class="src">{p.data.kind}</span>
+          <span>
+            {p.data.url ? <a href={p.data.url} rel="noopener">{p.data.title}</a> : p.data.title}
+            {p.data.year && <span class="badge-yr"> {p.data.year}</span>}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .press {
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    background: var(--card);
+  }
+  .inner {
+    padding: 28px var(--space-page-x);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 30px;
+    align-items: center;
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .label {
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--accent);
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+  .items {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+  }
+  .item {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .item .src {
+    font-size: 10px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+  .item .badge-yr {
+    background: var(--highlight);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 10px;
+    margin-left: 4px;
+  }
+  @media (max-width: 720px) {
+    .inner { grid-template-columns: 1fr; gap: 14px; padding-top: 22px; padding-bottom: 22px; }
+    .items { gap: 16px; }
+  }
+</style>
