@@ -23,7 +23,7 @@ const posts = defineCollection({
 });
 
 const speakingTopics = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/speakingTopics' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/speaking-topics' }),
   schema: z.object({
     title: z.string(),
     audienceFit: z.string(),
@@ -53,7 +53,7 @@ const testimonials = defineCollection({
 });
 
 const talksGiven = defineCollection({
-  loader: glob({ pattern: '**/*.{json,yaml,yml}', base: './src/content/talksGiven' }),
+  loader: glob({ pattern: '**/*.{json,yaml,yml}', base: './src/content/talks-given' }),
   schema: z.object({
     event: z.string(),
     date: z.coerce.date(),
