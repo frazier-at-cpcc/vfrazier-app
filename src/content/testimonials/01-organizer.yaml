@@ -1,0 +1,6 @@
+name: '[Conference Organizer]'
+role: '[Role · Event year]'
+quote: '[Conference organizer quote — 1–2 sentences on what attendees took away from your talk.]'
+initials: 'CO'
+placeholder: true
+order: 1
