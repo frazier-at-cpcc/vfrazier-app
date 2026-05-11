@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHead from './SectionHead.astro';
+import PostRow from './PostRow.astro';
+
+function readingMinutes(body: string) {
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(words / 220));
+}
+function formatDate(d: Date) {
+  return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+}
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+<section class="section">
+  <div class="inner">
+    <SectionHead number="04" label="Writing" title="Recent posts." moreLabel="All writing" moreHref="/writing" />
+    {posts.length === 0 ? (
+      <p class="empty">First post coming soon. <a href="/rss.xml">Subscribe via RSS</a> to be notified.</p>
+    ) : (
+      <div class="list">
+        {posts.map((p) => (
+          <PostRow
+            date={formatDate(p.data.pubDate)}
+            title={p.data.title}
+            description={p.data.description}
+            href={`/writing/${p.id}`}
+            readingMin={readingMinutes(p.body ?? '')}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .section { padding: var(--space-section) 0; border-top: 2px solid var(--ink); }
+  .inner { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-page-x); }
+  .list {
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .empty {
+    padding: 32px 24px;
+    background: var(--card);
+    border: 2px dashed var(--ink);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    color: var(--muted);
+  }
+  .empty a { color: var(--accent); text-decoration: underline; }
+</style>

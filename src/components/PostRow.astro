@@ -1,0 +1,55 @@
+---
+interface Props {
+  date: string;
+  title: string;
+  description: string;
+  href: string;
+  readingMin: number;
+}
+const { date, title, description, href, readingMin } = Astro.props;
+---
+<a class="row" href={href}>
+  <span class="date">{date}</span>
+  <span class="body">
+    <h4>{title}</h4>
+    <p>{description}</p>
+  </span>
+  <span class="read">{readingMin} min</span>
+</a>
+
+<style>
+  .row {
+    padding: 22px 24px;
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 24px;
+    align-items: center;
+    border-bottom: 1.5px solid var(--ink);
+    color: var(--ink);
+  }
+  .row:last-child { border-bottom: none; }
+  .row:hover { background: var(--page); }
+  .date {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+  h4 {
+    font-size: 17px;
+    margin: 0 0 4px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+  }
+  p { font-size: 13px; margin: 0; color: var(--muted); }
+  .read {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .read::after { content: ' →'; }
+  @media (max-width: 720px) {
+    .row { grid-template-columns: 1fr; gap: 6px; }
+    .read { justify-self: start; }
+  }
+</style>
