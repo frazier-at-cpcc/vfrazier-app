@@ -1,25 +1,47 @@
 ---
 title: 'What I learned standing up an xAPI lab system for a CC cybersecurity program'
-description: Cost, infrastructure, and what we wish we'd known three months in.
+description: Three months in. Cost, infrastructure, schema regrets, and what to start with if you're considering this yourself.
 pubDate: 2026-05-08
-category: 'AI & Workforce'
+category: 'Instructional Design'
 draft: false
 ---
 
 We rolled out an xAPI-instrumented lab pipeline for our cybersecurity program in March. Three months later, here's what's working, what isn't, and what I'd do differently.
 
+A bit of context: in 2017 at CPI Security I built an xAPI module that used Bluetooth beacons to track field-tech tours through a model home. It won DevLearn Best in Show that year. That project was 90% novelty and 10% utility. This time around — at a community college, with real students, real labs, real consequences — I needed it to be 10% novelty and 90% utility.
+
 ## The setup
 
-Every lab — physical or virtual — emits xAPI statements to a Learning Record Store via a small adapter we wrote. Statements include the lab attempt, completion state, time-on-task, and (where it makes sense) a rough quality signal pulled from the lab's own scoring.
+Every lab in the cybersecurity pathway — physical or virtual, scored or ungraded — emits xAPI statements to a Learning Record Store. We're running an open-source SQL LRS self-hosted on a small EC2 instance because $0/month beats any vendor offer at our scale. The adapter is a 200-line Python script that:
+
+- Reads the lab's native output (Cisco Packet Tracer log, TryHackMe completion, Splunk lab result, etc.)
+- Maps it to a small, fixed set of statement verbs: `attempted`, `completed`, `mastered`, `failed`
+- Stamps a course/section/student context
+- Sends to the LRS
+
+That's it. The adapter doesn't try to be clever. It doesn't try to be vendor-agnostic in some future-proof way. It does one thing per lab platform, and we have a separate adapter per platform.
 
 ## What worked
 
-The single biggest win was not the analytics — it was that *every lab now has the same shape*. Faculty who used to grade in five different formats now look at one dashboard.
+The single biggest win was not the analytics — it was that *every lab now has the same shape*. Faculty who used to grade in five different formats now look at one dashboard. A student who completed three labs in one platform plus two in another now appears as five completions, not "well, two were in HackTheBox and three were in our Cisco gear."
+
+That standardization unlocked a quieter win: students saw their own progress accumulate across the program. The motivation effect was real. Two students who'd been on the edge of dropping out re-engaged after seeing their own cumulative dashboard.
 
 ## What didn't
 
-The LRS-side schema work took twice as long as the adapter work. I'd budget for it differently next time.
+The LRS-side work took twice as long as the adapter work. Statement design is deceptively easy until you have to answer questions like "is a failed attempt that we later let the student retake a `failed` statement followed by a `completed` statement, or is the `failed` overwritten?" There's no right answer — but you have to pick one before the data piles up, because remediation later is brutal.
+
+I picked the wrong answer the first time. We're now living with a database that has both interpretations in it, and the analytics queries have to handle both. That's the kind of debt that compounds.
 
 ## What I'd do differently
 
 Start with three statement types, not twelve. Add complexity only when a real question forces it.
+
+If you're considering this:
+
+- Pick your statement verbs and lock them down on day one. Resist `experienced`, `interacted`, `progressed`. They feel useful and they're not.
+- Treat the LRS like a database. Schema migrations are real. Plan for them.
+- Don't try to instrument everything. Pick the three highest-traffic labs and instrument those. Get value first, then expand.
+- Write your dashboard queries before you write your statement schema. The schema is in service of the queries, not the other way around.
+
+The DevLearn module from 2017 was a demo. This system runs every day, and that changes everything.
