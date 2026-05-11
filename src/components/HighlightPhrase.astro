@@ -1,0 +1,25 @@
+---
+// Wraps a substring of `text` in a yellow highlighter <em>.
+// If `phrase` is not in `text`, renders text unchanged.
+interface Props { text: string; phrase: string; }
+const { text, phrase } = Astro.props;
+const idx = phrase && text.indexOf(phrase);
+const split = idx !== undefined && idx >= 0;
+const before = split ? text.slice(0, idx) : text;
+const middle = split ? phrase : '';
+const after = split ? text.slice(idx + phrase.length) : '';
+---
+{split ? (
+  <>{before}<em class="hl">{middle}</em>{after}</>
+) : (
+  <>{text}</>
+)}
+
+<style>
+  em.hl {
+    background: var(--highlight);
+    font-style: normal;
+    font-weight: 700;
+    padding: 0 3px;
+  }
+</style>

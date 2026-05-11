@@ -1,0 +1,50 @@
+---
+interface Props {
+  number: string;
+  label: string;
+  title: string;
+  moreLabel?: string;
+  moreHref?: string;
+}
+const { number, label, title, moreLabel, moreHref } = Astro.props;
+---
+<div class="head">
+  <span class="badge">{number} / {label}</span>
+  <h2>{title}</h2>
+  {moreLabel && moreHref && <a class="more" href={moreHref}>{moreLabel}</a>}
+</div>
+
+<style>
+  .head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    font-weight: 800;
+    background: var(--ink);
+    color: var(--page);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  h2 {
+    font-size: 40px;
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: -.025em;
+    line-height: 1;
+  }
+  .more {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .more::after { content: ' →'; }
+  @media (max-width: 720px) { h2 { font-size: 30px; } }
+</style>
