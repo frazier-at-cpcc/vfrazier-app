@@ -1,0 +1,37 @@
+---
+interface Props {
+  name: string;
+  role: string;
+  courses: string[];
+}
+const { name, role, courses } = Astro.props;
+---
+<article class="inst">
+  <div class="name">{name}</div>
+  <div class="role">{role}</div>
+  <ul class="courses">
+    {courses.map((c) => <li>{c}</li>)}
+  </ul>
+</article>
+
+<style>
+  .inst {
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .name { font-size: 16px; font-weight: 800; margin-bottom: 4px; letter-spacing: -.01em; }
+  .role {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 14px;
+  }
+  .courses { list-style: none; font-size: 12px; line-height: 1.6; color: var(--ink-2); }
+  .courses li { margin-bottom: 3px; font-weight: 600; }
+  .courses li::before { content: '✦ '; color: var(--accent); }
+</style>

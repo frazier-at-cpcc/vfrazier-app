@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHead from './SectionHead.astro';
+import InstitutionCard from './InstitutionCard.astro';
+
+const allCurrent = (await getCollection('courses', ({ data }) => data.current));
+const groupedByInst = allCurrent.reduce<Record<string, string[]>>((acc, c) => {
+  const key = c.data.institution;
+  (acc[key] ||= []).push(`${c.data.code !== c.data.institution ? c.data.code + ' ' : ''}${c.data.title}`);
+  return acc;
+}, {});
+
+const roleMap: Record<string, string> = {
+  'Central Piedmont': 'Dept Chair · Instructor',
+  'UNC Charlotte': 'Graduate Faculty',
+  Wingate: 'Adjunct · Honors',
+  'Wake Tech': 'Adjunct',
+  'Wayne CC': 'Adjunct',
+};
+const institutions: Array<{ name: string; role: string; courses: string[] }> = [
+  'Central Piedmont',
+  'UNC Charlotte',
+  'Wingate',
+].map((name) => ({
+  name,
+  role: roleMap[name],
+  courses: groupedByInst[name] ?? [],
+}));
+---
+<section class="section">
+  <div class="inner">
+    <SectionHead number="05" label="Teaching" title="Where I teach." moreLabel="All courses" moreHref="/teaching" />
+    <div class="grid">
+      {institutions.map((i) => (
+        <InstitutionCard name={i.name} role={i.role} courses={i.courses} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section { padding: var(--space-section) 0; border-top: 2px solid var(--ink); }
+  .inner { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-page-x); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+</style>
