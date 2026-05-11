@@ -1,0 +1,230 @@
+---
+import { Image } from 'astro:assets';
+import HighlightPhrase from './HighlightPhrase.astro';
+import headshot from '../assets/headshot.jpg';
+---
+<section class="hero">
+  <div class="hero-text">
+    <span class="eyebrow">Dept Chair · NSF Co-PI · ex-VMware</span>
+    <h1>
+      From music<br />
+      classroom to<br />
+      <span class="hl">AI lab.</span>
+    </h1>
+    <p class="lede">
+      I lead the Network, Cybersecurity, and Cloud department at Central Piedmont.
+      I help build one of NC's first associate-degree AI programs as co-PI on the
+      NSF GAIT grant. And I speak about all of it.
+    </p>
+
+    <div class="research">
+      <span class="pill">Current research</span>
+      <span class="text">
+        <HighlightPhrase
+          text="How AI is reshaping entry-level IT work — and what community colleges should teach because of it."
+          phrase="entry-level IT work"
+        />
+      </span>
+    </div>
+
+    <div class="ctas">
+      <a href="/speaking#book" class="cta primary">Book me to speak →</a>
+      <a href="/writing" class="cta ghost">Read recent writing</a>
+    </div>
+
+    <ul class="affil" aria-label="Affiliations">
+      <li>Central Piedmont</li><li class="dot" aria-hidden="true"></li>
+      <li>UNC Charlotte</li><li class="dot" aria-hidden="true"></li>
+      <li>Wingate Honors</li><li class="dot" aria-hidden="true"></li>
+      <li>NSF ATE GAIT</li>
+    </ul>
+  </div>
+
+  <div class="portrait">
+    <div class="img-wrap">
+      <span class="stamp">
+        <span class="top">Research focus</span>
+        AI × Entry-Level Workforce
+      </span>
+      <Image src={headshot} alt="Dr. Frazier A. Smith" widths={[280, 420, 560]} sizes="(max-width: 720px) 220px, 320px" />
+    </div>
+    <div class="caption">Dr. Frazier A. <span class="accent">Smith</span></div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: 70px var(--space-page-x);
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 56px;
+    align-items: center;
+    position: relative;
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50px;
+    right: 40px;
+    width: 70px;
+    height: 70px;
+    background: var(--highlight);
+    border-radius: 50%;
+    opacity: .8;
+    z-index: 0;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 30px;
+    left: 55%;
+    width: 60px;
+    height: 60px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: .15;
+    z-index: 0;
+  }
+  .hero-text { position: relative; z-index: 1; }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-weight: 700;
+    background: var(--ink);
+    color: var(--page);
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  h1 {
+    font-size: 60px;
+    line-height: .96;
+    margin: 0 0 22px;
+    font-weight: 800;
+    letter-spacing: -.035em;
+  }
+  h1 .hl { background: var(--highlight); padding: 0 6px; }
+  .lede {
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .research {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent-soft);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding: 10px 14px;
+    margin-bottom: 28px;
+    max-width: 100%;
+  }
+  .research .pill {
+    background: var(--accent);
+    color: var(--page);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .research .text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent-deep);
+    line-height: 1.35;
+  }
+  .ctas { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+  .cta {
+    padding: 13px 22px;
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .01em;
+  }
+  .cta.primary { background: var(--ink); color: var(--page); }
+  .cta.ghost { background: transparent; border: 2px solid var(--ink); color: var(--ink); }
+
+  .affil {
+    display: flex;
+    gap: 16px;
+    font-size: 11px;
+    color: var(--muted);
+    flex-wrap: wrap;
+    align-items: center;
+    font-weight: 700;
+    list-style: none;
+  }
+  .affil .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+
+  .portrait { position: relative; z-index: 1; max-width: 320px; justify-self: end; }
+  .img-wrap {
+    background: var(--accent);
+    border: 2.5px solid var(--ink);
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: var(--shadow-hero);
+    position: relative;
+  }
+  .img-wrap img {
+    display: block;
+    width: 100%;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--ink);
+    height: auto;
+  }
+  .stamp {
+    position: absolute;
+    top: -22px;
+    right: -28px;
+    background: var(--highlight);
+    border: 2px solid var(--ink);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1.25;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    transform: rotate(6deg);
+    z-index: 2;
+    max-width: 160px;
+    text-align: center;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .stamp .top {
+    display: block;
+    font-size: 8px;
+    color: var(--accent);
+    margin-bottom: 2px;
+    letter-spacing: .12em;
+  }
+  .caption {
+    background: var(--ink);
+    color: var(--page);
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    padding: 8px 12px;
+    margin-top: 12px;
+    border-radius: var(--radius-sm);
+    letter-spacing: .04em;
+  }
+  .caption .accent { color: var(--accent-light); }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; padding-top: 40px; padding-bottom: 40px; gap: 36px; }
+    .portrait { justify-self: start; max-width: 240px; }
+    h1 { font-size: 44px; }
+  }
+</style>

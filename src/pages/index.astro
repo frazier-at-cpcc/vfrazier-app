@@ -1,11 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionHead from '../components/SectionHead.astro';
-import HighlightPhrase from '../components/HighlightPhrase.astro';
+import Hero from '../components/Hero.astro';
 ---
 <BaseLayout title="Dr. Frazier A. Smith — AI & IT Educator, Speaker, Researcher" current="home">
-  <div class="container" style="padding-top: 60px; padding-bottom: 60px;">
-    <SectionHead number="01" label="Sample" title="Section header preview" moreLabel="See all" moreHref="/" />
-    <p style="font-size: 22px;">A test of <HighlightPhrase text="highlighted phrase rendering" phrase="highlighted phrase" /> in body text.</p>
-  </div>
+  <Hero />
 </BaseLayout>
