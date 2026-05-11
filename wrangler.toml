@@ -1,0 +1,7 @@
+name = "vfrazier-app"
+compatibility_date = "2025-05-01"
+pages_build_output_dir = "dist"
+
+# Environment variables are set in the Cloudflare Pages dashboard:
+#   RESEND_API_KEY        — for the booking form to send email
+#   TURNSTILE_SECRET_KEY  — for booking form bot mitigation
