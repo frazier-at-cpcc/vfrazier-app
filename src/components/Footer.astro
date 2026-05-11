@@ -1,0 +1,79 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="cols">
+    <div class="col-brand">
+      <div class="brand">frazier<span class="dot">.</span>smith</div>
+      <p>AI &amp; IT educator. Learning design leader. Department chair at Central Piedmont. Speaker on the things in between.</p>
+    </div>
+    <div>
+      <h5>Site</h5>
+      <ul>
+        <li><a href="/speaking">Speaking</a></li>
+        <li><a href="/writing">Writing</a></li>
+        <li><a href="/talks">Talks</a></li>
+        <li><a href="/teaching">Teaching</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Elsewhere</h5>
+      <ul>
+        <li><a href="https://linkedin.com/in/fraziersmith" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://github.com/" rel="noopener">GitHub</a></li>
+        <li><a href="https://sds.charlotte.edu/frazier-smith" rel="noopener">UNCC SDS profile</a></li>
+        <li><a href="/rss.xml">RSS</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Get in touch</h5>
+      <ul>
+        <li><a href="mailto:frazier@vfrazier.app">frazier@vfrazier.app</a></li>
+        <li><a href="/speaking#book">Book a talk →</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="bar">
+    <span>© {year} Frazier A. Smith · Charlotte, NC</span>
+    <span>vfrazier.app</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--ink);
+    color: var(--page);
+  }
+  .cols {
+    padding: 60px 40px 30px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+  }
+  .col-brand .brand { font-weight: 800; font-size: 22px; margin-bottom: 10px; letter-spacing: -.02em; }
+  .col-brand .brand .dot { color: var(--accent-light); }
+  .col-brand p { font-size: 13px; color: var(--footer-text); max-width: 280px; line-height: 1.55; }
+  h5 {
+    font-size: 11px;
+    color: var(--accent-light);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    margin: 0 0 14px;
+    font-weight: 800;
+  }
+  ul { list-style: none; }
+  li { font-size: 13px; color: var(--footer-text); margin-bottom: 7px; font-weight: 500; }
+  .bar {
+    padding: 18px 40px;
+    border-top: 1px solid #3a2c1a;
+    font-size: 11px;
+    color: var(--footer-dim);
+    display: flex;
+    justify-content: space-between;
+  }
+  @media (max-width: 720px) {
+    .cols { grid-template-columns: 1fr 1fr; padding: 40px 22px 24px; gap: 28px; }
+    .bar { padding: 14px 22px; flex-direction: column; gap: 6px; }
+  }
+</style>

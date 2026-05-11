@@ -1,0 +1,70 @@
+---
+interface Props { current?: string; }
+const { current = '' } = Astro.props;
+
+const links = [
+  { href: '/', label: 'Home', key: 'home' },
+  { href: '/speaking', label: 'Speaking', key: 'speaking' },
+  { href: '/writing', label: 'Writing', key: 'writing' },
+  { href: '/talks', label: 'Talks', key: 'talks' },
+  { href: '/teaching', label: 'Teaching', key: 'teaching' },
+  { href: '/about', label: 'About', key: 'about' },
+];
+---
+<nav class="nav" aria-label="Primary">
+  <a href="/" class="brand">Dr. Frazier Smith</a>
+  <ul class="links">
+    {links.map((l) => (
+      <li>
+        <a href={l.href} class={current === l.key ? 'active' : ''}>{l.label}</a>
+      </li>
+    ))}
+  </ul>
+  <a href="/speaking#book" class="book">Book a talk →</a>
+</nav>
+
+<style>
+  .nav {
+    display: flex;
+    align-items: center;
+    padding: 18px 40px;
+    border-bottom: 2px solid var(--ink);
+    font-size: 14px;
+    background: var(--page);
+  }
+  .brand {
+    background: var(--ink);
+    color: var(--page);
+    padding: 5px 12px;
+    border-radius: var(--radius-sm);
+    font-weight: 800;
+    letter-spacing: -.02em;
+  }
+  .links {
+    display: flex;
+    gap: 24px;
+    margin-left: auto;
+    list-style: none;
+    font-weight: 600;
+  }
+  .links a.active {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+    text-decoration-color: var(--accent);
+  }
+  .book {
+    margin-left: 28px;
+    background: var(--accent);
+    color: var(--page);
+    padding: 9px 16px;
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    font-size: 13px;
+  }
+  @media (max-width: 860px) {
+    .nav { padding: 14px 20px; flex-wrap: wrap; gap: 12px; }
+    .links { gap: 16px; margin-left: 0; flex-basis: 100%; order: 3; font-size: 13px; }
+    .book { margin-left: auto; font-size: 12px; padding: 7px 12px; }
+  }
+</style>
