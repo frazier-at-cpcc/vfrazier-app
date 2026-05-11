@@ -1,0 +1,85 @@
+---
+import HighlightPhrase from './HighlightPhrase.astro';
+
+interface Props {
+  name: string;
+  role: string;
+  quote: string;
+  highlightedPhrase?: string;
+  initials: string;
+  placeholder?: boolean;
+}
+const { name, role, quote, highlightedPhrase, initials, placeholder = false } = Astro.props;
+---
+<figure class:list={['card', placeholder && 'placeholder']}>
+  <span class="mark" aria-hidden="true">"</span>
+  <blockquote class="quote">
+    {highlightedPhrase ? <HighlightPhrase text={quote} phrase={highlightedPhrase} /> : quote}
+  </blockquote>
+  <figcaption class="attr">
+    <span class="avatar">{initials}</span>
+    <span class="who">
+      <span class="name">{name}</span>
+      <span class="role">{role}</span>
+    </span>
+  </figcaption>
+</figure>
+
+<style>
+  .card {
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-lg);
+    padding: 26px;
+    position: relative;
+    box-shadow: var(--shadow-card-accent);
+  }
+  .card.placeholder {
+    background: #f5f4f1;
+    border-style: dashed;
+    box-shadow: none;
+  }
+  .mark {
+    position: absolute;
+    top: -2px;
+    left: 18px;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--accent);
+    font-weight: 800;
+  }
+  .quote {
+    font-size: 14px;
+    line-height: 1.55;
+    font-weight: 500;
+    color: var(--ink);
+    margin: 22px 0 18px;
+    letter-spacing: -.005em;
+  }
+  .card.placeholder .quote { color: var(--muted); font-style: italic; }
+  .attr {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1.5px solid var(--ink);
+    padding-top: 14px;
+  }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--page);
+    border: 2px solid var(--ink);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+  }
+  .card.placeholder .avatar { background: #d6d3d1; color: transparent; }
+  .who { display: flex; flex-direction: column; }
+  .name { font-size: 13px; font-weight: 800; line-height: 1.25; }
+  .role { font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 1px; }
+</style>

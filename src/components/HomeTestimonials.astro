@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHead from './SectionHead.astro';
+import TestimonialCard from './TestimonialCard.astro';
+
+const tms = (await getCollection('testimonials'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+---
+<section class="section">
+  <div class="inner">
+    <SectionHead number="02" label="Testimonials" title="What people say." />
+    <div class="grid">
+      {tms.map((t) => (
+        <TestimonialCard
+          name={t.data.name}
+          role={t.data.role}
+          quote={t.data.quote}
+          highlightedPhrase={t.data.highlightedPhrase}
+          initials={t.data.initials}
+          placeholder={t.data.placeholder}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section { padding: var(--space-section) 0; border-top: 2px solid var(--ink); }
+  .inner { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-page-x); }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+</style>
