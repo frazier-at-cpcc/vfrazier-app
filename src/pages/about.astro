@@ -1,0 +1,125 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HighlightPhrase from '../components/HighlightPhrase.astro';
+import headshot from '../assets/headshot.jpg';
+
+const career = (await getCollection('career')).sort((a, b) => a.data.order - b.data.order);
+
+const certifications = [
+  'VMware Certified Cloud Infrastructure Administrator 2024',
+  'Double VCP — Data Center Virtualization & Network Virtualization',
+  'VMware Carbon Black Endpoint Protection 2020',
+  'Fortinet FortiGate 7.4 Operator',
+  'CompTIA Network+ ce',
+];
+const education = [
+  { date: 'June 2025', deg: 'Ed.D., Instructional Design, Systems, and Technology', inst: 'South College' },
+  { date: 'November 2024', deg: 'Ed.S., Instructional Design and Technology', inst: 'South College' },
+  { date: 'February 2023', deg: 'M.S., IT Management', inst: 'Western Governors University' },
+  { date: 'August 2018', deg: 'M.Ed., Instructional Systems Technology, Training and Development', inst: 'UNC Charlotte' },
+  { date: '2014', deg: 'B.A., Music Education', inst: 'Wingate University' },
+];
+const awards = [
+  'Worldwide Training Delivery Impact Award',
+  'Worldwide Sales and Strategy Acceleration Quarterly Award — Accelerator',
+  'Team Member Excellence Award',
+  'Best of Show — DevLearn DemoFest',
+];
+---
+<BaseLayout title="About — Frazier Smith" current="about">
+  <header class="page-header">
+    <div class="container hdr">
+      <div>
+        <span class="kicker">About</span>
+        <h1>Music classroom to AI lab.</h1>
+        <p class="lede">I lead the Network, Cybersecurity, and Cloud department at Central Piedmont; serve as graduate faculty at UNC Charlotte; teach Applied Innovation in Wingate's Honors program; and co-PI an NSF ATE grant building one of NC's first associate-degree AI programs.</p>
+        <a href="/cv.pdf" class="cv-btn">Download CV (PDF) →</a>
+      </div>
+      <div class="photo">
+        <Image src={headshot} alt="Dr. Frazier A. Smith" widths={[280, 420, 560]} sizes="(max-width: 720px) 220px, 320px" />
+      </div>
+    </div>
+  </header>
+
+  <section class="container section">
+    <h2>Wingate → VMware → Wingate</h2>
+    <p>I started as a music education major at Wingate University and stayed on as Educational Technology Specialist after graduating in 2014. A decade later — after senior instructional design and content development roles at Belk, CPI Security, SnapAV, Anomali, Carbon Black, VMware, Broadcom, and Fast Lane — I came back to Wingate as adjunct in the Honors program, only this time co-teaching applied AI.</p>
+    <p>In between: I led a 12-person content team at VMware responsible for sixteen courses across vSphere, VMware Cloud, and HCX — work that drove $40M in customer revenue in 2022. I modernized the team's development process from ADDIE to a SAM-based, agile approach suited to the pace of SaaS. As senior instructor, I led the Carbon Black and VMware on AWS portfolio with a global instructor rating consistently above 4.95.</p>
+    <p>Now I run a 3-pathway IT department (IT Support, Cybersecurity, Cloud &amp; Networking) at Central Piedmont. I've built collaborations with Red Hat and Palo Alto Networks, redesigned entry-level courses, and mentored student data-center workers connecting classroom content to live infrastructure.</p>
+    <p class="thesis">My research focus: <HighlightPhrase text="how AI is reshaping entry-level IT work, and what post-secondary CTE has to do about it." phrase="entry-level IT work" /></p>
+  </section>
+
+  <section class="container section">
+    <h2>Career history</h2>
+    <ul class="career">
+      {career.map((c) => (
+        <li>
+          <span class="years">{c.data.years}</span>
+          <span class="title">{c.data.title}</span>
+          <span class="org">{c.data.org}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="container section">
+    <h2>Education</h2>
+    <ul class="edu">
+      {education.map((e) => (
+        <li>
+          <span class="years">{e.date}</span>
+          <span class="title">{e.deg}</span>
+          <span class="org">{e.inst}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="container section">
+    <h2>Certifications</h2>
+    <ul class="bullets">
+      {certifications.map((c) => <li>{c}</li>)}
+    </ul>
+  </section>
+
+  <section class="container section last">
+    <h2>Honors &amp; Awards</h2>
+    <ul class="bullets">
+      {awards.map((a) => <li>{a}</li>)}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .container { max-width: var(--container-max); margin: 0 auto; padding-left: var(--space-page-x); padding-right: var(--space-page-x); }
+  .page-header { padding: 70px 0 50px; border-bottom: 2px solid var(--ink); }
+  .hdr { display: grid; grid-template-columns: 1.4fr 1fr; gap: 50px; align-items: center; }
+  .kicker { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 800; background: var(--ink); color: var(--page); padding: 4px 10px; border-radius: 4px; }
+  h1 { font-size: 60px; line-height: 1; margin: 18px 0 18px; font-weight: 800; letter-spacing: -.035em; }
+  .lede { font-size: 17px; line-height: 1.55; color: var(--ink-2); margin-bottom: 22px; }
+  .cv-btn { background: var(--ink); color: var(--page); padding: 11px 18px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; display: inline-block; }
+  .photo img { border-radius: var(--radius-lg); border: 2.5px solid var(--ink); box-shadow: var(--shadow-card); width: 100%; height: auto; }
+
+  .section { padding: 50px 0 0; }
+  .section.last { padding-bottom: 80px; }
+  .section h2 { font-size: 28px; font-weight: 800; margin: 0 0 18px; letter-spacing: -.02em; }
+  .section p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px; max-width: 75ch; }
+  .thesis { font-size: 18px; font-weight: 600; padding: 18px; background: var(--card); border: 2px solid var(--accent); border-radius: var(--radius-lg); margin-top: 18px; }
+
+  .career, .edu { list-style: none; display: grid; gap: 6px; }
+  .career li, .edu li { display: grid; grid-template-columns: 130px 1fr 1fr; gap: 18px; padding: 10px 0; border-bottom: 1px dashed #c8c4be; font-size: 14px; }
+  .years { font-weight: 800; }
+  .title { font-weight: 600; }
+  .org { color: var(--muted); }
+
+  .bullets { padding-left: 22px; }
+  .bullets li { font-size: 15px; line-height: 1.65; color: var(--ink-2); margin-bottom: 6px; }
+
+  @media (max-width: 860px) {
+    .hdr { grid-template-columns: 1fr; }
+    h1 { font-size: 40px; }
+    .career li, .edu li { grid-template-columns: 1fr; gap: 2px; padding-bottom: 12px; }
+  }
+</style>

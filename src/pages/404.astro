@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="404 — Page not found" current="" noindex={true}>
+  <div class="container">
+    <span class="big">404</span>
+    <h1>This page doesn't exist.</h1>
+    <p>It may have moved or never existed. Try one of these:</p>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/speaking">Speaking</a></li>
+      <li><a href="/writing">Writing</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .container { max-width: 700px; margin: 0 auto; padding: 80px var(--space-page-x); }
+  .big { font-size: 120px; font-weight: 800; line-height: 1; color: var(--accent); letter-spacing: -.05em; }
+  h1 { font-size: 36px; font-weight: 800; margin: 8px 0 14px; }
+  p { font-size: 16px; color: var(--ink-2); margin-bottom: 18px; }
+  ul { list-style: none; display: flex; gap: 18px; flex-wrap: wrap; }
+  ul a { color: var(--accent); font-weight: 700; text-decoration: underline; }
+</style>

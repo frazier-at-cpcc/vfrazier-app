@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const all = await getCollection('courses');
+const grouped = all.reduce<Record<string, typeof all>>((acc, c) => {
+  (acc[c.data.institution] ||= []).push(c);
+  return acc;
+}, {});
+
+const institutionsOrder = ['Central Piedmont', 'UNC Charlotte', 'Wingate', 'Wake Tech', 'Wayne CC'];
+---
+<BaseLayout title="Teaching — Frazier Smith" current="teaching">
+  <header class="page-header">
+    <div class="container">
+      <span class="kicker">Teaching</span>
+      <h1>Courses across five institutions.</h1>
+      <p class="lede">From foundational Linux to graduate cloud computing for analytics — what I'm currently teaching and what I've taught recently.</p>
+    </div>
+  </header>
+
+  <section class="container teach-wrap">
+    {institutionsOrder.map((name) => grouped[name] && (
+      <article class="inst">
+        <h2>{name}</h2>
+        <ul class="courses">
+          {grouped[name].sort((a, b) => Number(b.data.current) - Number(a.data.current)).map((c) => (
+            <li>
+              <div class="head">
+                <strong>{c.data.code !== c.data.institution ? `${c.data.code} · ` : ''}{c.data.title}</strong>
+                {c.data.current && <span class="pill">Currently teaching</span>}
+                <span class="level">{c.data.level}</span>
+              </div>
+              <p class="desc">{c.data.description}</p>
+              <div class="meta">
+                <span>Last taught: {c.data.lastTaught}</span>
+                {c.data.syllabusUrl && <a href={c.data.syllabusUrl}>Syllabus →</a>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .container { max-width: var(--container-max); margin: 0 auto; padding-left: var(--space-page-x); padding-right: var(--space-page-x); }
+  .page-header { padding: 70px 0 40px; border-bottom: 2px solid var(--ink); }
+  .kicker { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 800; background: var(--ink); color: var(--page); padding: 4px 10px; border-radius: 4px; }
+  h1 { font-size: 60px; line-height: 1; margin: 18px 0 18px; font-weight: 800; letter-spacing: -.035em; }
+  .lede { font-size: 17px; line-height: 1.55; max-width: 70ch; color: var(--ink-2); }
+  .teach-wrap { padding: 50px 0 80px; display: grid; gap: 40px; }
+  .inst { background: var(--card); border: 2px solid var(--ink); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-card); }
+  h2 { font-size: 24px; margin: 0 0 18px; font-weight: 800; letter-spacing: -.02em; }
+  .courses { list-style: none; display: grid; gap: 20px; }
+  .head { display: flex; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+  .pill { background: var(--accent); color: var(--page); font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: var(--radius-pill); letter-spacing: .08em; text-transform: uppercase; }
+  .level { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .desc { font-size: 14px; line-height: 1.55; color: var(--ink-2); margin-top: 6px; }
+  .meta { display: flex; gap: 18px; font-size: 12px; color: var(--muted); margin-top: 8px; font-weight: 600; }
+  .meta a { color: var(--accent); }
+  @media (max-width: 720px) { h1 { font-size: 40px; } }
+</style>
