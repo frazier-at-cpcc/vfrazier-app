@@ -1,0 +1,78 @@
+---
+import { Image } from 'astro:assets';
+import HighlightPhrase from './HighlightPhrase.astro';
+import SectionHead from './SectionHead.astro';
+import headshot from '../assets/headshot.jpg';
+---
+<section class="section">
+  <div class="inner">
+    <SectionHead number="03" label="About" title="Music classroom to AI lab." />
+    <div class="about">
+      <div class="photo">
+        <div class="frame">
+          <Image src={headshot} alt="Dr. Frazier A. Smith" widths={[280, 420, 560]} sizes="(max-width: 720px) 240px, 360px" />
+        </div>
+        <div class="badge">Wingate <span class="accent">→</span> VMware <span class="accent">→</span> Wingate</div>
+      </div>
+      <div class="text">
+        <p>I started as a music education major at Wingate University. I came back to Wingate in 2026 as adjunct in the Honors program — only this time, I'm teaching applied AI.</p>
+        <div class="pullquote">
+          "The arc from Wingate undergrad to VMware senior manager to community college <HighlightPhrase text="department chair" phrase="department chair" /> is the whole story."
+        </div>
+        <p>In between: a decade of instructional design work at Belk, CPI Security, SnapAV, Anomali, and Carbon Black; senior leadership at VMware and Broadcom shipping training to working engineers; and now leadership of a 3-pathway IT department in Charlotte.</p>
+        <p><a class="more" href="/about">Read the full story →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section { padding: var(--space-section) 0; border-top: 2px solid var(--ink); }
+  .inner { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-page-x); }
+  .about { display: grid; grid-template-columns: 360px 1fr; gap: 50px; align-items: start; }
+  .photo { position: relative; }
+  .frame {
+    background: var(--highlight);
+    border: 2.5px solid var(--ink);
+    padding: 16px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-about);
+  }
+  .frame img {
+    display: block;
+    width: 100%;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--ink);
+    height: auto;
+  }
+  .badge {
+    position: absolute;
+    bottom: -18px;
+    left: 30px;
+    background: var(--ink);
+    color: var(--page);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .badge .accent { color: var(--accent-light); }
+  .text p { font-size: 16px; line-height: 1.65; margin: 0 0 14px; color: var(--ink-2); }
+  .pullquote {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.25;
+    padding: 18px 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    margin: 20px 0;
+    letter-spacing: -.015em;
+  }
+  .more { color: var(--accent); font-weight: 700; }
+  @media (max-width: 860px) {
+    .about { grid-template-columns: 1fr; gap: 36px; }
+    .photo { max-width: 320px; }
+  }
+</style>
