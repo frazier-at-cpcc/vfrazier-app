@@ -59,59 +59,68 @@ async function sendEmail(env: Env, payload: Record<RequiredField, string>): Prom
 }
 
 export async function onRequestPost(ctx: Context): Promise<Response> {
-  const form = await ctx.request.formData();
-  const honeypot = String(form.get('website') ?? '').trim();
-  if (honeypot.length > 0) {
-    return new Response(JSON.stringify({ error: 'Invalid submission' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
+  try {
+    const form = await ctx.request.formData();
+    const honeypot = String(form.get('website') ?? '').trim();
+    if (honeypot.length > 0) {
+      return new Response(JSON.stringify({ error: 'Invalid submission' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
 
-  const data: Partial<Record<RequiredField, string>> = {};
-  const missing: string[] = [];
-  for (const field of REQUIRED_FIELDS) {
-    const v = String(form.get(field) ?? '').trim();
-    if (!v) missing.push(field);
-    data[field] = v;
-  }
-  if (missing.length > 0) {
-    return new Response(JSON.stringify({ error: `Required fields missing: ${missing.join(', ')}` }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
+    const data: Partial<Record<RequiredField, string>> = {};
+    const missing: string[] = [];
+    for (const field of REQUIRED_FIELDS) {
+      const v = String(form.get(field) ?? '').trim();
+      if (!v) missing.push(field);
+      data[field] = v;
+    }
+    if (missing.length > 0) {
+      return new Response(JSON.stringify({ error: `Required fields missing: ${missing.join(', ')}` }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
 
-  const token = String(form.get('cf-turnstile-response') ?? '').trim();
-  if (!token) {
-    return new Response(JSON.stringify({ error: 'Bot challenge failed' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-  const ip = ctx.request.headers.get('CF-Connecting-IP') ?? '0.0.0.0';
-  const passed = await verifyTurnstile(token, ctx.env.TURNSTILE_SECRET_KEY, ip);
-  if (!passed) {
-    return new Response(JSON.stringify({ error: 'Bot challenge failed' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
+    const token = String(form.get('cf-turnstile-response') ?? '').trim();
+    if (!token) {
+      return new Response(JSON.stringify({ error: 'Bot challenge failed' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    const ip = ctx.request.headers.get('CF-Connecting-IP') ?? '0.0.0.0';
+    const passed = await verifyTurnstile(token, ctx.env.TURNSTILE_SECRET_KEY, ip);
+    if (!passed) {
+      return new Response(JSON.stringify({ error: 'Bot challenge failed' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
 
-  const sent = await sendEmail(ctx.env, data as Record<RequiredField, string>);
-  if (!sent) {
-    return new Response(JSON.stringify({ error: 'Email delivery failed' }), {
+    const sent = await sendEmail(ctx.env, data as Record<RequiredField, string>);
+    if (!sent) {
+      return new Response(JSON.stringify({ error: 'Email delivery failed' }), {
+        status: 502,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const accept = ctx.request.headers.get('Accept') ?? '';
+    if (accept.includes('application/json')) {
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    const thanksUrl = new URL('/speaking/thanks', ctx.request.url).toString();
+    return Response.redirect(thanksUrl, 303);
+  } catch (err) {
+    console.error('booking handler error', err);
+    return new Response(JSON.stringify({ error: 'Internal error' }), {
       status: 502,
       headers: { 'Content-Type': 'application/json' },
     });
   }
-
-  const accept = ctx.request.headers.get('Accept') ?? '';
-  if (accept.includes('application/json')) {
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-  return Response.redirect('https://vfrazier.app/speaking/thanks', 303);
 }
