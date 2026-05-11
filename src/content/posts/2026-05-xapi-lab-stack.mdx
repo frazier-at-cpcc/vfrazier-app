@@ -1,0 +1,25 @@
+---
+title: 'What I learned standing up an xAPI lab system for a CC cybersecurity program'
+description: Cost, infrastructure, and what we wish we'd known three months in.
+pubDate: 2026-05-08
+category: 'AI & Workforce'
+draft: false
+---
+
+We rolled out an xAPI-instrumented lab pipeline for our cybersecurity program in March. Three months later, here's what's working, what isn't, and what I'd do differently.
+
+## The setup
+
+Every lab — physical or virtual — emits xAPI statements to a Learning Record Store via a small adapter we wrote. Statements include the lab attempt, completion state, time-on-task, and (where it makes sense) a rough quality signal pulled from the lab's own scoring.
+
+## What worked
+
+The single biggest win was not the analytics — it was that *every lab now has the same shape*. Faculty who used to grade in five different formats now look at one dashboard.
+
+## What didn't
+
+The LRS-side schema work took twice as long as the adapter work. I'd budget for it differently next time.
+
+## What I'd do differently
+
+Start with three statement types, not twelve. Add complexity only when a real question forces it.
