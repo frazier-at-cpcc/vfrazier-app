@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Thanks — Frazier Smith" current="speaking" noindex={true}>
+  <div class="container">
+    <span class="big">✓</span>
+    <h1>Got it.</h1>
+    <p>Your inquiry is in my inbox. I aim to reply within two business days. If you need a faster response, email me directly at <a href="mailto:frazier@vfrazier.app">frazier@vfrazier.app</a>.</p>
+    <p><a href="/" class="back">← Back to home</a></p>
+  </div>
+</BaseLayout>
+
+<style>
+  .container { max-width: 600px; margin: 0 auto; padding: 100px var(--space-page-x); }
+  .big { font-size: 80px; color: var(--accent); font-weight: 800; }
+  h1 { font-size: 40px; font-weight: 800; margin: 12px 0 14px; }
+  p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 12px; }
+  a { color: var(--accent); font-weight: 700; text-decoration: underline; }
+  .back { display: inline-block; margin-top: 24px; }
+</style>

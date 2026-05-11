@@ -1,0 +1,85 @@
+---
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x00000000000000000000AA';
+---
+<form class="form" method="POST" action="/api/book" id="book">
+  <div class="row">
+    <label>
+      <span>Your name<span class="req">*</span></span>
+      <input name="name" required autocomplete="name" />
+    </label>
+    <label>
+      <span>Email<span class="req">*</span></span>
+      <input type="email" name="email" required autocomplete="email" />
+    </label>
+  </div>
+  <div class="row">
+    <label>
+      <span>Organization<span class="req">*</span></span>
+      <input name="organization" required />
+    </label>
+    <label>
+      <span>Event date<span class="req">*</span></span>
+      <input type="date" name="event_date" required />
+    </label>
+  </div>
+  <label class="full">
+    <span>Topic interest<span class="req">*</span></span>
+    <select name="topic_interest" required>
+      <option value="">Choose a topic…</option>
+      <option>Building NC's first associate-degree AI programs</option>
+      <option>What AI is doing to entry-level IT — and what to teach</option>
+      <option>Would You Pull the Lever? (Ethics workshop)</option>
+      <option>LLMs/RAG/agentic as instructional design tools</option>
+      <option>ADDIE to Agile at the speed of SaaS</option>
+      <option>Industry partnerships that serve students</option>
+      <option>xAPI &amp; learning analytics</option>
+      <option>Music classroom to server room</option>
+      <option>Open / not listed</option>
+    </select>
+  </label>
+  <label class="full">
+    <span>What are you looking for?<span class="req">*</span></span>
+    <textarea name="message" required rows="6" placeholder="Date, format, audience, anything that helps me say yes (or no) quickly."></textarea>
+  </label>
+
+  <label class="hp" aria-hidden="true">
+    Website
+    <input name="website" tabindex="-1" autocomplete="off" />
+  </label>
+
+  <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+
+  <button type="submit" class="submit">Send inquiry →</button>
+  <p class="legal">Goes straight to frazier@vfrazier.app. Reply within ~2 business days.</p>
+</form>
+
+<style>
+  .form { display: grid; gap: 18px; padding: 30px; background: var(--card); border: 2px solid var(--ink); border-radius: var(--radius-lg); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; }
+  label .req { color: var(--accent); margin-left: 3px; }
+  input, select, textarea {
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    font-size: 14px;
+    background: var(--page);
+    font-weight: 500;
+  }
+  textarea { resize: vertical; }
+  .full { display: block; }
+  .full > span { display: block; margin-bottom: 6px; }
+  .submit {
+    justify-self: start;
+    background: var(--ink);
+    color: var(--page);
+    padding: 12px 22px;
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .legal { font-size: 12px; color: var(--muted); }
+  .hp { position: absolute; left: -9999px; height: 0; width: 0; overflow: hidden; }
+  @media (max-width: 720px) { .row { grid-template-columns: 1fr; } }
+</style>
