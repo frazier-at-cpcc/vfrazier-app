@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHead from './SectionHead.astro';
+import SpeakingCard from './SpeakingCard.astro';
+import SpeakerLogistics from './SpeakerLogistics.astro';
+
+const topics = (await getCollection('speakingTopics'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+---
+<section class="section">
+  <div class="inner">
+    <SectionHead number="01" label="Speaking" title="Eight talks I give." moreLabel="See all topics" moreHref="/speaking" />
+    <div class="grid">
+      {topics.map((t) => (
+        <SpeakingCard
+          tag={t.data.tag}
+          title={t.data.title}
+          excerpt={t.body?.split('\n').filter(Boolean).slice(0, 1).join(' ') || t.data.abstract.split('\n')[0]}
+          featured={t.data.featured}
+          nsfFunded={t.data.nsfFunded}
+          href={`/speaking#${t.id}`}
+        />
+      ))}
+    </div>
+    <SpeakerLogistics />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding: var(--space-section) 0;
+    border-top: 2px solid var(--ink);
+  }
+  .inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--space-page-x);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+</style>

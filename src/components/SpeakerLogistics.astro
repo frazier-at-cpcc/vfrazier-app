@@ -1,0 +1,57 @@
+---
+const formats = ['Keynote', 'Panel', 'Half-day workshop', 'Full-day workshop', 'Podcast guest', 'Webinar'];
+---
+<aside class="logistics">
+  <div class="label">Available<br/>formats</div>
+  <ul class="formats">
+    {formats.map((f, i) => (
+      <li class:list={['format', i === 0 && 'highlight']}>{f}</li>
+    ))}
+  </ul>
+  <a href="/speaking#book" class="book-btn">Check availability →</a>
+</aside>
+
+<style>
+  .logistics {
+    background: var(--ink);
+    color: var(--page);
+    border-radius: var(--radius-lg);
+    padding: 18px 24px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  .label {
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--highlight);
+    line-height: 1.4;
+  }
+  .formats { display: flex; gap: 8px; flex-wrap: wrap; list-style: none; }
+  .format {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 11px;
+    border-radius: var(--radius-pill);
+    background: #2c1e10;
+    color: var(--page);
+    border: 1px solid #3a2c1a;
+  }
+  .format.highlight { background: var(--accent); border-color: var(--accent); }
+  .book-btn {
+    background: var(--highlight);
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 800;
+    padding: 9px 16px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+  }
+  @media (max-width: 720px) {
+    .logistics { grid-template-columns: 1fr; gap: 16px; }
+    .book-btn { justify-self: start; }
+  }
+</style>

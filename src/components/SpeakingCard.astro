@@ -1,0 +1,63 @@
+---
+interface Props {
+  tag: string;
+  title: string;
+  excerpt: string;
+  featured?: boolean;
+  nsfFunded?: boolean;
+  href?: string;
+}
+const { tag, title, excerpt, featured = false, nsfFunded = false, href } = Astro.props;
+const ContentEl = href ? 'a' : 'article';
+---
+<ContentEl class:list={['card', featured && 'featured']} href={href}>
+  <span class="tag">
+    {tag}
+    {nsfFunded && <span class="nsf">NSF</span>}
+  </span>
+  <h3>{title}</h3>
+  <p>{excerpt}</p>
+</ContentEl>
+
+<style>
+  .card {
+    display: block;
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    color: var(--ink);
+  }
+  .card.featured { background: var(--highlight-soft); }
+  a.card:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); transition: transform .12s, box-shadow .12s; }
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .nsf {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--highlight);
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 3px;
+    letter-spacing: .1em;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  h3 {
+    font-size: 19px;
+    margin: 0 0 10px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -.015em;
+  }
+  p { font-size: 13px; line-height: 1.55; margin: 0; color: #3a2c1a; }
+</style>
