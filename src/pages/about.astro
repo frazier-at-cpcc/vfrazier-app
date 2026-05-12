@@ -35,7 +35,10 @@ const awards = [
         <span class="kicker">About</span>
         <h1>Music classroom to AI lab.</h1>
         <p class="lede">I lead the Network, Cybersecurity, and Cloud department at Central Piedmont; serve as graduate faculty at UNC Charlotte; teach Applied Innovation in Wingate's Honors program; and co-PI an NSF ATE grant building one of NC's first associate-degree AI programs.</p>
-        <a href="/cv.pdf" class="cv-btn">Download CV (PDF) →</a>
+        <div class="cv-row">
+          <a href="/cv" class="cv-btn primary">View CV →</a>
+          <a href="/cv.pdf" class="cv-btn ghost">Download PDF</a>
+        </div>
       </div>
       <div class="photo">
         <Image src={headshot} alt="Dr. Frazier A. Smith" widths={[280, 420, 560]} sizes="(max-width: 720px) 220px, 320px" />
@@ -99,7 +102,10 @@ const awards = [
   .kicker { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 800; background: var(--ink); color: var(--page); padding: 4px 10px; border-radius: 4px; }
   h1 { font-size: 60px; line-height: 1; margin: 18px 0 18px; font-weight: 800; letter-spacing: -.035em; }
   .lede { font-size: 17px; line-height: 1.55; color: var(--ink-2); margin-bottom: 22px; }
-  .cv-btn { background: var(--ink); color: var(--page); padding: 11px 18px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; display: inline-block; }
+  .cv-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cv-btn { padding: 11px 18px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; display: inline-block; }
+  .cv-btn.primary { background: var(--ink); color: var(--page); }
+  .cv-btn.ghost { background: transparent; border: 2px solid var(--ink); color: var(--ink); padding: 9px 16px; }
   .photo img { border-radius: var(--radius-lg); border: 2.5px solid var(--ink); box-shadow: var(--shadow-card); width: 100%; height: auto; }
 
   .section { padding: 50px 0 0; }

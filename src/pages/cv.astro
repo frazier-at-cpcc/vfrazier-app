@@ -1,0 +1,376 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const career = (await getCollection('career')).sort((a, b) => a.data.order - b.data.order);
+const courses = await getCollection('courses');
+const speakingTopics = (await getCollection('speakingTopics')).sort((a, b) => a.data.order - b.data.order);
+const talks = (await getCollection('talksGiven')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const groupedCourses = courses.reduce<Record<string, typeof courses>>((acc, c) => {
+  (acc[c.data.institution] ||= []).push(c);
+  return acc;
+}, {});
+const institutionsOrder = ['Central Piedmont', 'UNC Charlotte', 'Wingate', 'Wake Tech', 'Wayne CC'];
+
+const currentRoles = [
+  { years: 'July 2025 – present', title: 'Department Chair, Network Management, Cybersecurity, and Cloud & Virtualization', org: 'Central Piedmont Community College' },
+  { years: 'March 2023 – present', title: 'Instructor, Network Management, Cybersecurity, and Cloud & Virtualization', org: 'Central Piedmont Community College' },
+  { years: 'October 2025 – present', title: 'Associate Graduate Faculty', org: 'UNC Charlotte — School of Data Science & College of Computing and Informatics' },
+  { years: 'January 2026 – present', title: 'Adjunct Instructor, Honors Program', org: 'Wingate University' },
+];
+
+const education = [
+  { date: 'June 2025', deg: 'Ed.D., Instructional Design, Systems, and Technology', inst: 'South College' },
+  { date: 'November 2024', deg: 'Ed.S., Instructional Design and Technology', inst: 'South College' },
+  { date: 'February 2023', deg: 'M.S., IT Management', inst: 'Western Governors University' },
+  { date: 'August 2018', deg: 'M.Ed., Instructional Systems Technology, Training & Development', inst: 'UNC Charlotte' },
+  { date: '2014', deg: 'B.A., Music Education', inst: 'Wingate University' },
+];
+
+const certifications = [
+  'VMware Certified Cloud Infrastructure Administrator 2024',
+  'Double VCP — Data Center Virtualization & Network Virtualization',
+  'VMware Carbon Black Endpoint Protection 2020',
+  'Fortinet FortiGate 7.4 Operator',
+  'CompTIA Network+ ce',
+];
+
+const awards = [
+  'Worldwide Training Delivery Impact Award',
+  'Worldwide Sales and Strategy Acceleration Quarterly Award — Accelerator',
+  'Team Member Excellence Award',
+  'Best of Show — DevLearn DemoFest (2016)',
+];
+
+const service = [
+  { years: '2025 – present', body: 'College Senate and Curriculum Committee, Central Piedmont Community College' },
+  { years: '2025 – present', body: 'Co-Principal Investigator, NSF ATE Generating AI Talent (GAIT) grant — building one of NC’s first associate-degree AI programs' },
+  { years: '2017 – present', body: 'Advisory Board member, Highland School of Technology (Gastonia, NC) — eight years of service' },
+];
+
+const languages = ['English (native)', 'Spanish (limited working)'];
+
+function fmtDate(d: Date) {
+  return d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+}
+---
+<BaseLayout title="CV — Dr. Frazier A. Smith" description="Full curriculum vitae for Dr. Frazier A. Smith — AI & IT educator, NSF co-PI, department chair at Central Piedmont." current="">
+  <article class="cv">
+    <header class="cv-header">
+      <div class="hgroup">
+        <h1>Dr. Frazier A. Smith</h1>
+        <p class="title">AI &amp; IT Educator · Learning Design Leader · Community College Leadership</p>
+        <p class="meta">
+          Charlotte, NC · <a href="mailto:frazier@vfrazier.app">frazier@vfrazier.app</a> ·
+          <a href="https://vfrazier.app" rel="noopener">vfrazier.app</a> ·
+          <a href="https://linkedin.com/in/fraziersmith" rel="noopener">linkedin.com/in/fraziersmith</a>
+        </p>
+      </div>
+      <div class="actions">
+        <a href="/cv.pdf" class="pdf">Download PDF →</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Current roles</h2>
+      <ul class="entries">
+        {currentRoles.map((r) => (
+          <li>
+            <span class="years">{r.years}</span>
+            <div>
+              <div class="role">{r.title}</div>
+              <div class="org">{r.org}</div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section>
+      <h2>Research focus</h2>
+      <p class="prose">The application of artificial intelligence in career-development programs, and the effectiveness of post-secondary career and technical education in preparing students for industry — specifically, how generative AI is reshaping entry-level IT roles, and what community-college curriculum must change in response.</p>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <ul class="entries">
+        {education.map((e) => (
+          <li>
+            <span class="years">{e.date}</span>
+            <div>
+              <div class="role">{e.deg}</div>
+              <div class="org">{e.inst}</div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section>
+      <h2>Certifications</h2>
+      <ul class="bullets">
+        {certifications.map((c) => <li>{c}</li>)}
+      </ul>
+    </section>
+
+    <section>
+      <h2>Career history</h2>
+      <ul class="entries">
+        {career.map((c) => (
+          <li>
+            <span class="years">{c.data.years}</span>
+            <div>
+              <div class="role">{c.data.title}</div>
+              <div class="org">{c.data.org}</div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section>
+      <h2>Teaching</h2>
+      {institutionsOrder.map((inst) => groupedCourses[inst] && (
+        <div class="teach-block">
+          <h3>{inst}</h3>
+          <ul class="bullets compact">
+            {groupedCourses[inst].map((c) => (
+              <li>
+                <span class="code">{/\d/.test(c.data.code) ? c.data.code : c.data.level}</span>
+                {' · '}{c.data.title}
+                {c.data.current && <span class="pill">Currently teaching</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+
+    <section>
+      <h2>Speaking topics</h2>
+      <p class="prose">Eight talks regularly delivered in keynote, panel, and workshop formats. See <a href="/speaking">/speaking</a> for full abstracts.</p>
+      <ul class="bullets compact">
+        {speakingTopics.map((t) => (
+          <li>
+            {t.data.title}{t.data.nsfFunded && <span class="pill nsf">NSF</span>}
+            <span class="tag">— {t.data.tag}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    {talks.length > 0 && (
+      <section>
+        <h2>Recent talks</h2>
+        <ul class="entries">
+          {talks.map((t) => (
+            <li>
+              <span class="years">{fmtDate(t.data.date)}</span>
+              <div>
+                <div class="role">{t.data.talkTitle} <span class="fmt-pill">{t.data.format}</span></div>
+                <div class="org">{t.data.event}{t.data.location && <> · {t.data.location}</>}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {posts.length > 0 && (
+      <section>
+        <h2>Writing</h2>
+        <ul class="bullets compact">
+          {posts.map((p) => (
+            <li>
+              <a href={`/writing/${p.id}`}>{p.data.title}</a>
+              <span class="tag"> — {p.data.category}, {p.data.pubDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <section>
+      <h2>Honors &amp; awards</h2>
+      <ul class="bullets">
+        {awards.map((a) => <li>{a}</li>)}
+      </ul>
+    </section>
+
+    <section>
+      <h2>Service</h2>
+      <ul class="entries">
+        {service.map((s) => (
+          <li>
+            <span class="years">{s.years}</span>
+            <div><div class="role">{s.body}</div></div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="last">
+      <h2>Languages</h2>
+      <ul class="bullets">
+        {languages.map((l) => <li>{l}</li>)}
+      </ul>
+    </section>
+
+    <footer class="cv-footer">
+      <p>Last updated {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}. A printable PDF is available at <a href="/cv.pdf">/cv.pdf</a>.</p>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .cv {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 60px var(--space-page-x) 80px;
+  }
+  .cv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    padding-bottom: 22px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 32px;
+  }
+  .cv-header h1 {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -.025em;
+    line-height: 1.05;
+    margin: 0 0 6px;
+  }
+  .cv-header .title {
+    font-size: 14px;
+    color: var(--ink-2);
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  .cv-header .meta {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+    margin: 0;
+  }
+  .cv-header .meta a { color: var(--accent); text-decoration: underline; }
+  .pdf {
+    background: var(--ink);
+    color: var(--page);
+    padding: 10px 16px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  section { margin-bottom: 30px; }
+  section.last { margin-bottom: 0; }
+  section h2 {
+    font-size: 12px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--accent);
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+  }
+  section h3 {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 16px 0 6px;
+  }
+
+  .prose { font-size: 14px; line-height: 1.6; color: var(--ink-2); max-width: 72ch; }
+  .prose a { color: var(--accent); }
+
+  .entries { list-style: none; display: grid; gap: 10px; }
+  .entries li {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 16px;
+    align-items: baseline;
+    font-size: 14px;
+  }
+  .entries .years {
+    font-weight: 800;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .entries .role { font-weight: 600; color: var(--ink); line-height: 1.35; }
+  .entries .org { color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+  .bullets { list-style: none; padding-left: 16px; }
+  .bullets li { font-size: 14px; line-height: 1.5; margin-bottom: 5px; position: relative; }
+  .bullets li::before { content: '✦'; color: var(--accent); position: absolute; left: -16px; }
+  .bullets.compact li { font-size: 13px; margin-bottom: 4px; }
+  .bullets .code { font-weight: 800; letter-spacing: -.01em; }
+  .bullets a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+  .bullets .tag { color: var(--muted); font-size: 12px; font-weight: 500; }
+
+  .pill {
+    display: inline-block;
+    margin-left: 8px;
+    background: var(--accent);
+    color: var(--page);
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: var(--radius-pill);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+  .pill.nsf { background: var(--ink); color: var(--highlight); }
+
+  .fmt-pill {
+    display: inline-block;
+    margin-left: 6px;
+    background: var(--page);
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    font-size: 9px;
+    font-weight: 800;
+    padding: 1px 6px;
+    border-radius: 3px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  .teach-block { margin-bottom: 14px; }
+
+  .cv-footer {
+    margin-top: 50px;
+    padding-top: 18px;
+    border-top: 1.5px solid var(--ink);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .cv-footer a { color: var(--accent); text-decoration: underline; }
+
+  @media (max-width: 720px) {
+    .cv-header { flex-direction: column; align-items: flex-start; }
+    .cv-header h1 { font-size: 30px; }
+    .entries li { grid-template-columns: 1fr; gap: 2px; }
+    .entries .years { font-size: 12px; color: var(--muted); }
+  }
+
+  @media print {
+    body { background: white; }
+    .cv { padding: 24px 32px; max-width: 100%; }
+    .pdf, .skip-link, nav, footer.footer { display: none !important; }
+    .pov { display: none !important; }
+    section { page-break-inside: avoid; }
+    .cv-header { padding-bottom: 14px; margin-bottom: 18px; }
+  }
+</style>
