@@ -9,7 +9,7 @@ const tms = (await getCollection('testimonials'))
 ---
 <section class="section">
   <div class="inner">
-    <SectionHead number="02" label="Testimonials" title="What people say." />
+    <SectionHead number="02" label="Testimonials" title="What people say." moreLabel="View on LinkedIn" moreHref="https://www.linkedin.com/in/fraziersmith/details/recommendations/" />
     <div class="grid">
       {tms.map((t) => (
         <TestimonialCard
