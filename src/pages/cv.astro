@@ -15,7 +15,7 @@ const groupedCourses = courses.reduce<Record<string, typeof courses>>((acc, c) =
 const institutionsOrder = ['Central Piedmont', 'UNC Charlotte', 'Wingate', 'Wake Tech', 'Wayne CC'];
 
 const currentRoles = [
-  { years: 'July 2025 – present', title: 'Department Chair, Network Management, Cybersecurity, and Cloud & Virtualization', org: 'Central Piedmont Community College' },
+  { years: 'July 2025 – present', title: 'Department Chair, Network Management, Cybersecurity, and Cloud & Virtualization', org: 'Central Piedmont Community College', areas: ['Cybersecurity', 'Cloud & Networking', 'IT Support'] },
   { years: 'March 2023 – present', title: 'Instructor, Network Management, Cybersecurity, and Cloud & Virtualization', org: 'Central Piedmont Community College' },
   { years: 'October 2025 – present', title: 'Associate Graduate Faculty', org: 'UNC Charlotte — School of Data Science & College of Computing and Informatics' },
   { years: 'January 2026 – present', title: 'Adjunct Instructor, Honors Program', org: 'Wingate University' },
@@ -84,6 +84,9 @@ function fmtDate(d: Date) {
             <div>
               <div class="role">{r.title}</div>
               <div class="org">{r.org}</div>
+              {r.areas && (
+                <div class="areas">Program areas: {r.areas.map((a, i) => (<>{i > 0 && ' · '}<span class="area">{a}</span></>))}</div>
+              )}
             </div>
           </li>
         ))}
@@ -310,6 +313,8 @@ function fmtDate(d: Date) {
   }
   .entries .role { font-weight: 600; color: var(--ink); line-height: 1.35; }
   .entries .org { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .entries .areas { font-size: 13px; margin-top: 4px; color: var(--ink-2); font-weight: 600; }
+  .entries .area { display: inline-block; }
 
   .bullets { list-style: none; padding-left: 16px; }
   .bullets li { font-size: 14px; line-height: 1.5; margin-bottom: 5px; position: relative; }

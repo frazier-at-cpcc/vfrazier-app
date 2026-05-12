@@ -53,7 +53,13 @@ const awards = [
     <p>Through college at Wingate — where I majored in music education — I served as the campus Educational Technology Specialist. After graduating in 2014, my first post-college role was on Belk's eLearning team. That kicked off a decade in enterprise instructional design and technical training, with stops at CPI Security, SnapAV, Anomali, Carbon Black, VMware, Broadcom, and Fast Lane. The work was always teaching — just teaching working engineers instead of students.</p>
     <p>I came back to higher ed in 2023 by adjuncting at Central Piedmont. That grew into a full-time instructor role, and then into Department Chair in 2025. From there I returned to Wingate — my alma mater — as adjunct in the Honors program, this time to co-teach applied AI.</p>
     <p>Along the way: I led a 12-person content team at VMware responsible for sixteen courses across vSphere, VMware Cloud, and HCX — work that drove $40M in customer revenue in 2022. I modernized the team's process from ADDIE to a SAM-based, agile approach suited to the pace of SaaS. As senior instructor, I led the Carbon Black and VMware on AWS portfolio with a global instructor rating consistently above 4.95.</p>
-    <p>Today I run a 3-pathway IT department (IT Support, Cybersecurity, Cloud &amp; Networking) at Central Piedmont. I've built collaborations with Red Hat and Palo Alto Networks, redesigned entry-level courses, and mentored student data-center workers connecting classroom content to live infrastructure.</p>
+    <p>Today I chair an IT department at Central Piedmont spanning three program areas:</p>
+    <ul class="pathways">
+      <li><strong>Cybersecurity</strong> — AAS and certificate programs covering security fundamentals, network defense, ethical hacking, and incident response. Industry alignment with Palo Alto Networks and CompTIA Security+.</li>
+      <li><strong>Cloud &amp; Networking</strong> — Cisco-aligned networking through CCNA, plus AWS, Azure, and Red Hat Linux. Students work in a live on-campus data center as part of the curriculum.</li>
+      <li><strong>IT Support</strong> — Help desk, end-user computing, hardware, and operating systems. CompTIA A+ and ITIL-aligned, with stackable credentials into Cybersecurity or Cloud &amp; Networking.</li>
+    </ul>
+    <p>Across all three I've built employer collaborations with Red Hat and Palo Alto Networks, redesigned entry-level courses around AI-augmented work, and mentored student data-center workers connecting classroom content to live infrastructure.</p>
     <p class="thesis">My research focus: <HighlightPhrase text="how AI is reshaping entry-level IT work, and what post-secondary CTE has to do about it." phrase="entry-level IT work" /></p>
   </section>
 
@@ -116,6 +122,18 @@ const awards = [
   .section h2 { font-size: 28px; font-weight: 800; margin: 0 0 18px; letter-spacing: -.02em; }
   .section p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px; max-width: 75ch; }
   .thesis { font-size: 18px; font-weight: 600; padding: 18px; background: var(--card); border: 2px solid var(--accent); border-radius: var(--radius-lg); margin-top: 18px; }
+  .pathways { list-style: none; display: grid; gap: 14px; margin: 14px 0 18px; padding: 0; }
+  .pathways li {
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    border-left: 6px solid var(--accent);
+  }
+  .pathways strong { color: var(--ink); font-weight: 800; font-size: 15px; }
 
   .career, .edu { list-style: none; display: grid; gap: 6px; }
   .career li, .edu li { display: grid; grid-template-columns: 130px 1fr 1fr; gap: 18px; padding: 10px 0; border-bottom: 1px dashed #c8c4be; font-size: 14px; }
