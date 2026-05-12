@@ -1,8 +1,8 @@
 ---
 code: CSC-214
-title: 'Data Structures'
+title: 'Artificial Intelligence II'
 institution: Wayne CC
 level: Associate
-lastTaught: Fall 2025
-description: Data structures in Python with an applied lab focus.
+lastTaught: Spring 2026
+description: Continuation of the AI sequence — applied work with LLMs, RAG patterns, fine-tuning, agent design, and evaluation. Hands-on Python against current tooling.
 ---

@@ -33,7 +33,7 @@ const institutionsOrder = ['Central Piedmont', 'UNC Charlotte', 'Wingate', 'Wake
               </div>
               <p class="desc">{c.data.description}</p>
               <div class="meta">
-                <span>Last taught: {c.data.lastTaught}</span>
+                <span>{c.data.lastTaught.startsWith('Scheduled') ? c.data.lastTaught : `Last taught: ${c.data.lastTaught}`}</span>
                 {c.data.syllabusUrl && <a href={c.data.syllabusUrl}>Syllabus →</a>}
               </div>
             </li>

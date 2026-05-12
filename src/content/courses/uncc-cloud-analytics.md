@@ -1,5 +1,5 @@
 ---
-code: Graduate Seminar
+code: 'DSBA 6190'
 title: 'Cloud Computing for Data Analytics'
 institution: UNC Charlotte
 level: Graduate
