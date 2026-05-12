@@ -27,7 +27,7 @@ const institutionsOrder = ['Central Piedmont', 'UNC Charlotte', 'Wingate', 'Wake
           {grouped[name].sort((a, b) => Number(b.data.current) - Number(a.data.current)).map((c) => (
             <li>
               <div class="head">
-                <strong>{c.data.code !== c.data.institution ? `${c.data.code} · ` : ''}{c.data.title}</strong>
+                <strong>{/\d/.test(c.data.code) ? `${c.data.code} · ` : ''}{c.data.title}</strong>
                 {c.data.current && <span class="pill">Currently teaching</span>}
                 <span class="level">{c.data.level}</span>
               </div>

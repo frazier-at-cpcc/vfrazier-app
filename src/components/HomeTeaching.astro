@@ -6,7 +6,10 @@ import InstitutionCard from './InstitutionCard.astro';
 const allCurrent = (await getCollection('courses', ({ data }) => data.current));
 const groupedByInst = allCurrent.reduce<Record<string, string[]>>((acc, c) => {
   const key = c.data.institution;
-  (acc[key] ||= []).push(`${c.data.code !== c.data.institution ? c.data.code + ' ' : ''}${c.data.title}`);
+  // Prepend the code only when it looks like an actual course code (contains a digit).
+  // "Honors" / "Graduate Seminar" are descriptive placeholders, not codes.
+  const hasRealCode = /\d/.test(c.data.code);
+  (acc[key] ||= []).push(hasRealCode ? `${c.data.code} ${c.data.title}` : c.data.title);
   return acc;
 }, {});
 
