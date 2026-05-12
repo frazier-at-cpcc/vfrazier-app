@@ -10,6 +10,7 @@ takeaways:
   - How to write transfer-friendly AI courses that bachelor's programs will accept
 tag: 'Higher Ed · CTE'
 order: 1
+icon: 'fa-solid fa-graduation-cap'
 ---
 
 The full talk runs 45 minutes plus Q&A. The 25-minute version drops the case-study section.

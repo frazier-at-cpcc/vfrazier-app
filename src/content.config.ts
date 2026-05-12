@@ -33,6 +33,7 @@ const speakingTopics = defineCollection({
     featured: z.boolean().default(false),
     nsfFunded: z.boolean().default(false),
     order: z.number().default(99),
+    icon: z.string().default('fa-solid fa-microphone-lines'),
     tag: z.string(),
   }),
 });

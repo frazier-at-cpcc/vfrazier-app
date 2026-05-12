@@ -12,6 +12,7 @@ featured: true
 nsfFunded: true
 tag: 'Ethics · AI · Workshop'
 order: 3
+icon: 'fa-solid fa-scale-balanced'
 ---
 
 This workshop was developed under NSF ATE award #2500901.

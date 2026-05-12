@@ -10,4 +10,5 @@ takeaways:
   - What partners actually want in return (it's not what you think)
 tag: 'Partnerships · CTE'
 order: 6
+icon: 'fa-solid fa-handshake'
 ---

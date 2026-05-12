@@ -10,4 +10,5 @@ takeaways:
   - One thing every educator should steal from professional musicians
 tag: 'Career · Pedagogy'
 order: 8
+icon: 'fa-solid fa-music'
 ---

@@ -10,4 +10,5 @@ takeaways:
   - The award-winning Bluetooth-beacon xAPI module from my CPI Security days, dissected
 tag: 'Analytics · L&D'
 order: 7
+icon: 'fa-solid fa-magnifying-glass-chart'
 ---

@@ -7,6 +7,16 @@ import BookingForm from '../components/BookingForm.astro';
 
 const topics = (await getCollection('speakingTopics'))
   .sort((a, b) => a.data.order - b.data.order);
+
+// Format → Font Awesome icon class.
+const formatIcon: Record<string, string> = {
+  'Keynote': 'fa-solid fa-microphone-lines',
+  'Panel': 'fa-solid fa-users',
+  'Half-day workshop': 'fa-solid fa-chalkboard-user',
+  'Full-day workshop': 'fa-solid fa-chalkboard-user',
+  'Podcast guest': 'fa-solid fa-podcast',
+  'Webinar': 'fa-solid fa-video',
+};
 ---
 <BaseLayout title="Speaking — Dr. Frazier Smith" current="speaking">
   <header class="page-header">
@@ -20,6 +30,7 @@ const topics = (await getCollection('speakingTopics'))
   <section class="container topics">
     {topics.map((t) => (
       <article id={t.id} class:list={['topic', t.data.featured && 'featured']}>
+        <span class="topic-icon" aria-hidden="true"><i class={t.data.icon}></i></span>
         <div class="meta">
           <span class="tag">{t.data.tag}{t.data.nsfFunded && <span class="nsf">NSF</span>}</span>
           <h2>{t.data.title}</h2>
@@ -27,19 +38,23 @@ const topics = (await getCollection('speakingTopics'))
         <p class="abstract">{t.data.abstract}</p>
         <div class="grid">
           <div>
-            <h3>Audience fit</h3>
+            <h3><i class="fa-solid fa-bullseye" aria-hidden="true"></i> Audience fit</h3>
             <p>{t.data.audienceFit}</p>
           </div>
           <div>
-            <h3>Available formats</h3>
+            <h3><i class="fa-solid fa-microphone" aria-hidden="true"></i> Available formats</h3>
             <ul class="formats">
-              {t.data.formats.map((f) => <li>{f}</li>)}
+              {t.data.formats.map((f) => (
+                <li><i class={formatIcon[f] ?? 'fa-solid fa-circle-dot'} aria-hidden="true"></i> {f}</li>
+              ))}
             </ul>
           </div>
           <div>
-            <h3>You'll walk away with</h3>
+            <h3><i class="fa-solid fa-list-check" aria-hidden="true"></i> You'll walk away with</h3>
             <ul class="takeaways">
-              {t.data.takeaways.map((tk) => <li>{tk}</li>)}
+              {t.data.takeaways.map((tk) => (
+                <li><i class="fa-solid fa-circle-check" aria-hidden="true"></i> {tk}</li>
+              ))}
             </ul>
           </div>
         </div>
@@ -79,9 +94,33 @@ const topics = (await getCollection('speakingTopics'))
     border: 2px solid var(--ink);
     border-radius: var(--radius-lg);
     padding: 30px;
+    padding-right: 110px;
     box-shadow: var(--shadow-card);
+    position: relative;
   }
   .topic.featured { background: var(--highlight-soft); }
+
+  .topic-icon {
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--page);
+    border: 2.5px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .topic.featured .topic-icon {
+    background: var(--highlight);
+    color: var(--ink);
+  }
+
   .tag {
     display: inline-block;
     font-size: 10px;
@@ -105,16 +144,46 @@ const topics = (await getCollection('speakingTopics'))
   }
   h2 { font-size: 28px; margin: 0 0 14px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
   .abstract { font-size: 16px; line-height: 1.6; color: var(--ink-2); margin-bottom: 22px; }
+
   .grid { display: grid; grid-template-columns: 1.2fr 1fr 1.6fr; gap: 28px; padding-top: 18px; border-top: 1.5px solid var(--ink); }
-  .grid h3 { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .grid h3 {
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .grid h3 i { font-size: 13px; }
   .grid p, .grid li { font-size: 14px; line-height: 1.55; color: var(--ink-2); }
+
   .formats, .takeaways { list-style: none; }
-  .formats li, .takeaways li { padding-left: 16px; position: relative; margin-bottom: 4px; }
-  .formats li::before, .takeaways li::before { content: '◆'; color: var(--accent); position: absolute; left: 0; top: 0; font-size: 10px; }
+  .formats li, .takeaways li {
+    padding-left: 22px;
+    position: relative;
+    margin-bottom: 6px;
+  }
+  .formats li i, .takeaways li i {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    color: var(--accent);
+    font-size: 13px;
+    width: 16px;
+    text-align: center;
+  }
+  .takeaways li i { color: var(--accent); }
+
   .logistics-wrap { padding-top: 20px; padding-bottom: 40px; }
   .booking-wrap { padding-top: 30px; padding-bottom: 80px; }
-@media (max-width: 720px) {
+
+  @media (max-width: 720px) {
     .page-header h1 { font-size: 40px; }
     .grid { grid-template-columns: 1fr; gap: 20px; }
+    .topic { padding-right: 30px; }
+    .topic-icon { position: static; margin-bottom: 16px; width: 48px; height: 48px; font-size: 20px; }
   }
 </style>

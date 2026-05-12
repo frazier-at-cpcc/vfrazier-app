@@ -10,4 +10,5 @@ takeaways:
   - The four places AI breaks ID quality (and the safeguards that catch it)
 tag: 'Instructional Design'
 order: 4
+icon: 'fa-solid fa-microchip'
 ---

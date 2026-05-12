@@ -10,4 +10,5 @@ takeaways:
   - How to keep design quality from collapsing under sprint pressure
 tag: 'L&D · Industry'
 order: 5
+icon: 'fa-solid fa-arrows-rotate'
 ---

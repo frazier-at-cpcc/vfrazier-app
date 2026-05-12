@@ -10,4 +10,5 @@ takeaways:
   - How to redesign a foundational IT course in one semester
 tag: 'Workforce · Research'
 order: 2
+icon: 'fa-solid fa-chart-line'
 ---
