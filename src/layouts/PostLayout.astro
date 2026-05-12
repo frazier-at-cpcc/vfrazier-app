@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import SubscribeForm from '../components/SubscribeForm.astro';
 
 interface Props {
   title: string;
@@ -57,6 +58,8 @@ const articleJsonLd = {
       <p><strong>Written by Frazier Smith.</strong> Department chair at Central Piedmont, NSF co-PI, and AI &amp; IT educator. <a href="/about">More about me →</a></p>
     </footer>
   </article>
+
+  <SubscribeForm />
 </BaseLayout>
 
 <style>
