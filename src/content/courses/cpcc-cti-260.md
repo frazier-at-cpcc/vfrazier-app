@@ -1,8 +1,8 @@
 ---
 code: CTI-260
-title: 'Information Storage Management'
+title: 'Data Center Troubleshooting'
 institution: Central Piedmont
 level: Associate
 lastTaught: Spring 2026
-description: Storage architectures, SAN/NAS, backup and recovery, virtualization storage, and cloud-storage patterns for data-center operations.
+description: Systematic diagnosis and remediation across data-center systems — compute, storage, network, and power. Hands-on lab work against real fault scenarios.
 ---

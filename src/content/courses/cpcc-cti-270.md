@@ -1,8 +1,8 @@
 ---
 code: CTI-270
-title: 'Communications Wiring'
+title: 'Data Center Design'
 institution: Central Piedmont
 level: Associate
 lastTaught: Spring 2026
-description: Structured cabling, telecom standards, low-voltage wiring, and physical-layer installation practices for IT infrastructure.
+description: Designing data-center infrastructure end to end — rack layout, power and cooling, networking topology, storage architecture, and capacity planning.
 ---

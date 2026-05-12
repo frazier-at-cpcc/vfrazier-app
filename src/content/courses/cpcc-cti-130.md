@@ -1,8 +1,8 @@
 ---
 code: CTI-130
-title: 'Adv Hardware/Software Support'
+title: 'OS and Device Foundations'
 institution: Central Piedmont
 level: Associate
 lastTaught: Spring 2026
-description: Deep hardware and operating-system troubleshooting — diagnostics, imaging, peripherals, mobile devices, and structured support workflows. CompTIA A+ aligned.
+description: Operating system internals, device management, drivers, and the hardware/software interface that underpins IT support and infrastructure work.
 ---
