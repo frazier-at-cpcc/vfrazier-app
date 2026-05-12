@@ -29,6 +29,13 @@ const awards = [
   'Team Member Excellence Award',
   'Best of Show — DevLearn DemoFest',
 ];
+const service = [
+  { years: '2025 – 2028', body: 'Faculty Senator, Central Piedmont Community College' },
+  { years: '2025 – present', body: 'Curriculum Committee, Central Piedmont Community College' },
+  { years: '2026 – 2027', body: 'Faculty Readiness Chair, Canvas Implementation Taskforce, Central Piedmont' },
+  { years: '2025 – present', body: 'Co-PI, NSF ATE Generating AI Talent (GAIT) grant' },
+  { years: '2017 – present', body: 'Advisory Board, Highland School of Technology (Gastonia, NC)' },
+];
 ---
 <BaseLayout title="About — Frazier Smith" current="about">
   <header class="page-header">
@@ -96,10 +103,22 @@ const awards = [
     </ul>
   </section>
 
-  <section class="container section last">
+  <section class="container section">
     <h2>Honors &amp; Awards</h2>
     <ul class="bullets">
       {awards.map((a) => <li>{a}</li>)}
+    </ul>
+  </section>
+
+  <section class="container section last">
+    <h2>Service &amp; Leadership</h2>
+    <ul class="service">
+      {service.map((s) => (
+        <li>
+          <span class="years">{s.years}</span>
+          <span class="body">{s.body}</span>
+        </li>
+      ))}
     </ul>
   </section>
 </BaseLayout>
@@ -144,9 +163,13 @@ const awards = [
   .bullets { padding-left: 22px; }
   .bullets li { font-size: 15px; line-height: 1.65; color: var(--ink-2); margin-bottom: 6px; }
 
+  .service { list-style: none; display: grid; gap: 6px; padding: 0; }
+  .service li { display: grid; grid-template-columns: 160px 1fr; gap: 18px; padding: 10px 0; border-bottom: 1px dashed #c8c4be; font-size: 14px; }
+  .service .body { color: var(--ink-2); line-height: 1.5; }
+
   @media (max-width: 860px) {
     .hdr { grid-template-columns: 1fr; }
     h1 { font-size: 40px; }
-    .career li, .edu li { grid-template-columns: 1fr; gap: 2px; padding-bottom: 12px; }
+    .career li, .edu li, .service li { grid-template-columns: 1fr; gap: 2px; padding-bottom: 12px; }
   }
 </style>
