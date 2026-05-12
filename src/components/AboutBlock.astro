@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import HighlightPhrase from './HighlightPhrase.astro';
 import SectionHead from './SectionHead.astro';
-import headshot from '../assets/headshot.jpg';
+import teachingMusic from '../assets/teaching-music.jpg';
 ---
 <section class="section">
   <div class="inner">
@@ -10,7 +10,7 @@ import headshot from '../assets/headshot.jpg';
     <div class="about">
       <div class="photo">
         <div class="frame">
-          <Image src={headshot} alt="Dr. Frazier A. Smith" widths={[280, 420, 560]} sizes="(max-width: 720px) 240px, 360px" />
+          <Image src={teachingMusic} alt="Frazier Smith conducting a music ensemble — a literal music classroom, before the AI lab" widths={[360, 540, 720]} sizes="(max-width: 720px) 280px, 400px" />
         </div>
         <div class="badge">Wingate <span class="accent">→</span> VMware <span class="accent">→</span> Wingate</div>
       </div>
