@@ -7,8 +7,57 @@ import HomeTestimonials from '../components/HomeTestimonials.astro';
 import AboutBlock from '../components/AboutBlock.astro';
 import HomeWriting from '../components/HomeWriting.astro';
 import HomeTeaching from '../components/HomeTeaching.astro';
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Dr. Frazier A. Smith',
+  givenName: 'Frazier',
+  familyName: 'Smith',
+  honorificPrefix: 'Dr.',
+  jobTitle: 'Department Chair, Network Management, Cybersecurity, and Cloud & Virtualization',
+  description: "AI & IT educator, NSF co-PI, and speaker. Researches how AI is reshaping entry-level IT work and what community-college curriculum should change in response.",
+  url: 'https://vfrazier.app',
+  image: 'https://vfrazier.app/og-default.png',
+  email: 'mailto:frazier@vfrazier.app',
+  worksFor: [
+    { '@type': 'EducationalOrganization', name: 'Central Piedmont Community College', url: 'https://cpcc.edu' },
+    { '@type': 'EducationalOrganization', name: 'University of North Carolina at Charlotte', url: 'https://charlotte.edu' },
+    { '@type': 'EducationalOrganization', name: 'Wingate University', url: 'https://wingate.edu' },
+  ],
+  alumniOf: [
+    { '@type': 'CollegeOrUniversity', name: 'Wingate University' },
+    { '@type': 'CollegeOrUniversity', name: 'University of North Carolina at Charlotte' },
+    { '@type': 'CollegeOrUniversity', name: 'Western Governors University' },
+    { '@type': 'CollegeOrUniversity', name: 'South College' },
+  ],
+  sameAs: [
+    'https://linkedin.com/in/fraziersmith',
+    'https://github.com/frazier-at-cpcc',
+    'https://sds.charlotte.edu/frazier-smith',
+  ],
+  knowsAbout: [
+    'Artificial Intelligence',
+    'AI in Education',
+    'Community College Education',
+    'Career and Technical Education',
+    'Instructional Design',
+    'Cybersecurity Education',
+    'Cloud Computing',
+    'AI Ethics',
+    'Workforce Development',
+    'xAPI Learning Analytics',
+    'Enterprise Technical Training',
+  ],
+  hasOccupation: {
+    '@type': 'Occupation',
+    name: 'AI & IT Educator',
+    occupationalCategory: 'Postsecondary Education',
+  },
+};
 ---
 <BaseLayout title="Dr. Frazier A. Smith — AI & IT Educator, Speaker, Researcher" current="home">
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(personJsonLd)} />
   <Hero />
   <PressStrip />
   <HomeSpeaking />

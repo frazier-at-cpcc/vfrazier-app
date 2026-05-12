@@ -11,21 +11,12 @@ import headshot from '../assets/headshot.jpg';
       classroom to<br />
       <span class="hl">AI lab.</span>
     </h1>
-    <p class="lede">
-      I lead the Network, Cybersecurity, and Cloud department at Central Piedmont.
-      I help build one of NC's first associate-degree AI programs as co-PI on the
-      NSF GAIT grant. And I speak about all of it.
+    <p class="thesis">
+      I study what AI is doing to <HighlightPhrase text="entry-level IT work" phrase="entry-level IT work" /> — and rebuild community-college curriculum around the answer.
     </p>
-
-    <div class="research">
-      <span class="pill">Current research</span>
-      <span class="text">
-        <HighlightPhrase
-          text="How AI is reshaping entry-level IT work — and what community colleges should teach because of it."
-          phrase="entry-level IT work"
-        />
-      </span>
-    </div>
+    <p class="lede">
+      Department Chair of Network, Cybersecurity, and Cloud at Central Piedmont. Co-PI on the NSF GAIT grant building one of NC's first associate-degree AI programs. Graduate faculty at UNC Charlotte. Honors-program adjunct at Wingate.
+    </p>
 
     <div class="ctas">
       <a href="/speaking#book" class="cta primary">Book me to speak →</a>
@@ -109,40 +100,21 @@ import headshot from '../assets/headshot.jpg';
     letter-spacing: -.035em;
   }
   h1 .hl { background: var(--highlight); padding: 0 6px; }
+  .thesis {
+    font-size: 22px;
+    line-height: 1.35;
+    margin: 0 0 18px;
+    font-weight: 600;
+    letter-spacing: -.015em;
+    color: var(--ink);
+    max-width: 640px;
+  }
   .lede {
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.5;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
     font-weight: 500;
     color: var(--ink-2);
-  }
-  .research {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--accent-soft);
-    border: 2px solid var(--accent);
-    border-radius: var(--radius-md);
-    padding: 10px 14px;
-    margin-bottom: 28px;
-    max-width: 100%;
-  }
-  .research .pill {
-    background: var(--accent);
-    color: var(--page);
-    font-size: 10px;
-    font-weight: 800;
-    padding: 3px 8px;
-    border-radius: var(--radius-pill);
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  .research .text {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--accent-deep);
-    line-height: 1.35;
   }
   .ctas { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
   .cta {

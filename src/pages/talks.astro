@@ -10,8 +10,44 @@ const past = sorted.filter((t) => !t.data.upcoming);
 function formatDate(d: Date) {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
+
+const eventsJsonLd = sorted.map((t) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: t.data.talkTitle,
+  startDate: t.data.date.toISOString(),
+  endDate: t.data.date.toISOString(),
+  eventStatus: t.data.upcoming
+    ? 'https://schema.org/EventScheduled'
+    : 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  location: {
+    '@type': 'Place',
+    name: t.data.event,
+    ...(t.data.location && { address: t.data.location }),
+  },
+  superEvent: {
+    '@type': 'Event',
+    name: t.data.event,
+  },
+  performer: {
+    '@type': 'Person',
+    name: 'Dr. Frazier A. Smith',
+    url: 'https://vfrazier.app',
+  },
+  organizer: {
+    '@type': 'Organization',
+    name: t.data.event,
+  },
+  description: t.data.notes ?? `${t.data.format} delivered by Dr. Frazier A. Smith at ${t.data.event}.`,
+  ...(t.data.recordingUrl && { recordedIn: { '@type': 'CreativeWork', url: t.data.recordingUrl } }),
+  ...(t.data.eventUrl && { url: t.data.eventUrl }),
+}));
 ---
 <BaseLayout title="Talks — Frazier Smith" current="talks">
+  {eventsJsonLd.map((ld) => (
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(ld)} />
+  ))}
   <header class="page-header">
     <div class="container">
       <span class="kicker">Talks</span>
