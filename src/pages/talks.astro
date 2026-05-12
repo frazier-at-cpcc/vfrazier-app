@@ -49,6 +49,7 @@ function formatDate(d: Date) {
               <div>
                 <strong>{t.data.event}</strong> {t.data.location && <span class="loc">· {t.data.location}</span>}
                 <div class="title">{t.data.talkTitle}</div>
+                {t.data.notes && <p class="notes">{t.data.notes}</p>}
                 <div class="links">
                   {t.data.slidesUrl && <a href={t.data.slidesUrl}>Slides</a>}
                   {t.data.recordingUrl && <a href={t.data.recordingUrl}>Recording</a>}
@@ -83,6 +84,7 @@ function formatDate(d: Date) {
   .up { display: inline-block; margin-left: 6px; background: var(--highlight); padding: 1px 6px; border-radius: 3px; font-size: 10px; letter-spacing: .1em; }
   .loc { color: var(--muted); font-weight: 500; }
   .title { font-size: 14px; color: var(--ink-2); margin-top: 2px; }
+  .notes { font-size: 13px; line-height: 1.5; color: var(--muted); font-style: italic; margin-top: 8px; border-left: 2px solid var(--accent); padding-left: 12px; max-width: 60ch; }
   .links { margin-top: 8px; display: flex; gap: 14px; font-size: 12px; font-weight: 700; }
   .links a { color: var(--accent); }
   .fmt { font-size: 11px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }

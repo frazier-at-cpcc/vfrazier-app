@@ -64,6 +64,7 @@ const talksGiven = defineCollection({
     slidesUrl: z.string().url().optional(),
     recordingUrl: z.string().url().optional(),
     eventUrl: z.string().url().optional(),
+    notes: z.string().optional(),
     upcoming: z.boolean().default(false),
   }),
 });
