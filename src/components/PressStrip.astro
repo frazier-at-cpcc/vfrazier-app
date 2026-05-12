@@ -12,7 +12,12 @@ const items = (await getCollection('press')).sort(
         <li class="item">
           <span class="src">{p.data.kind}</span>
           <span>
-            {p.data.url ? <a href={p.data.url} rel="noopener">{p.data.title}</a> : p.data.title}
+            {p.data.url ? (
+              <a href={p.data.url} target="_blank" rel="noopener noreferrer">
+                {p.data.title}
+                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+              </a>
+            ) : p.data.title}
             {p.data.year && <span class="badge-yr"> {p.data.year}</span>}
           </span>
         </li>
@@ -73,6 +78,13 @@ const items = (await getCollection('press')).sort(
     font-size: 10px;
     margin-left: 4px;
   }
+  .item a {
+    color: var(--ink);
+    border-bottom: 1.5px solid transparent;
+    transition: border-color .15s, color .15s;
+  }
+  .item a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .item a i { font-size: 10px; color: var(--accent); margin-left: 4px; vertical-align: baseline; }
   @media (max-width: 720px) {
     .inner { grid-template-columns: 1fr; gap: 14px; padding-top: 22px; padding-bottom: 22px; }
     .items { gap: 16px; }
