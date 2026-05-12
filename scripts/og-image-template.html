@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  @import url('https://rsms.me/inter/inter.css');
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; font-family: 'Inter', system-ui, sans-serif; background: #ebe9e6; color: #1a1209; }
+  .card {
+    width: 1200px;
+    height: 630px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 60px;
+    padding: 70px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: 320px;
+    width: 200px;
+    height: 200px;
+    background: #ffd60a;
+    border-radius: 50%;
+    opacity: 0.65;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: 40%;
+    width: 140px;
+    height: 140px;
+    background: #6d28d9;
+    border-radius: 50%;
+    opacity: 0.15;
+  }
+  .text { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
+  .eyebrow {
+    display: inline-block;
+    background: #1a1209;
+    color: #ebe9e6;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    align-self: flex-start;
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-size: 86px;
+    line-height: 0.94;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 28px;
+  }
+  h1 .hl {
+    background: #ffd60a;
+    padding: 0 10px;
+  }
+  .lede {
+    font-size: 26px;
+    line-height: 1.35;
+    font-weight: 500;
+    color: #2a1d10;
+    margin-bottom: 24px;
+  }
+  .domain {
+    display: inline-flex;
+    align-items: center;
+    background: #6d28d9;
+    color: #ebe9e6;
+    padding: 10px 18px;
+    border-radius: 99px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    align-self: flex-start;
+  }
+  .domain::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #ffd60a;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+  .right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .frame {
+    background: #6d28d9;
+    border: 4px solid #1a1209;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 14px 14px 0 #1a1209;
+    width: 320px;
+    position: relative;
+  }
+  .frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 3px solid #1a1209;
+  }
+  .stamp {
+    position: absolute;
+    top: -24px;
+    right: -34px;
+    background: #ffd60a;
+    border: 3px solid #1a1209;
+    padding: 9px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transform: rotate(6deg);
+    text-align: center;
+    max-width: 200px;
+    box-shadow: 4px 4px 0 #1a1209;
+  }
+  .stamp .top {
+    display: block;
+    font-size: 10px;
+    color: #6d28d9;
+    margin-bottom: 3px;
+    letter-spacing: 0.12em;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="text">
+      <span class="eyebrow">Dept Chair · NSF Co-PI · ex-VMware</span>
+      <h1>From music<br/>classroom to<br/><span class="hl">AI lab.</span></h1>
+      <p class="lede">AI &amp; IT educator. Learning design leader. Speaker on the things in between.</p>
+      <span class="domain">vfrazier.app</span>
+    </div>
+    <div class="right">
+      <div class="frame">
+        <span class="stamp"><span class="top">Research focus</span>AI × Entry-Level Workforce</span>
+        <img src="../src/assets/headshot.jpg" alt="Dr. Frazier A. Smith" />
+      </div>
+    </div>
+  </div>
+</body>
+</html>
