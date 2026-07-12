@@ -107,11 +107,12 @@ Key schema notes (see `content.config.ts` for the authoritative list):
 Empty collections render fallback empty-state UI — the site never blank-errors on
 missing content. When adding content, mirror the shape of an existing sibling file.
 
-**Résumé facts not in a collection:** education and certifications are a shared
-module, `src/data/credentials.ts`, rendered by both `/cv` and `/about` — edit them
-once there. Career history is the `career` collection. Some CV-only sections
-(current roles, sponsored research, grants under review, curriculum development,
-service, awards) are still inline arrays/markup in `src/pages/cv.astro`.
+**Résumé facts not in a collection:** education, certifications, awards, and
+service are a shared module, `src/data/credentials.ts`, rendered by both `/cv`
+and `/about` — edit them once there. Service entries have an optional `detail`
+that renders only on `/cv`. Career history is the `career` collection. The
+remaining CV-only sections (current roles, sponsored research, grants under
+review, curriculum development) are inline arrays/markup in `src/pages/cv.astro`.
 
 ## Design system quick reference
 

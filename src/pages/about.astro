@@ -4,23 +4,11 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HighlightPhrase from '../components/HighlightPhrase.astro';
 import headshot from '../assets/headshot.jpg';
-import { education, certifications } from '../data/credentials';
+// Shared résumé data; /about renders service `body` only — CV-only
+// elaborations live in each entry's `detail` and render on /cv.
+import { education, certifications, awards, service } from '../data/credentials';
 
 const career = (await getCollection('career')).sort((a, b) => a.data.order - b.data.order);
-
-const awards = [
-  'Worldwide Training Delivery Impact Award',
-  'Worldwide Sales and Strategy Acceleration Quarterly Award — Accelerator',
-  'Team Member Excellence Award',
-  'Best of Show — DevLearn DemoFest',
-];
-const service = [
-  { years: '2025 – 2028', body: 'Faculty Senator, Central Piedmont Community College' },
-  { years: 'July 2026 – present', body: 'Chair, Curriculum Committee, Central Piedmont Community College' },
-  { years: '2026 – 2027', body: 'Faculty Readiness Chair, Canvas Implementation Taskforce, Central Piedmont' },
-  { years: '2025 – present', body: 'Co-PI, NSF ATE Generating AI Talent (GAIT) grant' },
-  { years: '2017 – present', body: 'Advisory Board, Highland School of Technology (Gastonia, NC)' },
-];
 ---
 <BaseLayout title="About — Frazier Smith" current="about">
   <header class="page-header">

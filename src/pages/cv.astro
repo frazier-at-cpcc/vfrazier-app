@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { education, certifications } from '../data/credentials';
+import { education, certifications, awards, service } from '../data/credentials';
 
 const career = (await getCollection('career')).sort((a, b) => a.data.order - b.data.order);
 const courses = await getCollection('courses');
@@ -20,22 +20,6 @@ const currentRoles = [
   { years: 'March 2023 – present', title: 'Instructor, Network Management, Cybersecurity, and Cloud & Virtualization', org: 'Central Piedmont Community College' },
   { years: 'October 2025 – present', title: 'Associate Graduate Faculty', org: 'UNC Charlotte — School of Data Science & College of Computing and Informatics' },
   { years: 'January 2026 – present', title: 'Adjunct Instructor, Honors Program', org: 'Wingate University' },
-];
-
-const awards = [
-  'Worldwide Training Delivery Impact Award',
-  'Worldwide Sales and Strategy Acceleration Quarterly Award — Accelerator',
-  'Team Member Excellence Award',
-  'Best of Show — DevLearn DemoFest (2016)',
-];
-
-// The GAIT grant that used to live here has moved to the Sponsored research
-// section below. Faculty Senate service is already captured by the first row.
-const service = [
-  { years: '2025 – 2028', body: 'Faculty Senator, Central Piedmont Community College' },
-  { years: 'July 2026 – present', body: 'Chair, Curriculum Committee, Central Piedmont Community College — member since 2025; authored the Curriculum Management and Program Review Committee charter, its RACI model, and program evaluation instruments aligned to SACSCOC and NC Community College System standards.' },
-  { years: '2026 – 2027', body: 'Faculty Readiness Chair, Canvas Implementation Taskforce, Central Piedmont Community College' },
-  { years: '2017 – present', body: 'Advisory Board member, Highland School of Technology (Gastonia, NC) — eight years of service' },
 ];
 
 const languages = ['English (native)', 'Spanish (limited working)'];
@@ -289,7 +273,7 @@ function fmtDate(d: Date) {
         {service.map((s) => (
           <li>
             <span class="years">{s.years}</span>
-            <div><div class="role">{s.body}</div></div>
+            <div><div class="role">{s.body}{s.detail && <> — {s.detail}.</>}</div></div>
           </li>
         ))}
       </ul>
