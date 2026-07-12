@@ -33,7 +33,7 @@ const awards = [
 // section below. Faculty Senate service is already captured by the first row.
 const service = [
   { years: '2025 – 2028', body: 'Faculty Senator, Central Piedmont Community College' },
-  { years: '2025 – present', body: 'Curriculum Committee, Central Piedmont Community College — authored the Curriculum Management and Program Review Committee charter, its RACI model, and program evaluation instruments aligned to SACSCOC and NC Community College System standards.' },
+  { years: 'July 2026 – present', body: 'Chair, Curriculum Committee, Central Piedmont Community College — member since 2025; authored the Curriculum Management and Program Review Committee charter, its RACI model, and program evaluation instruments aligned to SACSCOC and NC Community College System standards.' },
   { years: '2026 – 2027', body: 'Faculty Readiness Chair, Canvas Implementation Taskforce, Central Piedmont Community College' },
   { years: '2017 – present', body: 'Advisory Board member, Highland School of Technology (Gastonia, NC) — eight years of service' },
 ];
@@ -194,9 +194,40 @@ function fmtDate(d: Date) {
           <div class="dev-title">xAPI learning-record system</div>
           <p>Built and deployed to support hands-on cybersecurity lab instruction.</p>
         </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Published curriculum materials</h2>
+      <ul class="dev-list">
         <li>
-          <div class="dev-title">Sophia Learning</div>
-          <p>Authored two courses: Introduction to Networking, Introduction to Web Design.</p>
+          <div class="dev-title">Introduction to Web Development <span class="dev-meta">Course Author · Sophia Learning</span></div>
+          <p><a href="https://www.sophia.org/online-courses/computer-science-and-it/introduction-to-web-development/" rel="noopener">sophia.org/online-courses — Introduction to Web Development</a></p>
+        </li>
+        <li>
+          <div class="dev-title">Introduction to Networking <span class="dev-meta">Assessment Author · Sophia Learning</span></div>
+          <p><a href="https://www.sophia.org/online-courses/computer-science-and-it/introduction-to-networking/" rel="noopener">sophia.org/online-courses — Introduction to Networking</a></p>
+        </li>
+        <li>
+          <div class="dev-title">Introduction to Cybersecurity <span class="dev-meta">Course Author · Sophia Learning · Upcoming</span></div>
+        </li>
+        <li>
+          <div class="dev-title">CSC 214 · Artificial Intelligence II <span class="dev-meta">Course Author · OER</span></div>
+          <p>Open educational resource published under NSF ATE award #2500901.</p>
+        </li>
+        <li>
+          <div class="dev-title">VMware Cloud on AWS 2024 <span class="dev-meta">Virtual instructor-led training</span></div>
+          <p>40-hour on-demand video training course.</p>
+        </li>
+        <li>
+          <div class="dev-title">VMware HCX 2024 <span class="dev-meta">Virtual instructor-led training</span></div>
+          <p>40-hour training course.</p>
+        </li>
+        <li>
+          <div class="dev-title">VMware vSphere: Install, Configure, Manage v8 <span class="dev-meta">Content Manager</span></div>
+        </li>
+        <li>
+          <div class="dev-title">VMware vSphere: Operate, Scale, Secure v8 <span class="dev-meta">Content Manager</span></div>
         </li>
       </ul>
     </section>
@@ -371,6 +402,7 @@ function fmtDate(d: Date) {
   .dev-list .dev-title { font-size: 14px; font-weight: 700; color: var(--ink); }
   .dev-list .dev-meta { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-left: 6px; }
   .dev-list p { font-size: 13px; line-height: 1.5; color: var(--ink-2); margin: 3px 0 0; max-width: 68ch; }
+  .dev-list a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; word-break: break-word; }
 
   .bullets { list-style: none; padding-left: 16px; }
   .bullets li { font-size: 14px; line-height: 1.5; margin-bottom: 5px; position: relative; }
