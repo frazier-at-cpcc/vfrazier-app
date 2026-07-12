@@ -11,6 +11,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "cv:pdf": "astro build && node scripts/render-cv-pdf.mjs",
+    "og": "node scripts/render-og.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",

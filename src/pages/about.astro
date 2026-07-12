@@ -4,25 +4,10 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HighlightPhrase from '../components/HighlightPhrase.astro';
 import headshot from '../assets/headshot.jpg';
+import { education, certifications } from '../data/credentials';
 
 const career = (await getCollection('career')).sort((a, b) => a.data.order - b.data.order);
 
-const certifications = [
-  'CISSP — Certified Information Systems Security Professional (ISC²)',
-  'Nutanix Certified Professional',
-  'VMware Certified Cloud Infrastructure Administrator 2024',
-  'Double VCP — Data Center Virtualization & Network Virtualization',
-  'VMware Carbon Black Endpoint Protection 2020',
-  'Fortinet FortiGate 7.4 Operator',
-  'CompTIA Network+ ce',
-];
-const education = [
-  { date: 'June 2025', deg: 'Ed.D., Instructional Design, Systems, and Technology', inst: 'South College' },
-  { date: 'November 2024', deg: 'Ed.S., Instructional Design and Technology', inst: 'South College' },
-  { date: 'February 2023', deg: 'M.S., IT Management', inst: 'Western Governors University' },
-  { date: 'August 2018', deg: 'M.Ed., Instructional Systems Technology, Training and Development', inst: 'UNC Charlotte' },
-  { date: 'May 2014', deg: 'B.M.E., Music Education', inst: 'Wingate University' },
-];
 const awards = [
   'Worldwide Training Delivery Impact Award',
   'Worldwide Sales and Strategy Acceleration Quarterly Award — Accelerator',
@@ -89,7 +74,7 @@ const service = [
       {education.map((e) => (
         <li>
           <span class="years">{e.date}</span>
-          <span class="title">{e.deg}</span>
+          <span class="title">{e.deg}{e.honors && <em class="honors"> · {e.honors}</em>}</span>
           <span class="org">{e.inst}</span>
         </li>
       ))}
@@ -158,6 +143,7 @@ const service = [
   .career li, .edu li { display: grid; grid-template-columns: 130px 1fr 1fr; gap: 18px; padding: 10px 0; border-bottom: 1px dashed #c8c4be; font-size: 14px; }
   .years { font-weight: 800; }
   .title { font-weight: 600; }
+  .title .honors { color: var(--accent); font-weight: 700; font-style: normal; }
   .org { color: var(--muted); }
 
   .bullets { padding-left: 22px; }

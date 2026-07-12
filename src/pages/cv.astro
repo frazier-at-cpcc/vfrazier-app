@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { education, certifications } from '../data/credentials';
 
 const career = (await getCollection('career')).sort((a, b) => a.data.order - b.data.order);
 const courses = await getCollection('courses');
@@ -21,24 +22,6 @@ const currentRoles = [
   { years: 'January 2026 – present', title: 'Adjunct Instructor, Honors Program', org: 'Wingate University' },
 ];
 
-const education = [
-  { date: 'June 2025', deg: 'Ed.D., Instructional Design, Systems, and Technology', inst: 'South College' },
-  { date: 'November 2024', deg: 'Ed.S., Instructional Design and Technology', inst: 'South College' },
-  { date: 'February 2023', deg: 'M.S., IT Management', inst: 'Western Governors University' },
-  { date: 'August 2018', deg: 'M.Ed., Instructional Systems Technology, Training & Development', inst: 'UNC Charlotte' },
-  { date: 'May 2014', deg: 'B.M.E., Music Education', inst: 'Wingate University' },
-];
-
-const certifications = [
-  'CISSP — Certified Information Systems Security Professional (ISC²)',
-  'Nutanix Certified Professional',
-  'VMware Certified Cloud Infrastructure Administrator 2024',
-  'Double VCP — Data Center Virtualization & Network Virtualization',
-  'VMware Carbon Black Endpoint Protection 2020',
-  'Fortinet FortiGate 7.4 Operator',
-  'CompTIA Network+ ce',
-];
-
 const awards = [
   'Worldwide Training Delivery Impact Award',
   'Worldwide Sales and Strategy Acceleration Quarterly Award — Accelerator',
@@ -46,11 +29,12 @@ const awards = [
   'Best of Show — DevLearn DemoFest (2016)',
 ];
 
+// The GAIT grant that used to live here has moved to the Sponsored research
+// section below. Faculty Senate service is already captured by the first row.
 const service = [
   { years: '2025 – 2028', body: 'Faculty Senator, Central Piedmont Community College' },
-  { years: '2025 – present', body: 'Curriculum Committee, Central Piedmont Community College' },
+  { years: '2025 – present', body: 'Curriculum Committee, Central Piedmont Community College — authored the Curriculum Management and Program Review Committee charter, its RACI model, and program evaluation instruments aligned to SACSCOC and NC Community College System standards.' },
   { years: '2026 – 2027', body: 'Faculty Readiness Chair, Canvas Implementation Taskforce, Central Piedmont Community College' },
-  { years: '2025 – present', body: 'Co-Principal Investigator, NSF ATE Generating AI Talent (GAIT) grant — building one of NC’s first associate-degree AI programs' },
   { years: '2017 – present', body: 'Advisory Board member, Highland School of Technology (Gastonia, NC) — eight years of service' },
 ];
 
@@ -101,6 +85,33 @@ function fmtDate(d: Date) {
     </section>
 
     <section>
+      <h2>Sponsored research</h2>
+      <ul class="entries">
+        <li>
+          <span class="years">July 2025 – July 2028</span>
+          <div>
+            <div class="role">Co-Principal Investigator, Generating AI Talent (GAIT)</div>
+            <div class="org">NSF Advanced Technological Education · Award #2500901 · $454,000 · PI: Dr. Carl Arrington, Central Piedmont Community College</div>
+            <p class="entry-note">Coordinates faculty development, leads course redesign for the core AI curriculum, and directs community AI outreach. Building one of NC’s first associate-degree AI programs.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Grants under review</h2>
+      <ul class="entries">
+        <li>
+          <span class="years">Under review</span>
+          <div>
+            <div class="role">Principal Investigator, ASPIRE-IT</div>
+            <div class="org">NSF S-STEM · Track 1 · $2,000,000 requested</div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section>
       <h2>Education</h2>
       <ul class="entries">
         {education.map((e) => (
@@ -109,6 +120,7 @@ function fmtDate(d: Date) {
             <div>
               <div class="role">{e.deg}</div>
               <div class="org">{e.inst}</div>
+              {e.honors && <div class="honors">{e.honors}</div>}
             </div>
           </li>
         ))}
@@ -153,6 +165,40 @@ function fmtDate(d: Date) {
           </ul>
         </div>
       ))}
+    </section>
+
+    <section>
+      <h2>Curriculum development</h2>
+      <ul class="dev-list">
+        <li>
+          <div class="dev-title">Five IT degree concentrations <span class="dev-meta">Effective Fall 2026</span></div>
+          <p>Redesigned and launched Cybersecurity, Cloud &amp; Networking Technologies, Data Analytics, Software Engineering, and IT Support. Produced degree information sheets, advisor guides, and student-facing materials for each.</p>
+        </li>
+        <li>
+          <div class="dev-title">NOS 220 · Linux/UNIX Administration II</div>
+          <p>Designed as an asynchronous course aligned to Red Hat RH134 objectives.</p>
+        </li>
+        <li>
+          <div class="dev-title">CSC 214 · Artificial Intelligence II</div>
+          <p>Designed and aligned to Microsoft Azure AI-102 certification objectives.</p>
+        </li>
+        <li>
+          <div class="dev-title">Digital Wellness &amp; AI</div>
+          <p>Honors course designed for Wingate University.</p>
+        </li>
+        <li>
+          <div class="dev-title">“Would You Pull the Lever?”</div>
+          <p>AI ethics workshop developed under NSF ATE award #2500901.</p>
+        </li>
+        <li>
+          <div class="dev-title">xAPI learning-record system</div>
+          <p>Built and deployed to support hands-on cybersecurity lab instruction.</p>
+        </li>
+        <li>
+          <div class="dev-title">Sophia Learning</div>
+          <p>Authored two courses: Introduction to Networking, Introduction to Web Design.</p>
+        </li>
+      </ul>
     </section>
 
     <section>
@@ -317,6 +363,14 @@ function fmtDate(d: Date) {
   .entries .org { color: var(--muted); font-size: 13px; margin-top: 2px; }
   .entries .areas { font-size: 13px; margin-top: 4px; color: var(--ink-2); font-weight: 600; }
   .entries .area { display: inline-block; }
+  .entries .honors { font-size: 13px; margin-top: 2px; color: var(--accent); font-weight: 700; }
+  .entry-note { font-size: 13px; line-height: 1.5; color: var(--ink-2); margin: 6px 0 0; max-width: 68ch; }
+
+  .dev-list { list-style: none; display: grid; gap: 12px; padding: 0; }
+  .dev-list li { border-left: 2.5px solid var(--accent); padding-left: 14px; }
+  .dev-list .dev-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+  .dev-list .dev-meta { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-left: 6px; }
+  .dev-list p { font-size: 13px; line-height: 1.5; color: var(--ink-2); margin: 3px 0 0; max-width: 68ch; }
 
   .bullets { list-style: none; padding-left: 16px; }
   .bullets li { font-size: 14px; line-height: 1.5; margin-bottom: 5px; position: relative; }
@@ -377,8 +431,14 @@ function fmtDate(d: Date) {
   @media print {
     body { background: white; }
     .cv { padding: 24px 32px; max-width: 100%; }
-    .pdf, .skip-link, nav, footer.footer { display: none !important; }
-    .pov { display: none !important; }
+    .pdf { display: none !important; }
+    /* Site chrome lives in separate components, so these selectors must be
+       :global() to escape Astro's per-component style scoping — otherwise the
+       nav, POV bar, and footer bleed into the printed CV / generated PDF. */
+    :global(nav.nav),
+    :global(aside.pov),
+    :global(footer.footer),
+    :global(.skip-link) { display: none !important; }
     section { page-break-inside: avoid; }
     .cv-header { padding-bottom: 14px; margin-bottom: 18px; }
   }

@@ -46,6 +46,8 @@ npm run typecheck    # astro check (run this before committing)
 npm run test         # vitest unit tests (run once)
 npm run test:watch   # vitest watch mode
 npm run test:e2e     # playwright smoke tests
+npm run cv:pdf       # build, then regenerate public/cv.pdf from the /cv page
+npm run og           # regenerate public/og-default.png
 ```
 
 Before committing changes, run `npm run typecheck`; run `npm run test` when touching
@@ -61,6 +63,7 @@ src/
   components/       Astro components (Hero, Nav, Footer, SpeakingCard, etc.)
   content/          Content collections (see below) — the editable data lives here
   content.config.ts Zod schemas for every collection
+  data/             Shared TS data modules imported by pages (credentials.ts)
   styles/           tokens.css, reset.css, global.css
   assets/           headshot.jpg, teaching-music.jpg (processed by Astro)
 functions/
@@ -68,7 +71,7 @@ functions/
   api/book.ts       Booking form handler (Resend + Turnstile)
   api/book.test.ts  Unit tests for the handler
 public/             cv.pdf, favicon, og-default.png (served as-is)
-scripts/            render-og.mjs (regenerates public/og-default.png via Playwright)
+scripts/            render-og.mjs, render-cv-pdf.mjs (Playwright/Chromium renderers)
 docs/superpowers/   Design spec + implementation plan
 ```
 
@@ -104,6 +107,12 @@ Key schema notes (see `content.config.ts` for the authoritative list):
 Empty collections render fallback empty-state UI — the site never blank-errors on
 missing content. When adding content, mirror the shape of an existing sibling file.
 
+**Résumé facts not in a collection:** education and certifications are a shared
+module, `src/data/credentials.ts`, rendered by both `/cv` and `/about` — edit them
+once there. Career history is the `career` collection. Some CV-only sections
+(current roles, sponsored research, grants under review, curriculum development,
+service, awards) are still inline arrays/markup in `src/pages/cv.astro`.
+
 ## Design system quick reference
 
 Tokens live in `src/styles/tokens.css`. The look is deliberately editorial/"sticker-pack":
@@ -126,8 +135,12 @@ respects `prefers-reduced-motion`. Preserve these when editing.
   Person/JSON-LD identity is hardcoded in `src/pages/index.astro` and the default
   description in `BaseLayout.astro` — update both if biographical facts change.
 - **No new runtime JS frameworks.** Astro components + minimal progressive enhancement.
+- **CV PDF:** `public/cv.pdf` is generated from the `/cv` page — after any CV/about
+  content change, run `npm run cv:pdf` and commit the refreshed PDF. It prints the
+  page's own `@media print` styles (site chrome hidden via `:global()` rules), so it
+  stays in sync with the site; there is no separate PDF source to edit.
 - **OG image:** if branding/text changes, regenerate `public/og-default.png` with
-  `node scripts/render-og.mjs` (uses the pre-installed Chromium).
+  `npm run og` (uses the pre-installed Chromium).
 - **Secrets** (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`) live only in the Cloudflare
   Pages dashboard — never commit them.
 - **Out of scope** (per spec §9): CMS/admin UI, blog comments, search, i18n, dark mode,
