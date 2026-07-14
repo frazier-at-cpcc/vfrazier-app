@@ -3,6 +3,10 @@ import { getCollection } from 'astro:content';
 import SectionHead from './SectionHead.astro';
 import InstitutionCard from './InstitutionCard.astro';
 
+// Intentional curation: the home page shows only courses flagged `current: true`
+// (what Frazier is teaching now), so it is deliberately a subset of the full
+// course history rendered on /cv and /teaching. Same source (the `courses`
+// collection) — the difference is the `current` filter, not drift.
 const allCurrent = (await getCollection('courses', ({ data }) => data.current));
 const groupedByInst = allCurrent.reduce<Record<string, string[]>>((acc, c) => {
   const key = c.data.institution;
