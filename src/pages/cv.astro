@@ -22,6 +22,8 @@ const currentRoles = [
   { years: 'January 2026 – present', title: 'Adjunct Instructor, Honors Program', org: 'Wingate University' },
 ];
 
+const skills = ['Python', 'Training Needs Analysis', 'Technology Needs Analysis'];
+
 const languages = ['English (native)', 'Spanish (limited working)'];
 
 function fmtDate(d: Date) {
@@ -119,6 +121,13 @@ function fmtDate(d: Date) {
     </section>
 
     <section>
+      <h2>Skills</h2>
+      <ul class="bullets">
+        {skills.map((s) => <li>{s}</li>)}
+      </ul>
+    </section>
+
+    <section>
       <h2>Career history</h2>
       <ul class="entries">
         {career.map((c) => (
@@ -127,6 +136,11 @@ function fmtDate(d: Date) {
             <div>
               <div class="role">{c.data.title}</div>
               <div class="org">{c.data.org}</div>
+              {c.data.highlights && (
+                <ul class="career-highlights">
+                  {c.data.highlights.map((h) => <li>{h}</li>)}
+                </ul>
+              )}
             </div>
           </li>
         ))}
@@ -380,6 +394,9 @@ function fmtDate(d: Date) {
   .entries .area { display: inline-block; }
   .entries .honors { font-size: 13px; margin-top: 2px; color: var(--accent); font-weight: 700; }
   .entry-note { font-size: 13px; line-height: 1.5; color: var(--ink-2); margin: 6px 0 0; max-width: 68ch; }
+  .career-highlights { list-style: none; margin: 6px 0 0; padding-left: 14px; display: grid; gap: 3px; }
+  .career-highlights li { font-size: 13px; line-height: 1.5; color: var(--ink-2); position: relative; max-width: 68ch; }
+  .career-highlights li::before { content: '–'; position: absolute; left: -14px; color: var(--accent); }
 
   .dev-list { list-style: none; display: grid; gap: 12px; padding: 0; }
   .dev-list li { border-left: 2.5px solid var(--accent); padding-left: 14px; }
