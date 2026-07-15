@@ -1,0 +1,6 @@
+title: 'CSC 214 — Artificial Intelligence II (OER Textbook)'
+description: An open educational resource textbook for Central Piedmont's CSC 214, an eight-week Azure AI course covering model deployment, RAG/grounding, AI agents, multi-agent orchestration, text analysis, vision, and a multimodal capstone project. Published under NSF ATE award #2500901. CC BY-NC 4.0.
+url: https://github.com/frazier-at-cpcc/csc214-oer
+kind: Repository
+audience: AI educators and CSC 214 students
+order: 3
