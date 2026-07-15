@@ -105,4 +105,16 @@ const career = defineCollection({
   }),
 });
 
-export const collections = { posts, speakingTopics, testimonials, talksGiven, courses, press, career };
+const resources = defineCollection({
+  loader: glob({ pattern: '**/*.{json,yaml,yml}', base: './src/content/resources' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    url: z.string().url(),
+    kind: z.enum(['Study Guide', 'Guide', 'Template', 'Tool', 'Dataset', 'Repository']),
+    audience: z.string().optional(),
+    order: z.number().default(99),
+  }),
+});
+
+export const collections = { posts, speakingTopics, testimonials, talksGiven, courses, press, career, resources };
