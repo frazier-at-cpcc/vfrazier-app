@@ -58,7 +58,7 @@ Before committing changes, run `npm run typecheck`; run `npm run test` when touc
 ```
 src/
   pages/            Routes: index, about, cv, speaking, speaking/thanks, talks,
-                    teaching, writing/index, writing/[...slug], rss.xml.ts, 404
+                    teaching, resources, writing/index, writing/[...slug], rss.xml.ts, 404
   layouts/          BaseLayout.astro, PostLayout.astro
   components/       Astro components (Hero, Nav, Footer, SpeakingCard, etc.)
   content/          Content collections (see below) — the editable data lives here
@@ -90,6 +90,7 @@ file must satisfy that collection's Zod schema or the build fails.
 | `testimonials` | `src/content/testimonials/` | `.yaml` | Curated testimonials |
 | `press` | `src/content/press/` | `.yaml` | Featured-in strip |
 | `career` | `src/content/career/` | `.yaml` | Career history rows (`/about`, `/cv`) |
+| `resources` | `src/content/resources/` | `.yaml` | Public study guides/templates/tools (`/resources`) |
 
 Key schema notes (see `content.config.ts` for the authoritative list):
 
@@ -103,6 +104,8 @@ Key schema notes (see `content.config.ts` for the authoritative list):
   rows are ordered by the numeric `order` (0 = most recent) and their filename prefix.
 - **testimonials** `initials` must be 1–3 uppercase letters; `placeholder: true`
   renders the dashed empty-state card.
+- **resources** `kind` is an enum (`Study Guide`, `Template`, `Tool`, `Dataset`,
+  `Repository`); `audience` is optional free text shown as "For: …" on the card.
 
 Empty collections render fallback empty-state UI — the site never blank-errors on
 missing content. When adding content, mirror the shape of an existing sibling file.

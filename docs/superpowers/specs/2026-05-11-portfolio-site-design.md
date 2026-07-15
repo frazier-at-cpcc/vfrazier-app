@@ -326,3 +326,11 @@ These don't block the spec but will be confirmed during build:
 2. Whether the GitHub repo name should be `vfrazier-app`, `portfolio-site`, or something else.
 3. Whether to seed `/writing` with one real post or launch with an "Inaugural post coming soon" empty-state.
 4. Whether the booking form should include a "Honorarium expectations" field (could be useful filter; could also chill inquiry rate — author decides at form-build time).
+
+---
+
+## 12. Post-Launch Additions
+
+Changes made after initial launch that extend the approved IA/nav rather than replacing it. Logged here so this spec stays the accurate source of truth.
+
+- **`/resources` (added 2026-07).** A seventh nav item — **Home · Speaking · Writing · Talks · Teaching · Resources · About** plus the "Book a talk →" pill — listing free, self-published study materials, templates, and tools (e.g., AWS Academy study guides). Content collection: `resources` (`src/content/resources/*.yaml`), fields `title`, `description`, `url`, `kind` (enum: Study Guide/Template/Tool/Dataset/Repository), `audience?`, `order`. Same card motif as `/speaking`'s topic cards; empty-state copy if the collection is ever emptied.
