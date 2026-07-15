@@ -104,8 +104,10 @@ Key schema notes (see `content.config.ts` for the authoritative list):
   rows are ordered by the numeric `order` (0 = most recent) and their filename prefix.
 - **testimonials** `initials` must be 1–3 uppercase letters; `placeholder: true`
   renders the dashed empty-state card.
-- **resources** `kind` is an enum (`Study Guide`, `Template`, `Tool`, `Dataset`,
-  `Repository`); `audience` is optional free text shown as "For: …" on the card.
+- **resources** `kind` is an enum (`Study Guide`, `Guide`, `Template`, `Tool`,
+  `Dataset`, `Repository`) — `Study Guide` is student exam-prep material,
+  `Guide` is faculty/practitioner-facing guidance; `audience` is optional free
+  text shown as "For: …" on the card.
 
 Empty collections render fallback empty-state UI — the site never blank-errors on
 missing content. When adding content, mirror the shape of an existing sibling file.

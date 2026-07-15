@@ -111,7 +111,7 @@ const resources = defineCollection({
     title: z.string(),
     description: z.string(),
     url: z.string().url(),
-    kind: z.enum(['Study Guide', 'Template', 'Tool', 'Dataset', 'Repository']),
+    kind: z.enum(['Study Guide', 'Guide', 'Template', 'Tool', 'Dataset', 'Repository']),
     audience: z.string().optional(),
     order: z.number().default(99),
   }),
