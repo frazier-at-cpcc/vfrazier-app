@@ -144,8 +144,11 @@ respects `prefers-reduced-motion`. Preserve these when editing.
   `npm run og` (uses the pre-installed Chromium).
 - **Secrets** (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`) live only in the Cloudflare
   Pages dashboard — never commit them.
+- **Analytics:** Google Analytics 4 (tag `G-C7R1E4FYGX`) is loaded `is:inline` in
+  `BaseLayout.astro` — added at the owner's request, superseding spec §9's original
+  "no third-party analytics" stance. It is the one exception to the zero-runtime-JS rule.
 - **Out of scope** (per spec §9): CMS/admin UI, blog comments, search, i18n, dark mode,
-  third-party analytics, live newsletter wiring. Don't add these without being asked.
+  live newsletter wiring. Don't add these without being asked.
 
 ## Workflow for this branch
 
