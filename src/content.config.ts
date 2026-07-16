@@ -102,6 +102,7 @@ const career = defineCollection({
     title: z.string(),
     org: z.string(),
     order: z.number(),
+    highlights: z.array(z.string()).optional(),
   }),
 });
 

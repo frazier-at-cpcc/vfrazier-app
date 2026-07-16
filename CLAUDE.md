@@ -102,6 +102,8 @@ Key schema notes (see `content.config.ts` for the authoritative list):
 - **talksGiven** use `upcoming: true` for the "Upcoming" pill; `format` is an enum.
 - **courses** carry `institution` and `level` enums and a `current` flag. `career`
   rows are ordered by the numeric `order` (0 = most recent) and their filename prefix.
+  Optional `highlights` (string array) renders as bullets under a role on `/cv` only —
+  omit it when a role has no verified specifics beyond title/org.
 - **testimonials** `initials` must be 1–3 uppercase letters; `placeholder: true`
   renders the dashed empty-state card.
 - **resources** `kind` is an enum (`Study Guide`, `Guide`, `Template`, `Tool`,
