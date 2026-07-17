@@ -3,5 +3,10 @@ compatibility_date = "2025-05-01"
 pages_build_output_dir = "dist"
 
 # Environment variables are set in the Cloudflare Pages dashboard:
-#   RESEND_API_KEY        — for the booking form to send email
-#   TURNSTILE_SECRET_KEY  — for booking form bot mitigation
+#   RESEND_API_KEY          — for the booking form to send email
+#   TURNSTILE_SECRET_KEY    — server-side, verifies the booking form's Turnstile token
+#   PUBLIC_TURNSTILE_SITE_KEY — build-time, embedded client-side in BookingForm.astro.
+#                               Not secret, but MUST be set (Production + Preview) or the
+#                               form silently falls back to Cloudflare's public test
+#                               sitekey, which shows a "For testing only" banner and
+#                               will not validate as a real challenge server-side.
