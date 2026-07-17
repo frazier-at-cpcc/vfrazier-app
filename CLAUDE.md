@@ -150,7 +150,11 @@ respects `prefers-reduced-motion`. Preserve these when editing.
 - **OG image:** if branding/text changes, regenerate `public/og-default.png` with
   `npm run og` (uses the pre-installed Chromium).
 - **Secrets** (`RESEND_API_KEY`, `TURNSTILE_SECRET_KEY`) live only in the Cloudflare
-  Pages dashboard — never commit them.
+  Pages dashboard — never commit them. `PUBLIC_TURNSTILE_SITE_KEY` also lives there
+  (Production + Preview) — it's not sensitive, but it's a **build-time** var for a
+  static site: if it's unset, `BookingForm.astro` silently falls back to Cloudflare's
+  public test sitekey, which always shows a "For testing only" banner and won't pass
+  real verification. Setting it requires a fresh deploy to take effect.
 - **Analytics:** Google Analytics 4 (tag `G-C7R1E4FYGX`) is loaded `is:inline` in
   `BaseLayout.astro` — added at the owner's request, superseding spec §9's original
   "no third-party analytics" stance. It is the one exception to the zero-runtime-JS rule.
