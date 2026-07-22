@@ -1,0 +1,11 @@
+title: LinuxLearningLabs
+description: >-
+  Hands-on Linux command-line practice in a simulated Red Hat Enterprise Linux
+  shell, right in the browser. 68 guided, auto-graded labs across nine topic
+  areas — files and permissions, storage and LVM, SELinux, containers, and
+  more. Every task is checked against the real state of your system, so any
+  correct path counts.
+url: https://labs.vfrazier.app
+kind: Tool
+audience: Students, self-learners & Linux educators
+order: 1
