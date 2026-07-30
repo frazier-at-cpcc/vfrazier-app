@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Stoplight AI Syllabus Kit — Frazier Smith"
+  description="Copy-paste syllabus language for AI use in college courses — green, yellow, and red policy statements per assignment, a student disclosure template, and an assignment-type mapping guide. Free to adapt."
+  current="resources"
+>
+  <header class="page-header">
+    <div class="container">
+      <span class="kicker">Resource · Guide</span>
+      <h1>Stoplight AI Syllabus Kit.</h1>
+      <p class="lede">Copy-paste syllabus language for AI use in your courses — a course-level master statement, per-assignment green/yellow/red statements, a student disclosure template, and a mapping guide for common assignment types. Free to adapt, no permission needed.</p>
+    </div>
+  </header>
+
+  <article class="container body">
+    <section>
+      <h2>Why assignment-level policy</h2>
+      <p>Most AI syllabus policies fail the same way: one paragraph, written for the whole course, that says something like "unauthorized AI use is prohibited." Nobody — including the instructor — can say what it authorizes for any specific assignment. The result is detective work after submission instead of clear expectations before it, and the policy's real function becomes retroactive justification for whatever the instructor decides case-by-case.</p>
+      <p>The fix is to set the policy <em>per assignment</em>, using a vocabulary students can learn once and apply everywhere. That's the <strong>Stoplight Framework</strong>: every assignment is marked green, yellow, or red, and each color has a fixed meaning that never changes across the course. The framework comes from the <a href="https://frazier-at-cpcc.github.io/exploring-ai-wingate/" rel="noopener">Exploring AI faculty seminar</a>; this kit is the copy-paste companion.</p>
+      <p>One principle governs everything here: <strong>clear expectations before the assignment prevent detective work after it.</strong></p>
+    </section>
+
+    <section>
+      <h2>The three lights</h2>
+      <ul class="lights">
+        <li class="green"><strong>🟢 Green — AI use is open.</strong> Students may use AI tools freely for this assignment, including generating drafts and code. The assignment is designed so that AI use doesn't undermine what's being assessed — or AI fluency <em>is</em> what's being assessed.</li>
+        <li class="yellow"><strong>🟡 Yellow — AI use is permitted with disclosure.</strong> Students may use AI for defined purposes (brainstorming, explanation, debugging help, editing) but must disclose what they used and how. The disclosed use is not penalized; undisclosed use is treated as an integrity violation.</li>
+        <li class="red"><strong>🔴 Red — AI use is not permitted.</strong> The assignment assesses something students must demonstrate unassisted. Red should be rare, deliberate, and paired with an assessment format that makes the restriction realistic (in-class, oral, practical, proctored).</li>
+      </ul>
+      <p>The colors do the communicating. A student who sees 🟡 on a lab already knows the rules — the per-assignment statement just fills in the specifics.</p>
+    </section>
+
+    <section>
+      <h2>Course-level master statement</h2>
+      <p>Paste this once in your syllabus, then tag every assignment with its color.</p>
+      <div class="copyblock">
+        <span class="copylabel">Syllabus — master statement</span>
+        <p><strong>AI use in this course.</strong> This course uses a stoplight system for AI tools (ChatGPT, Claude, Copilot, Gemini, and similar). Every assignment is marked with one of three colors, and the meaning of each color is fixed for the whole term:</p>
+        <p>🟢 <strong>Green</strong> — AI use is open. Use any AI tool, for any part of the work.<br />
+        🟡 <strong>Yellow</strong> — AI use is permitted for the purposes listed on the assignment, and you must include a brief AI-use disclosure with your submission. Disclosed use within the listed purposes is never penalized.<br />
+        🔴 <strong>Red</strong> — AI use is not permitted for this assignment. The assignment format will reflect that.</p>
+        <p>If an assignment has no color marked, treat it as yellow and ask. Undisclosed AI use on a yellow assignment, or any AI use on a red assignment, is an academic integrity matter under the college's policy. Honest disclosure is never an integrity violation — the disclosure is how you stay safe.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Per-assignment statements</h2>
+      <p>Attach the matching block to each assignment. Edit the bracketed parts; delete what doesn't apply.</p>
+
+      <div class="copyblock">
+        <span class="copylabel">🟢 Green assignment statement</span>
+        <p><strong>AI: Green.</strong> AI use is open on this assignment. You may use any AI tool for any part of the work — ideation, drafting, code, revision. You are responsible for the accuracy and quality of everything you submit: "the AI wrote it" is not a defense for wrong answers, broken configurations, or fabricated sources. [Optional: As part of this assignment, include 2–3 sentences on how you used AI and what you had to correct — this reflection is graded.]</p>
+      </div>
+
+      <div class="copyblock">
+        <span class="copylabel">🟡 Yellow assignment statement</span>
+        <p><strong>AI: Yellow.</strong> On this assignment you may use AI tools for: [brainstorming and outlining / explaining concepts you're stuck on / debugging code you wrote / improving the clarity of your own draft]. You may not use AI to: [generate the submitted work itself / complete the analysis section / write the configuration]. Include an AI-use disclosure with your submission (template in the syllabus). Disclosed use within the permitted purposes is never penalized. Undisclosed use is treated as an integrity violation.</p>
+      </div>
+
+      <div class="copyblock">
+        <span class="copylabel">🔴 Red assignment statement</span>
+        <p><strong>AI: Red.</strong> AI use is not permitted on this assignment. This assessment measures [the skill] performed unassisted, because [you will need to do this live in a job interview / this is the foundation later courses assume / certification exams test this without tools]. The assignment is [in-class / oral / practical / proctored] to keep that restriction fair and enforceable.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Student disclosure template (yellow assignments)</h2>
+      <p>Give students the format — vague policies produce vague disclosures. Three sentences is enough.</p>
+      <div class="copyblock">
+        <span class="copylabel">AI-use disclosure — student template</span>
+        <p><strong>Tool(s) used:</strong> [e.g., ChatGPT (free), GitHub Copilot]<br />
+        <strong>What I used it for:</strong> [e.g., explained subnetting when I was stuck on question 3; suggested a fix for my loop error in the script]<br />
+        <strong>What I did myself:</strong> [e.g., all configurations, the final write-up, verified the subnet math by hand]</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Mapping guide: common IT assignment types</h2>
+      <p>Starting points, not rules — the right color depends on what the assignment actually assesses.</p>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th>Assignment type</th><th>Suggested light</th><th>Reasoning</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Hands-on lab (configuration, deployment)</td><td>🟡 Yellow</td><td>AI as a documentation/debugging aid mirrors real IT work; the config itself must be the student's.</td></tr>
+            <tr><td>Certification-prep quizzes</td><td>🔴 Red</td><td>The cert exam is closed-book; practicing open-book measures the wrong thing.</td></tr>
+            <tr><td>Troubleshooting scenario / ticket-flow lab</td><td>🟡 Yellow</td><td>Real techs search and ask AI mid-ticket. Assess the diagnosis process and documentation, not tool abstinence.</td></tr>
+            <tr><td>Research paper or written report</td><td>🟡 Yellow</td><td>Permit brainstorming and revision help; require the analysis and sources to be the student's, disclosed.</td></tr>
+            <tr><td>Programming projects</td><td>🟡 or 🟢</td><td>Depends on the course: intro courses assessing syntax lean yellow/red; capstones assessing shipped results lean green.</td></tr>
+            <tr><td>Discussion posts / reflections</td><td>🔴 Red or 🟢 Green</td><td>The middle is unenforceable. Either the authentic voice is the point (red, keep them short) or make it green and grade the thinking another way.</td></tr>
+            <tr><td>Final practical exam</td><td>🔴 Red</td><td>The unassisted floor. One well-designed red practical justifies generous yellow/green everywhere else.</td></tr>
+            <tr><td>AI-focused coursework (prompting, RAG, agents)</td><td>🟢 Green</td><td>AI fluency is the objective. Grade the judgment: what did the student accept, reject, and verify?</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Three implementation notes</h2>
+      <ul class="notes">
+        <li><strong>Don't lean on detection tools.</strong> False positives fall hardest on your most vulnerable students, and a detector score is not evidence that survives an appeal. The stoplight system reduces the need for detection: generous, realistic yellow/green policies plus a few well-designed red assessments beat policing.</li>
+        <li><strong>Accessibility carve-out.</strong> Students using AI-powered accommodation tools (dictation, screen readers, grammar support tied to a documented accommodation) are not "using AI" in the policy sense. Say so explicitly — it prevents your most anxious students from being afraid of their own assistive tech.</li>
+        <li><strong>Red requires format, not trust.</strong> If an assignment is red but take-home and typed, the policy is a wish. Pair every red with a format that makes it real — in-class, oral defense, practical demonstration — or change it to yellow.</li>
+      </ul>
+    </section>
+
+    <section class="last">
+      <h2>Use, adapt, share</h2>
+      <p>This kit is free to copy into your syllabus, LMS, or faculty handbook, and to adapt for your institution — attribution appreciated but not required for syllabus use. It pairs with the <a href="https://frazier-at-cpcc.github.io/exploring-ai-wingate/" rel="noopener">Exploring AI faculty seminar</a>, which covers how the underlying models work and how to set course policy deliberately. Questions, improvements, or a request to run the seminar with your faculty: <a href="mailto:frazier@vfrazier.app">frazier@vfrazier.app</a> or <a href="/speaking#book">book a session</a>.</p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .container { max-width: 880px; margin: 0 auto; padding-left: var(--space-page-x); padding-right: var(--space-page-x); }
+  .page-header { padding: 70px 0 40px; border-bottom: 2px solid var(--ink); }
+  .kicker { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 800; background: var(--ink); color: var(--page); padding: 4px 10px; border-radius: 4px; }
+  h1 { font-size: 52px; line-height: 1; margin: 18px 0 18px; font-weight: 800; letter-spacing: -.035em; }
+  .lede { font-size: 17px; line-height: 1.55; max-width: 70ch; color: var(--ink-2); }
+
+  .body { padding: 40px 0 80px; }
+  section { margin-bottom: 44px; }
+  section.last { margin-bottom: 0; }
+  h2 { font-size: 26px; font-weight: 800; letter-spacing: -.02em; margin: 0 0 14px; }
+  p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 12px; max-width: 75ch; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+  .lights { list-style: none; display: grid; gap: 12px; padding: 0; margin: 0 0 14px; }
+  .lights li { background: var(--card); border: 2px solid var(--ink); border-radius: var(--radius-lg); padding: 14px 18px; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+  .lights li.green { border-left: 6px solid #15803d; }
+  .lights li.yellow { border-left: 6px solid #ca8a04; }
+  .lights li.red { border-left: 6px solid #b91c1c; }
+
+  .copyblock { background: var(--card); border: 2px solid var(--ink); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 20px 22px 14px; margin: 0 0 18px; }
+  .copyblock p { font-size: 15px; }
+  .copyblock p:last-child { margin-bottom: 0; }
+  .copylabel { display: inline-block; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; font-weight: 800; color: var(--accent); margin-bottom: 10px; }
+
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; background: var(--card); border: 2px solid var(--ink); border-radius: var(--radius-md); font-size: 14px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1.5px solid var(--ink); vertical-align: top; line-height: 1.5; }
+  th { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+  tbody tr:last-child td { border-bottom: none; }
+  td:nth-child(2) { white-space: nowrap; font-weight: 700; }
+
+  .notes { list-style: none; display: grid; gap: 12px; padding: 0; }
+  .notes li { border-left: 2.5px solid var(--accent); padding-left: 14px; font-size: 15px; line-height: 1.6; color: var(--ink-2); max-width: 75ch; }
+
+  @media (max-width: 720px) { h1 { font-size: 36px; } }
+</style>
