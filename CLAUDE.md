@@ -92,6 +92,11 @@ file must satisfy that collection's Zod schema or the build fails.
 | `career` | `src/content/career/` | `.yaml` | Career history rows (`/about`, `/cv`) |
 | `resources` | `src/content/resources/` | `.yaml` | Public study guides/templates/tools (`/resources`) |
 
+Some resources are hosted on the site itself as standalone pages under
+`src/pages/resources/*.astro` (e.g. the Stoplight AI Syllabus Kit and the
+ticket-flow lab template) — their cards in the `resources` collection point at
+the absolute `https://vfrazier.app/resources/<slug>` URL.
+
 Key schema notes (see `content.config.ts` for the authoritative list):
 
 - **Posts** need `title`, `description`, `pubDate`, and a `category` from the enum

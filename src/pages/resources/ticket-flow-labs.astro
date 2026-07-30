@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Ticket-Flow Lab Conversion Template — Frazier Smith"
+  description="Convert step-by-step IT labs into realistic ticket scenarios — a blank template, three worked examples across networking, security, and IT support, a grading rubric, and the five-step conversion procedure. Free to adapt."
+  current="resources"
+>
+  <header class="page-header">
+    <div class="container">
+      <span class="kicker">Resource · Template</span>
+      <h1>Ticket-flow labs.</h1>
+      <p class="lede">A template for converting "configure this" labs into realistic ticket scenarios — same lab environment, different framing. Includes the anatomy, a five-step conversion procedure, a blank template, three worked examples, and a rubric. Free to adapt for your courses.</p>
+    </div>
+  </header>
+
+  <article class="container body">
+    <section>
+      <h2>The premise</h2>
+      <p>Labs teach the verbs. Production teaches the grammar. A traditional lab says "configure this firewall rule" — and students learn the verb. What they don't learn is <em>when</em> to do it, how to tell people they're doing it, what happens if they do it wrong, and how to recognize that they shouldn't do it right now. That's the grammar, and it's what separates a student who passed the course from a tech an employer trusts with a change window.</p>
+      <p>You don't need a production environment to teach some of the grammar. You need to change the <strong>framing</strong>: instead of an instruction, the student gets a <em>ticket</em> — a reporter with a complaint in their own words, a handful of facts that may or may not be true, and a requirement to fix the problem <em>and document it for the next tech</em>. The lab environment underneath is identical. The framing changes everything.</p>
+    </section>
+
+    <section>
+      <h2>Anatomy of a ticket-flow lab</h2>
+      <p>Seven parts. The first four create the realism; the last three make it gradable.</p>
+      <ol class="anatomy">
+        <li><strong>Ticket header.</strong> ID, priority, queue, timestamps. Cheap to write, instantly signals "this is a job, not a worksheet."</li>
+        <li><strong>Reporter statement, in the reporter's voice.</strong> Non-technical, emotional, partially wrong. Real users say "the internet is down," not "DNS resolution is failing."</li>
+        <li><strong>The facts list — true, false, and irrelevant, mixed.</strong> The heart of the format. Five or six statements the student must verify rather than trust. Real diagnosis starts with sorting claims from evidence.</li>
+        <li><strong>Environment note.</strong> Which lab topology/VM set to use — this is your <em>existing</em> lab environment, unchanged.</li>
+        <li><strong>Deliverables.</strong> Always two: the fix, and the write-up for the next tech (what was wrong, how you confirmed it, what you changed, what to watch).</li>
+        <li><strong>Constraints.</strong> At least one operational limit — a change window, a "don't reboot the server during business hours," a required user notification. Constraints are where judgment gets assessed.</li>
+        <li><strong>Rubric.</strong> Weighted toward process and communication, not just the fix (template below).</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>The five-step conversion</h2>
+      <ol class="steps">
+        <li><strong>Take an existing lab.</strong> Don't build new infrastructure — that's how this dies. Pick a lab students already do.</li>
+        <li><strong>Break the thing the lab configures.</strong> The lab's end-state becomes the working state; introduce one fault that prevents it. The lab instructions you used to hand out are now the answer key.</li>
+        <li><strong>Write the reporter.</strong> Who noticed? What would they actually say? Give them a name, a role, and a slightly wrong theory of the problem.</li>
+        <li><strong>Write five facts, then falsify one or two.</strong> Pull true statements from the scenario, then make one confidently wrong (the reporter's theory) and one irrelevant (a coincidence). Keep the ratio honest — if every fact is a trap, students learn paranoia instead of verification.</li>
+        <li><strong>Add one constraint and the two deliverables.</strong> Then grade with the rubric.</li>
+      </ol>
+      <p>Converting one lab takes an evening the first time and less after that. Convert your three highest-traffic labs before touching the rest — get value first, then expand.</p>
+    </section>
+
+    <section>
+      <h2>Blank template</h2>
+      <div class="copyblock">
+        <span class="copylabel">Ticket-flow lab — blank template</span>
+        <p><strong>TICKET #[____]</strong> · Priority: [Low / Normal / High] · Queue: [Helpdesk / NetOps / SecOps]<br />
+        Opened: [day, time] · Reporter: [name, role, department]</p>
+        <p><strong>Reporter statement:</strong> "[The problem, in the reporter's own words — non-technical, includes their guess about the cause.]"</p>
+        <p><strong>What you know (verify before you trust):</strong><br />
+        1. [Fact — true]<br />
+        2. [Fact — true]<br />
+        3. [Fact — false; often the reporter's theory]<br />
+        4. [Fact — true but irrelevant]<br />
+        5. [Fact — true]</p>
+        <p><strong>Environment:</strong> [Which lab topology / VM set / equipment pod to use.]</p>
+        <p><strong>Constraints:</strong> [e.g., No service restarts before 5:00 PM; notify the reporter before testing at their workstation; you have 50 minutes of ticket time.]</p>
+        <p><strong>Deliverables:</strong> (1) The issue resolved and verified. (2) A closing note for the next tech: root cause, how you confirmed it, what you changed, anything to monitor.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Worked example 1 — Networking</h2>
+      <div class="copyblock">
+        <span class="copylabel">Ticket #4127 · Normal · Helpdesk → NetOps</span>
+        <p>Opened: Tuesday 8:42 AM · Reporter: Donna R., Accounts Payable clerk</p>
+        <p><strong>Reporter statement:</strong> "I can't print to the big copier and I have checks that have to go out today. It worked Friday. I think the new Wi-Fi broke it — everything's been weird since they changed the Wi-Fi."</p>
+        <p><strong>What you know (verify before you trust):</strong><br />
+        1. Donna's workstation is wired, not on Wi-Fi.<br />
+        2. The copier responds to ping from the NetOps VLAN.<br />
+        3. The Wi-Fi upgrade last week touched only the guest SSID. <em>(Her theory — check it anyway.)</em><br />
+        4. Two other AP clerks printed to the same copier this morning.<br />
+        5. Donna's PC got a routine patch reboot overnight.</p>
+        <p><strong>Environment:</strong> Standard branch-office lab topology (client VLAN, printer VLAN, core switch). <em>Instructor fault:</em> remove the client-VLAN print-server route — or misconfigure the workstation's static DNS — before class.</p>
+        <p><strong>Constraints:</strong> Donna is mid-check-run — no workstation reboot without asking her first. Checks must print by noon.</p>
+        <p><strong>Deliverables:</strong> Printing restored and verified with a test page; closing note for the next tech including how you ruled out the Wi-Fi theory.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Worked example 2 — Security</h2>
+      <div class="copyblock">
+        <span class="copylabel">Ticket #7203 · High · SecOps</span>
+        <p>Opened: Monday 7:15 AM · Reporter: Marcus T., Sales manager</p>
+        <p><strong>Reporter statement:</strong> "I'm locked out of my account and IT security emailed me at 6 AM saying I have to click a link to restore access. I clicked it and put in my password but it still doesn't work. This system is ridiculous — I have a demo at 9."</p>
+        <p><strong>What you know (verify before you trust):</strong><br />
+        1. The account is genuinely locked — five failed logins at 5:58 AM from an unfamiliar IP.<br />
+        2. The 6 AM "IT security" email did not come from your ticketing domain.<br />
+        3. Marcus says he "never clicks weird links." <em>(He told you about clicking one in the same breath.)</em><br />
+        4. A company-wide password-policy reminder went out Friday — legitimate, unrelated.<br />
+        5. Marcus's password was due to expire this week.</p>
+        <p><strong>Environment:</strong> Identity/SIEM lab stack (directory server, mail filter logs, auth logs). <em>Instructor fault:</em> seed the auth log with the failed-login burst and plant the phishing email in the mail-filter capture.</p>
+        <p><strong>Constraints:</strong> Follow the incident checklist — containment before restoration. Marcus needs <em>an</em> answer before 9:00, which is not the same as full access before 9:00. Communicate accordingly.</p>
+        <p><strong>Deliverables:</strong> Account contained, credentials rotated, phish reported per procedure; closing note including indicators found and a two-sentence, blame-free explanation written for Marcus.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Worked example 3 — IT support</h2>
+      <div class="copyblock">
+        <span class="copylabel">Ticket #1584 · Low · Helpdesk</span>
+        <p>Opened: Wednesday 1:20 PM · Reporter: Prof. Ellen K., Biology faculty</p>
+        <p><strong>Reporter statement:</strong> "My laptop has gotten unbearably slow since the semester started. I'm sure it's full of viruses — my grandson watched videos on it over break. It takes five minutes to open my grade spreadsheet."</p>
+        <p><strong>What you know (verify before you trust):</strong><br />
+        1. Endpoint protection is installed, current, and shows no detections. <em>(Her virus theory doesn't survive first contact — but confirm, don't assume.)</em><br />
+        2. The laptop is six years old with a spinning hard drive and 92% disk usage.<br />
+        3. Her grade spreadsheet lives on a synced cloud drive that re-indexes at login.<br />
+        4. Three browser toolbars were installed over break.<br />
+        5. The Wi-Fi in her building was upgraded in January — irrelevant, it's slow on ethernet too.</p>
+        <p><strong>Environment:</strong> Standard end-user support lab image (or physical teardown bench). <em>Instructor setup:</em> image a VM with the bloat, full disk, and startup items described.</p>
+        <p><strong>Constraints:</strong> She teaches at 3:00 — the laptop leaves your bench by 2:45 no matter what. Whatever isn't finished must be scheduled, in writing, with her.</p>
+        <p><strong>Deliverables:</strong> Measurable improvement now (boot time / spreadsheet-open time, before and after); closing note with a hardware-replacement recommendation and the evidence for it, written so a budget owner — not a tech — can act on it.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Rubric template</h2>
+      <p>Weight the grammar, not just the verb. If the fix is worth most of the grade, students will skip diagnosis and race to the answer — the rubric is what makes the format teach.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Criterion</th><th>Weight</th><th>What full credit looks like</th></tr></thead>
+          <tbody>
+            <tr><td>Diagnosis process</td><td>30%</td><td>Verified the facts before acting; ruled out the false lead with evidence, not vibes; can show the path from symptom to root cause.</td></tr>
+            <tr><td>The fix</td><td>30%</td><td>Correct, complete, and verified working — with proof (test page, log line, timing measurement).</td></tr>
+            <tr><td>Constraint handling</td><td>15%</td><td>Respected the operational limits; communicated with the reporter when the constraint required it.</td></tr>
+            <tr><td>Documentation</td><td>25%</td><td>A closing note the next tech could actually act on: root cause, confirmation method, changes made, what to watch.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="last">
+      <h2>Pitfalls, then go</h2>
+      <ul class="notes">
+        <li><strong>Don't falsify every fact.</strong> One false, one irrelevant, the rest true. All-trap fact lists teach paranoia, not verification.</li>
+        <li><strong>Don't hide the lesson.</strong> The learning objective is the same one the original lab had. If students can't tell what skill the ticket is exercising, the conversion went too far.</li>
+        <li><strong>Don't build new infrastructure.</strong> The whole point is that the environment is the lab you already run. If a conversion needs new gear, pick a different lab.</li>
+        <li><strong>Do reuse the old lab instructions as the answer key.</strong> They describe the working end-state — that's exactly what your grading reference should be.</li>
+      </ul>
+      <p>This template is free to adapt for your courses — attribution appreciated but not required. It comes out of running IT programs where some students work in a live data center and observably outpace lab-only students; ticket framing is the piece of that advantage that scales to a whole class. Questions or a faculty workshop on lab design: <a href="mailto:frazier@vfrazier.app">frazier@vfrazier.app</a> or <a href="/speaking#book">book a session</a>.</p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .container { max-width: 880px; margin: 0 auto; padding-left: var(--space-page-x); padding-right: var(--space-page-x); }
+  .page-header { padding: 70px 0 40px; border-bottom: 2px solid var(--ink); }
+  .kicker { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 800; background: var(--ink); color: var(--page); padding: 4px 10px; border-radius: 4px; }
+  h1 { font-size: 52px; line-height: 1; margin: 18px 0 18px; font-weight: 800; letter-spacing: -.035em; }
+  .lede { font-size: 17px; line-height: 1.55; max-width: 70ch; color: var(--ink-2); }
+
+  .body { padding: 40px 0 80px; }
+  section { margin-bottom: 44px; }
+  section.last { margin-bottom: 0; }
+  h2 { font-size: 26px; font-weight: 800; letter-spacing: -.02em; margin: 0 0 14px; }
+  p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 12px; max-width: 75ch; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+  .anatomy, .steps { padding-left: 22px; display: grid; gap: 10px; margin: 0 0 14px; }
+  .anatomy li, .steps li { font-size: 15px; line-height: 1.6; color: var(--ink-2); max-width: 75ch; }
+  .anatomy li::marker, .steps li::marker { font-weight: 800; color: var(--accent); }
+
+  .copyblock { background: var(--card); border: 2px solid var(--ink); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 20px 22px 14px; margin: 0 0 18px; }
+  .copyblock p { font-size: 15px; }
+  .copyblock p:last-child { margin-bottom: 0; }
+  .copylabel { display: inline-block; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; font-weight: 800; color: var(--accent); margin-bottom: 10px; }
+
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; background: var(--card); border: 2px solid var(--ink); border-radius: var(--radius-md); font-size: 14px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1.5px solid var(--ink); vertical-align: top; line-height: 1.5; }
+  th { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+  tbody tr:last-child td { border-bottom: none; }
+  td:nth-child(2) { white-space: nowrap; font-weight: 700; }
+
+  .notes { list-style: none; display: grid; gap: 12px; padding: 0; margin: 0 0 14px; }
+  .notes li { border-left: 2.5px solid var(--accent); padding-left: 14px; font-size: 15px; line-height: 1.6; color: var(--ink-2); max-width: 75ch; }
+
+  @media (max-width: 720px) { h1 { font-size: 36px; } }
+</style>
