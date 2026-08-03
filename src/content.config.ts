@@ -112,6 +112,12 @@ const resources = defineCollection({
     title: z.string(),
     description: z.string(),
     url: z.string().url(),
+    // Label for the primary `url` link (defaults to "View resource").
+    urlLabel: z.string().default('View resource'),
+    // Additional artifacts on the same card (e.g. a slide deck alongside a
+    // handout). When present, the card renders a row of labeled links
+    // instead of being one big anchor.
+    links: z.array(z.object({ label: z.string(), url: z.string().url() })).optional(),
     kind: z.enum(['Study Guide', 'Guide', 'Template', 'Tool', 'Dataset', 'Repository']),
     audience: z.string().optional(),
     order: z.number().default(99),
