@@ -114,7 +114,9 @@ Key schema notes (see `content.config.ts` for the authoritative list):
 - **resources** `kind` is an enum (`Study Guide`, `Guide`, `Template`, `Tool`,
   `Dataset`, `Repository`) — `Study Guide` is student exam-prep material,
   `Guide` is faculty/practitioner-facing guidance; `audience` is optional free
-  text shown as "For: …" on the card.
+  text shown as "For: …" on the card. Optional `links` (label + url list) puts
+  multiple artifacts on one card (e.g. a handout plus its slide deck);
+  `urlLabel` renames the primary link (default "View resource").
 
 Empty collections render fallback empty-state UI — the site never blank-errors on
 missing content. When adding content, mirror the shape of an existing sibling file.

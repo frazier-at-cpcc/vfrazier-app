@@ -16,15 +16,30 @@ const resources = (await getCollection('resources')).sort((a, b) => a.data.order
   <section class="container list-wrap">
     {resources.length > 0 ? (
       <div class="grid">
-        {resources.map((r) => (
-          <a class="card" href={r.data.url} rel="noopener" target="_blank">
-            <span class="kind">{r.data.kind}</span>
-            <h3>{r.data.title}</h3>
-            <p>{r.data.description}</p>
-            {r.data.audience && <span class="audience">For: {r.data.audience}</span>}
-            <span class="link">View resource →</span>
-          </a>
-        ))}
+        {resources.map((r) =>
+          r.data.links ? (
+            <article class="card">
+              <span class="kind">{r.data.kind}</span>
+              <h3>{r.data.title}</h3>
+              <p>{r.data.description}</p>
+              {r.data.audience && <span class="audience">For: {r.data.audience}</span>}
+              <span class="linkrow">
+                <a class="link" href={r.data.url} rel="noopener" target="_blank">{r.data.urlLabel} →</a>
+                {r.data.links.map((l) => (
+                  <a class="link" href={l.url} rel="noopener" target="_blank">{l.label} →</a>
+                ))}
+              </span>
+            </article>
+          ) : (
+            <a class="card hover" href={r.data.url} rel="noopener" target="_blank">
+              <span class="kind">{r.data.kind}</span>
+              <h3>{r.data.title}</h3>
+              <p>{r.data.description}</p>
+              {r.data.audience && <span class="audience">For: {r.data.audience}</span>}
+              <span class="link">{r.data.urlLabel} →</span>
+            </a>
+          )
+        )}
       </div>
     ) : (
       <p class="empty">Nothing published here yet — check back soon.</p>
@@ -50,7 +65,9 @@ const resources = (await getCollection('resources')).sort((a, b) => a.data.order
     box-shadow: var(--shadow-card);
     color: var(--ink);
   }
-  .card:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); transition: transform .12s, box-shadow .12s; }
+  .card.hover:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); transition: transform .12s, box-shadow .12s; }
+  .linkrow { display: flex; gap: 16px; flex-wrap: wrap; }
+  .linkrow .link:hover { text-decoration: underline; text-underline-offset: 3px; }
   .kind {
     display: inline-block;
     font-size: 10px;

@@ -1,6 +1,10 @@
-title: 'AI Prompts for Teaching (One-Pager)'
-description: A printable one-page prompt guide from an August 2026 PD Day at Highland School of Technology — six copy-ready prompts (rubrics, student feedback, bilingual parent email, test items with keys, workplace scenarios, interview practice) built on a Role/Task/Context/Format structure, with student-privacy guardrails.
+title: 'AI Tools for Teaching — PD Day Kit'
+description: Materials from an August 2026 professional development session at Highland School of Technology — a printable one-pager with six copy-ready teaching prompts (rubrics, student feedback, bilingual parent email, test items with keys, workplace scenarios, interview practice) built on a Role/Task/Context/Format structure with student-privacy guardrails, plus the full session deck on what AI is doing to local career pathways and how to write prompts that work.
 url: https://vfrazier.app/ai-prompts-for-teaching.pdf
+urlLabel: 'Prompt one-pager (PDF)'
+links:
+  - label: 'Session slides (PDF)'
+    url: https://vfrazier.app/highland-ai-tools-presentation.pdf
 kind: Guide
 audience: K-12 and CTE teachers
 order: 7
