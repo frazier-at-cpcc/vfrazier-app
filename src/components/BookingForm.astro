@@ -2,6 +2,32 @@
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x00000000000000000000AA';
 ---
 <form class="form" method="POST" action="/api/book" id="book">
+  <div class="form-error" id="form-error" hidden>
+    <strong>Your inquiry didn't send.</strong>
+    <span id="form-error-detail">Something went wrong.</span>
+    You can try again below — or skip the form and email me directly:
+    <a href="mailto:frazier@vfrazier.app">frazier@vfrazier.app</a>
+  </div>
+  <script is:inline>
+    (function () {
+      var code = new URLSearchParams(location.search).get('error');
+      if (!code) return;
+      var messages = {
+        missing: 'A required field was empty — please fill every field marked with *.',
+        verification: 'The bot check could not be verified. Please try again — the checkbox needs to finish before you submit.',
+        invalid: 'The submission was flagged as automated. If you are human, try again or email me.',
+        config: 'The form backend is misconfigured on my end (code: config).',
+        internal: 'The form backend hit an unexpected error (code: internal).',
+      };
+      var detail = messages[code] || (code.indexOf('email-') === 0
+        ? 'Your message passed all checks but email delivery failed on my end (code: ' + code + ').'
+        : 'Unexpected error (code: ' + code + ').');
+      var box = document.getElementById('form-error');
+      var span = document.getElementById('form-error-detail');
+      if (span) span.textContent = detail;
+      if (box) box.hidden = false;
+    })();
+  </script>
   <div class="row">
     <label>
       <span>Your name<span class="req">*</span></span>
@@ -56,6 +82,17 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
 
 <style>
   .form { display: grid; gap: 18px; padding: 30px; background: var(--card); border: 2px solid var(--ink); border-radius: var(--radius-lg); }
+  .form-error {
+    border: 2px solid #b91c1c;
+    border-left-width: 6px;
+    border-radius: var(--radius-md);
+    background: #fef2f2;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-2);
+  }
+  .form-error a { color: var(--accent); font-weight: 700; text-decoration: underline; }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; }
   label .req { color: var(--accent); margin-left: 3px; }

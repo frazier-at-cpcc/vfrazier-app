@@ -20,18 +20,52 @@ function escapeHtml(s: string): string {
     .replace(/'/g, '&#39;');
 }
 
+// Secrets pasted into the Cloudflare dashboard sometimes carry a trailing
+// newline or space; an untrimmed value in an Authorization header throws at
+// Headers construction, which surfaces as an opaque 502 to the visitor.
+function cleanSecret(v: string | undefined): string {
+  return (v ?? '').trim();
+}
+
+function wantsJson(req: Request): boolean {
+  return (req.headers.get('Accept') ?? '').includes('application/json');
+}
+
+// Browsers get redirected back to the form with a diagnosable error code —
+// never a raw error status. JSON clients get JSON. Error statuses stay in the
+// 4xx/500 range: Cloudflare replaces origin 502/504 responses with its own
+// branded "Bad gateway" page, which hides the real failure from everyone.
+function fail(ctx: Context, code: string, status: number, message: string): Response {
+  if (wantsJson(ctx.request)) {
+    return new Response(JSON.stringify({ error: message, code }), {
+      status,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  const back = new URL(`/speaking/?error=${encodeURIComponent(code)}#book`, ctx.request.url);
+  return Response.redirect(back.toString(), 303);
+}
+
 async function verifyTurnstile(token: string, secret: string, ip: string): Promise<boolean> {
   const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({ secret, response: token, remoteip: ip }),
   });
-  if (!res.ok) return false;
-  const data = (await res.json()) as { success?: boolean };
+  if (!res.ok) {
+    console.error('turnstile siteverify HTTP error', res.status);
+    return false;
+  }
+  const data = (await res.json()) as { success?: boolean; 'error-codes'?: string[] };
+  if (!data?.success) {
+    console.error('turnstile verification failed', JSON.stringify(data?.['error-codes'] ?? []));
+  }
   return Boolean(data?.success);
 }
 
-async function sendEmail(env: Env, payload: Record<RequiredField, string>): Promise<boolean> {
+// Returns null on success, or the Resend HTTP status on failure (for the
+// error code shown to the visitor and logged for `wrangler pages deployment tail`).
+async function sendEmail(apiKey: string, payload: Record<RequiredField, string>): Promise<number | null> {
   const html = `
     <h2>New speaking inquiry</h2>
     <p><strong>${escapeHtml(payload.name)}</strong> &lt;${escapeHtml(payload.email)}&gt;</p>
@@ -44,7 +78,7 @@ async function sendEmail(env: Env, payload: Record<RequiredField, string>): Prom
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      Authorization: `Bearer ${apiKey}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -55,18 +89,27 @@ async function sendEmail(env: Env, payload: Record<RequiredField, string>): Prom
       html,
     }),
   });
-  return res.ok;
+  if (!res.ok) {
+    const detail = (await res.text().catch(() => '')).slice(0, 500);
+    console.error('resend send failed', res.status, detail);
+    return res.status;
+  }
+  return null;
 }
 
 export async function onRequestPost(ctx: Context): Promise<Response> {
   try {
+    const resendKey = cleanSecret(ctx.env.RESEND_API_KEY);
+    const turnstileSecret = cleanSecret(ctx.env.TURNSTILE_SECRET_KEY);
+    if (!resendKey || !turnstileSecret) {
+      console.error('missing env config', { resend: !!resendKey, turnstile: !!turnstileSecret });
+      return fail(ctx, 'config', 500, 'Server configuration error');
+    }
+
     const form = await ctx.request.formData();
     const honeypot = String(form.get('website') ?? '').trim();
     if (honeypot.length > 0) {
-      return new Response(JSON.stringify({ error: 'Invalid submission' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return fail(ctx, 'invalid', 400, 'Invalid submission');
     }
 
     const data: Partial<Record<RequiredField, string>> = {};
@@ -77,38 +120,25 @@ export async function onRequestPost(ctx: Context): Promise<Response> {
       data[field] = v;
     }
     if (missing.length > 0) {
-      return new Response(JSON.stringify({ error: `Required fields missing: ${missing.join(', ')}` }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return fail(ctx, 'missing', 400, `Required fields missing: ${missing.join(', ')}`);
     }
 
     const token = String(form.get('cf-turnstile-response') ?? '').trim();
     if (!token) {
-      return new Response(JSON.stringify({ error: 'Bot challenge failed' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return fail(ctx, 'verification', 400, 'Bot challenge failed');
     }
     const ip = ctx.request.headers.get('CF-Connecting-IP') ?? '0.0.0.0';
-    const passed = await verifyTurnstile(token, ctx.env.TURNSTILE_SECRET_KEY, ip);
+    const passed = await verifyTurnstile(token, turnstileSecret, ip);
     if (!passed) {
-      return new Response(JSON.stringify({ error: 'Bot challenge failed' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return fail(ctx, 'verification', 400, 'Bot challenge failed');
     }
 
-    const sent = await sendEmail(ctx.env, data as Record<RequiredField, string>);
-    if (!sent) {
-      return new Response(JSON.stringify({ error: 'Email delivery failed' }), {
-        status: 502,
-        headers: { 'Content-Type': 'application/json' },
-      });
+    const emailError = await sendEmail(resendKey, data as Record<RequiredField, string>);
+    if (emailError !== null) {
+      return fail(ctx, `email-${emailError}`, 500, 'Email delivery failed');
     }
 
-    const accept = ctx.request.headers.get('Accept') ?? '';
-    if (accept.includes('application/json')) {
+    if (wantsJson(ctx.request)) {
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -117,10 +147,7 @@ export async function onRequestPost(ctx: Context): Promise<Response> {
     const thanksUrl = new URL('/speaking/thanks', ctx.request.url).toString();
     return Response.redirect(thanksUrl, 303);
   } catch (err) {
-    console.error('booking handler error', err);
-    return new Response(JSON.stringify({ error: 'Internal error' }), {
-      status: 502,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    console.error('booking handler error', err instanceof Error ? err.stack ?? err.message : err);
+    return fail(ctx, 'internal', 500, 'Internal error');
   }
 }
