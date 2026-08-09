@@ -1,0 +1,6 @@
+title: 'MedLingo — Medical Spanish Practice App'
+description: A Duolingo-style app for medical Spanish, organized around the arc of a real patient encounter — first contact, pain, vitals, history, medications, symptoms, emergencies, discharge. 14 units, 70 lessons, 560 exercises, and ~1,500 audio clips with a separate patient voice, because comprehension is the hard part. Proof of concept — phrases need review by native speakers and practicing clinicians before anyone learns from them, and hole-poking from nurses, interpreters, and native speakers is genuinely welcome.
+url: https://medlingo-es.vercel.app
+kind: Tool
+audience: Nurses, medical interpreters, and Spanish learners in healthcare
+order: 8
