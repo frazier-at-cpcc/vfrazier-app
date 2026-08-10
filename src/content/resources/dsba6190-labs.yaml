@@ -1,0 +1,6 @@
+title: 'DSBA 6190 Cloud Data Pipeline Labs'
+description: The lab repository for UNC Charlotte's DSBA 6190 (Cloud Computing for Data Analytics) — fourteen weekly labs plus a capstone that build one cumulative cloud data pipeline, from ingestion and transformation through vector/RAG layers, serving, monitoring, and security. Test-driven (each lab ships with its acceptance tests) and runs entirely on a local Docker-based AWS emulator, so no cloud account, credentials, or costs are required. Includes four synthetic Charlotte-themed datasets of ~1M rows each, with intentional data-quality issues.
+url: https://github.com/Frazier-at-UNCC/dsba6190-labs
+kind: Repository
+audience: Cloud and data analytics educators, and DSBA 6190 students
+order: 9
