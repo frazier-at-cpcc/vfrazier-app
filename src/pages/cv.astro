@@ -22,7 +22,34 @@ const currentRoles = [
   { years: 'January 2026 – present', title: 'Adjunct Instructor, Honors Program', org: 'Wingate University' },
 ];
 
-const skills = ['Python', 'Training Needs Analysis', 'Technology Needs Analysis'];
+// Grouped skills, each grounded in the courses, certifications, career
+// history, or sponsored work elsewhere on this CV.
+const skillGroups = [
+  {
+    label: 'AI & machine learning',
+    items: 'LLM, RAG & agentic system design · AI curriculum development (Azure AI-102-aligned) · prompt engineering instruction · machine learning fundamentals · AI ethics & responsible-use education',
+  },
+  {
+    label: 'Cloud & virtualization',
+    items: 'AWS · Microsoft Azure · Google Cloud · VMware vSphere & NSX · Nutanix · cloud-native data pipelines',
+  },
+  {
+    label: 'Infrastructure & security',
+    items: 'Linux/UNIX administration · data center design, operations & troubleshooting · networking · security operations & endpoint protection (CISSP)',
+  },
+  {
+    label: 'Software & data',
+    items: 'Python (introductory through advanced) · software requirements, architecture & testing · IT project management · xAPI & learning analytics',
+  },
+  {
+    label: 'Learning design',
+    items: 'ADDIE & Agile course development · certification-aligned curriculum design · asynchronous/online course design · OER authoring · training & technology needs analysis',
+  },
+  {
+    label: 'Program leadership',
+    items: 'curriculum governance & accreditation alignment (SACSCOC/NCCCS) · degree program design & launch · NSF grant writing & project management · employer advisory boards & industry partnerships · faculty development',
+  },
+];
 
 const languages = ['English (native)', 'Spanish (limited working)'];
 
@@ -122,8 +149,13 @@ function fmtDate(d: Date) {
 
     <section>
       <h2>Skills</h2>
-      <ul class="bullets">
-        {skills.map((s) => <li>{s}</li>)}
+      <ul class="skill-groups">
+        {skillGroups.map((g) => (
+          <li>
+            <span class="skill-label">{g.label}</span>
+            <span class="skill-items">{g.items}</span>
+          </li>
+        ))}
       </ul>
     </section>
 
@@ -412,6 +444,12 @@ function fmtDate(d: Date) {
   .bullets .code { font-weight: 800; letter-spacing: -.01em; }
   .bullets a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
   .bullets .tag { color: var(--muted); font-size: 12px; font-weight: 500; }
+
+  .skill-groups { list-style: none; display: grid; gap: 8px; }
+  .skill-groups li { font-size: 14px; line-height: 1.55; }
+  .skill-label { font-weight: 800; letter-spacing: -.01em; }
+  .skill-label::after { content: ' — '; color: var(--muted); font-weight: 500; }
+  .skill-items { color: var(--ink-2); }
 
   .pill {
     display: inline-block;
