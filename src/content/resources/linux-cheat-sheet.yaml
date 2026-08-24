@@ -1,0 +1,6 @@
+title: 'Linux Command Cheat Sheet'
+description: A two-page printable reference covering the everyday Linux working set — files and permissions, finding things, text processing (grep/sed/awk), archives, pipes and redirection, editors, processes, disks, users, networking, SSH, package managers, systemd services and logs, and shell shortcuts. Built for NOS-120/NOS-220 students, useful to anyone at a Linux terminal.
+url: https://vfrazier.app/linux-command-cheat-sheet.pdf
+kind: Study Guide
+audience: Linux students and anyone at a terminal
+order: 10
