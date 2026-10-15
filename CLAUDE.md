@@ -48,6 +48,7 @@ npm run test:watch   # vitest watch mode
 npm run test:e2e     # playwright smoke tests
 npm run cv:pdf       # build, then regenerate public/cv.pdf from the /cv page
 npm run og           # regenerate public/og-default.png
+npm run cards:pdf    # regenerate print/business-cards-avery-28878.pdf (business cards)
 ```
 
 Before committing changes, run `npm run typecheck`; run `npm run test` when touching
@@ -71,7 +72,9 @@ functions/
   api/book.ts       Booking form handler (Resend + Turnstile)
   api/book.test.ts  Unit tests for the handler
 public/             cv.pdf, favicon, og-default.png (served as-is)
-scripts/            render-og.mjs, render-cv-pdf.mjs (Playwright/Chromium renderers)
+print/              business-cards-avery-28878.pdf (print-only artifacts, not deployed)
+scripts/            render-og.mjs, render-cv-pdf.mjs, render-business-cards.mjs
+                    (Playwright/Chromium renderers; business-cards-template.html)
 docs/superpowers/   Design spec + implementation plan
 ```
 
