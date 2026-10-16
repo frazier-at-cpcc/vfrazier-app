@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="AI + Cyber: AI Powered Cybersecurity - Frazier Smith"
+  description="Session materials for the NITIC Working Connections Fall 2026 track AI + Cyber: AI Powered Cybersecurity - five Fridays on integrating AI into cybersecurity instruction. Materials posted after each weekly session."
+  current="resources"
+>
+  <header class="page-header">
+    <div class="container">
+      <span class="kicker">Resource · Course Materials</span>
+      <h1>AI + Cyber: AI Powered Cybersecurity.</h1>
+      <p class="lede">Materials hub for the NITIC Working Connections Fall 2026 Session II track I teach - five Fridays on bringing AI into cybersecurity instruction. Slides, labs, and handouts are posted here after each weekly session, free to use and adapt.</p>
+    </div>
+  </header>
+
+  <article class="container body">
+    <section>
+      <h2>The course</h2>
+      <p>AI + Cyber is a professional development course for IT faculty on integrating artificial intelligence into cybersecurity instruction. Participants examine how AI is changing cybersecurity work, explore the risks of AI-enabled systems, and evaluate tools that can enhance student learning while keeping programs aligned with evolving threats and workforce demands.</p>
+      <p>We work with local large language models using Ollama, retrieval-augmented generation and research platforms, AI-assisted cybersecurity tools, and secure coding assistants, alongside established cybersecurity frameworks, defensive tools, vulnerability-assessment methods, and instructional design practices. The course runs on a continuing scenario: a fictional technical college responding to AI-related instructional and cybersecurity challenges.</p>
+      <p>The track is part of <a href="https://www.nitic.org/working_connection/fall-2026-working-connections/" rel="noopener">NITIC's Fall 2026 Working Connections</a> (Session II, intermediate), run by the National Information Technology Innovation Center. Registration runs through NITIC; everything I hand out in class lands on this page.</p>
+    </section>
+
+    <section>
+      <h2>Schedule</h2>
+      <p>Five Fridays, 1:30-5:30 PM ET, October 16 - November 20, 2026 (no class October 23).</p>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th>Session</th><th>Date</th><th>Topic</th><th>Materials</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Fri, Oct 16</td><td>Local AI, Privacy, and Trust</td><td>Posted after class</td></tr>
+            <tr><td>2</td><td>Fri, Oct 30</td><td>Curriculum Injection and Academic Integrity</td><td>Posted after class</td></tr>
+            <tr><td>3</td><td>Fri, Nov 6</td><td>AI-Assisted Research, RAG, and Threat Intelligence</td><td>Posted after class</td></tr>
+            <tr><td>4</td><td>Fri, Nov 13</td><td>AI-Assisted Cyber Operations and Authorized Security Assessment</td><td>Posted after class</td></tr>
+            <tr><td>5</td><td>Fri, Nov 20</td><td>Secure Code Review and Institutional Implementation</td><td>Posted after class</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Session materials</h2>
+      <p>Materials are posted after each weekly session rather than all at once, because the labs get tuned to each cohort. After every Friday class, that session's slides, lab guide, and handouts appear in the schedule table above.</p>
+      <p>If you're here because you couldn't get a seat in the class, you'll get everything the registered participants get, a few hours later.</p>
+    </section>
+
+    <section class="last">
+      <h2>Use, adapt, share</h2>
+      <p>Everything posted here is free to copy into your own courses and adapt for your institution - attribution appreciated but not required. Questions or requests: <a href="mailto:frazier@vfrazier.app">frazier@vfrazier.app</a> or <a href="/speaking#book">book a session</a>.</p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .container { max-width: 880px; margin: 0 auto; padding-left: var(--space-page-x); padding-right: var(--space-page-x); }
+  .page-header { padding: 70px 0 40px; border-bottom: 2px solid var(--ink); }
+  .kicker { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 800; background: var(--ink); color: var(--page); padding: 4px 10px; border-radius: 4px; }
+  h1 { font-size: 52px; line-height: 1; margin: 18px 0 18px; font-weight: 800; letter-spacing: -.035em; }
+  .lede { font-size: 17px; line-height: 1.55; max-width: 70ch; color: var(--ink-2); }
+
+  .body { padding: 40px 0 80px; }
+  section { margin-bottom: 44px; }
+  section.last { margin-bottom: 0; }
+  h2 { font-size: 26px; font-weight: 800; letter-spacing: -.02em; margin: 0 0 14px; }
+  p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 12px; max-width: 75ch; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; background: var(--card); border: 2px solid var(--ink); border-radius: var(--radius-md); font-size: 14px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1.5px solid var(--ink); vertical-align: top; line-height: 1.5; }
+  th { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+  tbody tr:last-child td { border-bottom: none; }
+  td:nth-child(2) { white-space: nowrap; font-weight: 700; }
+
+  @media (max-width: 720px) { h1 { font-size: 36px; } }
+</style>
