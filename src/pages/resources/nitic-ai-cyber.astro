@@ -31,7 +31,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             <tr><th>Session</th><th>Date</th><th>Topic</th><th>Materials</th></tr>
           </thead>
           <tbody>
-            <tr><td>1</td><td>Fri, Oct 16</td><td>Local AI, Privacy, and Trust</td><td>Posted after class</td></tr>
+            <tr><td>1</td><td>Fri, Oct 16</td><td>Local AI, Privacy, and Trust</td><td class="materials"><a href="/nitic-ai-cyber/session1-slides.pdf">Slides</a> · <a href="/nitic-ai-cyber/session1-student-guide.pdf">Student Guide</a> · <a href="/nitic-ai-cyber/session1-participant-packet.pdf">Participant Packet</a></td></tr>
             <tr><td>2</td><td>Fri, Oct 30</td><td>Curriculum Injection and Academic Integrity</td><td>Posted after class</td></tr>
             <tr><td>3</td><td>Fri, Nov 6</td><td>AI-Assisted Research, RAG, and Threat Intelligence</td><td>Posted after class</td></tr>
             <tr><td>4</td><td>Fri, Nov 13</td><td>AI-Assisted Cyber Operations and Authorized Security Assessment</td><td>Posted after class</td></tr>
@@ -74,6 +74,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   th { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
   tbody tr:last-child td { border-bottom: none; }
   td:nth-child(2) { white-space: nowrap; font-weight: 700; }
+  td.materials a { font-weight: 700; white-space: nowrap; }
 
   @media (max-width: 720px) { h1 { font-size: 36px; } }
 </style>
