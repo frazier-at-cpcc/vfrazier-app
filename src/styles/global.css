@@ -58,3 +58,28 @@ textarea:focus-visible,
 .prose blockquote { border-left: 3px solid var(--accent); padding-left: 18px; font-style: italic; color: var(--ink-2); }
 .prose ul, .prose ol { padding-left: 22px; }
 .prose li + li { margin-top: 0.4em; }
+.prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+  background: #fff;
+}
+.prose table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.prose th, .prose td {
+  padding: 8px 12px;
+  border: 1px solid var(--ink);
+  text-align: left;
+  vertical-align: top;
+}
+.prose th { background: var(--ink); color: var(--page); font-weight: 700; }
+.prose tbody tr:nth-child(even) td { background: rgba(26, 18, 9, 0.04); }
