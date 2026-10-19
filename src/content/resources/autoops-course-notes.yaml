@@ -1,0 +1,26 @@
+title: 'CompTIA AutoOps+ (AT0-001) Course Notes'
+description: >-
+  Open, two-column course notes for the new CompTIA AutoOps+ exam, one exam
+  objective at a time across all four domains: automation coding, system
+  configuration, continuous integration, and continuous delivery. 103 pages,
+  35 topics, with hand-drawn figures, "On the exam" tips, and hands-on "Try it"
+  exercises. Every command and line of terminal output in the notes came from a
+  real run, and the source repository keeps a test script per topic so the
+  examples can be rechecked when tools change. Download the complete book or a
+  single domain. CC BY-NC-SA 4.0.
+url: https://vfrazier.app/autoops-course-notes/autoops-course-notes.pdf
+urlLabel: 'Complete notes (PDF)'
+links:
+  - label: 'Domain 1: Automation Coding'
+    url: https://vfrazier.app/autoops-course-notes/autoops-course-notes-domain-1.pdf
+  - label: 'Domain 2: System Configuration'
+    url: https://vfrazier.app/autoops-course-notes/autoops-course-notes-domain-2.pdf
+  - label: 'Domain 3: Continuous Integration'
+    url: https://vfrazier.app/autoops-course-notes/autoops-course-notes-domain-3.pdf
+  - label: 'Domain 4: Continuous Delivery'
+    url: https://vfrazier.app/autoops-course-notes/autoops-course-notes-domain-4.pdf
+  - label: 'Source and tests (GitHub)'
+    url: https://github.com/frazier-at-cpcc/autoops-course-notes
+kind: Study Guide
+audience: AutoOps+ candidates, network programmability students, and IT faculty
+order: 0
