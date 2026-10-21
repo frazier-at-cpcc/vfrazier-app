@@ -1,0 +1,16 @@
+Classifying Data Before It Reaches a Model
+
+[0:02.0] Before you paste
+Before anything goes into an AI tool, tier it. There are four tiers, and the highest one in your input decides where it can go.
+
+[0:10.2] The four tiers
+Public is approved for public release, like the course catalog. Internal is routine business with low harm if exposed, like budget meeting notes. Confidential means exposure would harm people or operations, like a firewall log. Restricted is protected by law, regulation, or contract.
+
+[0:31.6] Restricted: name the law
+For Restricted, name the law. A class roster with IDs and grades is an education record, so FERPA. A financial aid appeal is FERPA plus the GLBA Safeguards Rule.
+
+[0:42.7] The decision rule
+Now the rule. Paste meeting notes with the roster underneath, and the highest tier is Restricted, so the whole input is Restricted. Consumer chatbot: no. Licensed enterprise tool: not by default. Managed campus server: only de-identified, logged, with set retention. Unmanaged laptop: no.
+
+[1:03.6] Do now
+Pause here. Tier the reported phishing email. Then name the highest tier in a paste that mixes the catalog entry with a financial aid appeal.

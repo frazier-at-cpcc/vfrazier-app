@@ -1,0 +1,113 @@
+WEBVTT
+
+1
+00:00:02.300 --> 00:00:04.750
+Before anything goes into an AI tool, tier it.
+
+2
+00:00:05.133 --> 00:00:07.199
+There are four tiers, and the highest one
+
+3
+00:00:07.234 --> 00:00:09.312
+in your input decides where it can go.
+
+4
+00:00:10.512 --> 00:00:13.496
+Public is approved for public release, like the
+
+5
+00:00:13.554 --> 00:00:14.494
+course catalog.
+
+6
+00:00:14.773 --> 00:00:17.408
+Internal is routine business with low harm if
+
+7
+00:00:17.478 --> 00:00:19.707
+exposed, like budget meeting notes.
+
+8
+00:00:20.218 --> 00:00:24.096
+Confidential means exposure would harm people or operations,
+
+9
+00:00:24.270 --> 00:00:25.826
+like a firewall log.
+
+10
+00:00:26.104 --> 00:00:30.620
+Restricted is protected by law, regulation, or contract.
+
+11
+00:00:31.920 --> 00:00:33.627
+For Restricted, name the law.
+
+12
+00:00:33.870 --> 00:00:35.867
+A class roster with IDs and grades is
+
+13
+00:00:35.902 --> 00:00:37.539
+an education record, so FERPA.
+
+14
+00:00:37.864 --> 00:00:39.931
+A financial aid appeal is FERPA plus the
+
+15
+00:00:40.001 --> 00:00:41.672
+GLBA Safeguards Rule.
+
+16
+00:00:42.972 --> 00:00:43.843
+Now the rule.
+
+17
+00:00:44.168 --> 00:00:46.966
+Paste meeting notes with the roster underneath, and
+
+18
+00:00:47.012 --> 00:00:49.114
+the highest tier is Restricted, so the whole
+
+19
+00:00:49.160 --> 00:00:50.321
+input is Restricted.
+
+20
+00:00:50.925 --> 00:00:52.457
+Consumer chatbot: no.
+
+21
+00:00:52.899 --> 00:00:55.453
+Licensed enterprise tool: not by default.
+
+22
+00:00:55.894 --> 00:01:00.015
+Managed campus server: only de-identified, logged, with set retention.
+
+23
+00:01:00.526 --> 00:01:02.384
+Unmanaged laptop: no.
+
+24
+00:01:03.884 --> 00:01:04.604
+Pause here.
+
+25
+00:01:04.848 --> 00:01:06.670
+Tier the reported phishing email.
+
+26
+00:01:06.995 --> 00:01:08.772
+Then name the highest tier in a paste
+
+27
+00:01:08.795 --> 00:01:11.105
+that mixes the catalog entry with a financial
+
+28
+00:01:11.163 --> 00:01:12.011
+aid appeal.

@@ -1,0 +1,113 @@
+WEBVTT
+
+1
+00:00:02.300 --> 00:00:06.131
+The DGX Spark has 128 gigabytes of memory.
+
+2
+00:00:06.410 --> 00:00:09.045
+The MacBook Pro gives a model about 46.
+
+3
+00:00:09.324 --> 00:00:11.251
+Yet on the same model, the Mac streams
+
+4
+00:00:11.298 --> 00:00:12.749
+about twice as fast.
+
+5
+00:00:13.649 --> 00:00:14.845
+First, will it fit?
+
+6
+00:00:15.228 --> 00:00:18.409
+Multiply billions of parameters by bits per weight,
+
+7
+00:00:18.583 --> 00:00:19.767
+then divide by eight.
+
+8
+00:00:20.371 --> 00:00:23.216
+An 8-billion-parameter model at 4 bits is 4
+
+9
+00:00:23.285 --> 00:00:24.423
+gigabytes of weights.
+
+10
+00:00:24.864 --> 00:00:26.861
+Add 10 to 20 percent for the KV
+
+11
+00:00:27.012 --> 00:00:30.321
+cache and runtime, and plan for about 5.
+
+12
+00:00:31.321 --> 00:00:33.179
+That's where memory size matters.
+
+13
+00:00:33.504 --> 00:00:37.312
+A 120-billion-parameter model needs about 65 gigabytes.
+
+14
+00:00:37.521 --> 00:00:38.566
+It fits the Spark.
+
+15
+00:00:38.682 --> 00:00:40.098
+It doesn't fit the Mac.
+
+16
+00:00:41.198 --> 00:00:42.417
+Speed is different.
+
+17
+00:00:42.661 --> 00:00:44.785
+Every token the model writes reads all of
+
+18
+00:00:44.832 --> 00:00:45.877
+its weights once.
+
+19
+00:00:46.086 --> 00:00:49.116
+So the ceiling is bandwidth divided by size.
+
+20
+00:00:49.499 --> 00:00:53.238
+The Spark reads 273 gigabytes per second: about
+
+21
+00:00:53.296 --> 00:00:55.084
+55 tokens per second.
+
+22
+00:00:55.362 --> 00:00:58.404
+The Mac reads 546: about 109.
+
+23
+00:00:58.915 --> 00:01:01.957
+Real runs land lower, but the ratio holds.
+
+24
+00:01:03.257 --> 00:01:03.919
+Your turn.
+
+25
+00:01:04.244 --> 00:01:07.553
+A 70-billion-parameter model at 4 bits takes about
+
+26
+00:01:07.622 --> 00:01:08.690
+40 gigabytes.
+
+27
+00:01:09.016 --> 00:01:11.175
+Pause and estimate: does it fit on the
+
+28
+00:01:11.221 --> 00:01:13.845
+Mac, and what's its tokens-per-second ceiling?

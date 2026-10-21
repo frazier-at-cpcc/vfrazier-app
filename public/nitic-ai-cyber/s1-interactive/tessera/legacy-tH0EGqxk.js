@@ -1,0 +1,1 @@
+import{J as e}from"./index-BRNq7qF2.js";e();
