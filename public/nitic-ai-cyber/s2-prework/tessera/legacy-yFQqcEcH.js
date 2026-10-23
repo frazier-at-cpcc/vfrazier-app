@@ -1,0 +1,1 @@
+import{Y as e}from"./index-CQL0Cq0Y.js";e();
