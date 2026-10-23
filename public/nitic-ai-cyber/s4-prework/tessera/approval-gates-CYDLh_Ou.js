@@ -1,0 +1,13 @@
+import{B as e,C as t,R as n,T as r}from"./index-kuk8hWpZ.js";import"./legacy-BU_6878h.js";import{t as i}from"./Signal-DjqUw2bD.js";var a={title:`Approval Gates`},o=r(`<p>A tester suspects that a test site mishandles a character in its search field.
+    One way to confirm it submits a value that creates a database record.
+    A smaller way repeats the original search and reads the server error log, both of which the scope already allows.
+    The tester takes the smaller steps first.
+    If they leave the question open, the tester writes an approval request that names the record-creating test, its effect, and the cleanup, and waits for the answer.</p>`),s=r(`<p>The common error treats a successful test as retroactive approval. A test that worked without causing harm still ran without the owner’s consent, and the record shows it.</p>`),c=r(`<h1>Approval Gates</h1> <p>A <strong>consequential test</strong> is a test whose effects reach beyond reading.
+  It changes data, can disrupt a service, uses a credential the tester was not issued, or exposes information that the data rules restrict.
+  An <strong>approval gate</strong> is a point in the work where a consequential test waits until a named approver says yes in writing.</p> <p>The approver is a person, named in the authorization, who owns the risk.
+  A teammate, a ticket queue, or a model cannot fill that role.
+  The gate holds even when the tester is confident, because confidence is not the question the gate answers.
+  The gate asks whether the owner accepts the effect.</p> <p>An approval request is short and complete. It states:</p> <ul><li>The finding so far, with a pointer to the raw output.</li> <li>The proposed test and its expected effect on the target.</li> <li>A less invasive alternative, if one exists.</li> <li>How the target returns to its prior state afterward.</li></ul> <h2>The least invasive method</h2> <p>The <strong>least invasive method</strong> is the approach that demonstrates a finding with the smallest effect on the target.
+  A finding needs enough evidence to be believed and acted on, and no more.
+  A read-only request that shows a page is reachable demonstrates an access problem as well as a test that downloads everything behind it.</p> <!> <p>Approval gates matter more when a tool acts on its own.
+  An agent that can run commands moves from suggestion to action in one step, so the gate must sit before execution, not after review of the results.</p> <!>`,1);function l(r){var a=c(),l=e(n(a),14);i(l,{kind:`worked`,title:`Choosing the smaller demonstration`,children:(e,n)=>{var r=o();t(e,r)},$$slots:{default:!0}});var u=e(l,4);i(u,{kind:`mistake`,children:(e,n)=>{var r=s();t(e,r)},$$slots:{default:!0}}),t(r,a)}export{l as default,a as pageConfig};
