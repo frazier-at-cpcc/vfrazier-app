@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { professionalDevelopmentTeaching } from '../data/professional-development';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const all = await getCollection('courses');
@@ -8,13 +9,13 @@ const grouped = all.reduce<Record<string, typeof all>>((acc, c) => {
   return acc;
 }, {});
 
-const institutionsOrder = ['Central Piedmont', 'UNC Charlotte', 'Wingate', 'Wake Tech', 'Wayne CC'];
+const institutionsOrder = ['Central Piedmont', 'UNC Charlotte', 'Wingate', 'Wake Tech', 'Wayne CC', 'East Carolina University', 'Point University'];
 ---
 <BaseLayout title="Teaching — Frazier Smith" current="teaching">
   <header class="page-header">
     <div class="container">
       <span class="kicker">Teaching</span>
-      <h1>Courses across five institutions.</h1>
+      <h1>Courses across seven institutions.</h1>
       <p class="lede">From foundational Linux to graduate cloud computing for analytics — what I'm currently teaching and what I've taught recently.</p>
     </div>
   </header>
@@ -41,6 +42,18 @@ const institutionsOrder = ['Central Piedmont', 'UNC Charlotte', 'Wingate', 'Wake
         </ul>
       </article>
     ))}
+    <article class="inst">
+      <h2>Professional development teaching</h2>
+      <ul class="courses">
+        {professionalDevelopmentTeaching.map((course) => (
+          <li>
+            <div class="head"><strong><a href={course.url}>{course.title}</a></strong></div>
+            <p class="desc">{course.description}</p>
+            <div class="meta"><span>{course.organization} · {course.term}</span></div>
+          </li>
+        ))}
+      </ul>
+    </article>
   </section>
 </BaseLayout>
 
@@ -58,7 +71,7 @@ const institutionsOrder = ['Central Piedmont', 'UNC Charlotte', 'Wingate', 'Wake
   .pill { background: var(--accent); color: var(--page); font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: var(--radius-pill); letter-spacing: .08em; text-transform: uppercase; }
   .level { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
   .desc { font-size: 14px; line-height: 1.55; color: var(--ink-2); margin-top: 6px; }
-  .meta { display: flex; gap: 18px; font-size: 12px; color: var(--muted); margin-top: 8px; font-weight: 600; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 12px; color: var(--muted); margin-top: 8px; font-weight: 600; }
   .meta a { color: var(--accent); }
   @media (max-width: 720px) { h1 { font-size: 40px; } }
 </style>

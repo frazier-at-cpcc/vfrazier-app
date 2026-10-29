@@ -74,7 +74,7 @@ const courses = defineCollection({
   schema: z.object({
     code: z.string(),
     title: z.string(),
-    institution: z.enum(['Central Piedmont', 'UNC Charlotte', 'Wingate', 'Wake Tech', 'Wayne CC']),
+    institution: z.enum(['Central Piedmont', 'UNC Charlotte', 'Wingate', 'Wake Tech', 'Wayne CC', 'East Carolina University', 'Point University']),
     level: z.enum(['Associate', 'Bachelor', 'Graduate', 'Honors']),
     lastTaught: z.string(),
     description: z.string(),

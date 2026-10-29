@@ -23,12 +23,18 @@ const roleMap: Record<string, string> = {
   Wingate: 'Adjunct · Honors',
   'Wake Tech': 'Adjunct',
   'Wayne CC': 'Adjunct',
+  'East Carolina University': 'Instructor',
+  'Point University': 'Instructor',
 };
 const institutions: Array<{ name: string; role: string; courses: string[] }> = [
   'Central Piedmont',
   'UNC Charlotte',
   'Wingate',
-].map((name) => ({
+  'Wake Tech',
+  'Wayne CC',
+  'East Carolina University',
+  'Point University',
+].filter((name) => groupedByInst[name]?.length).map((name) => ({
   name,
   role: roleMap[name],
   courses: groupedByInst[name] ?? [],
