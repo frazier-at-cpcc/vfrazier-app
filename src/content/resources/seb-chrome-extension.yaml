@@ -1,0 +1,16 @@
+title: 'Safe Exam Browser (SEB) LockDown Chrome Extension'
+description: >-
+  A Manifest V3 Chrome extension that ports the Safe Exam Browser Windows
+  client (seb-win-refactoring) into the architecture of the Respondus LockDown
+  Browser extension. It reads plain, gzip-compressed, and password-encrypted
+  .seb configuration files; computes the ConfigurationKey, BrowserExamKey, and
+  per-URL request hash headers an SEB-aware LMS checks; applies SEB URL filter
+  rules; checks displays, virtual-machine signatures, and conflicting
+  extensions before launch; and runs the exam in a frameless fullscreen kiosk
+  window with shortcut blocking, an isolated clipboard, and a lock screen on
+  violations. Loads unpacked in Chrome developer mode and ships with a demo
+  .seb file, an interactive test-bench exam page, and a Node test suite.
+url: https://github.com/frazier-at-cpcc/seb-chrome-extension
+kind: Repository
+audience: Instructional technologists, LMS administrators, and faculty running locked-down online exams
+order: 3.7

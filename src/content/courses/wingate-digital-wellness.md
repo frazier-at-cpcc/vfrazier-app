@@ -1,5 +1,5 @@
 ---
-code: 'Honors 110'
+code: 'WELL 100'
 title: 'Digital Wellness & AI'
 institution: Wingate
 level: Honors

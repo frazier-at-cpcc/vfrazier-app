@@ -1,0 +1,26 @@
+title: 'CompTIA SecAI+ (CY0-001) Course Notes'
+description: >-
+  Open, two-column course notes for CompTIA SecAI+, one exam objective at a
+  time across all four domains: AI concepts for cybersecurity, securing AI
+  systems, AI-assisted security, and AI governance, risk, and compliance.
+  89 pages, 31 topics, with hand-drawn figures, "On the exam" tips, and
+  hands-on "Try it" exercises. The prompt injection, guardrail, and RAG
+  examples show real output from small open models running locally, with no
+  API keys, and the source repository keeps a test script per topic that
+  reruns them. Download the complete book or a single domain. CC BY-NC-SA 4.0.
+url: https://vfrazier.app/secai-course-notes/secai-course-notes.pdf
+urlLabel: 'Complete notes (PDF)'
+links:
+  - label: 'Domain 1: Basic AI Concepts'
+    url: https://vfrazier.app/secai-course-notes/secai-course-notes-domain-1.pdf
+  - label: 'Domain 2: Securing AI Systems'
+    url: https://vfrazier.app/secai-course-notes/secai-course-notes-domain-2.pdf
+  - label: 'Domain 3: AI-assisted Security'
+    url: https://vfrazier.app/secai-course-notes/secai-course-notes-domain-3.pdf
+  - label: 'Domain 4: AI Governance and Risk'
+    url: https://vfrazier.app/secai-course-notes/secai-course-notes-domain-4.pdf
+  - label: 'Source and tests (GitHub)'
+    url: https://github.com/frazier-at-cpcc/secai-course-notes
+kind: Study Guide
+audience: SecAI+ candidates, cybersecurity students, and IT faculty
+order: 0.5

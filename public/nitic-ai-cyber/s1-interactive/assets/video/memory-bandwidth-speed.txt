@@ -1,0 +1,11 @@
+Memory Bandwidth and Token Speed
+
+The DGX Spark has 128 gigabytes of memory. The MacBook Pro gives a model about 46. Yet on the same model, the Mac streams about twice as fast.
+
+First, will it fit? Multiply billions of parameters by bits per weight, then divide by eight. An 8-billion-parameter model at 4 bits is 4 gigabytes of weights. Add 10 to 20 percent for the KV cache and runtime, and plan for about 5.
+
+That's where memory size matters. A 120-billion-parameter model needs about 65 gigabytes. It fits the Spark. It doesn't fit the Mac.
+
+Speed is different. Every token the model writes reads all of its weights once. So the ceiling is bandwidth divided by size. The Spark reads 273 gigabytes per second: about 55 tokens per second. The Mac reads 546: about 109. Real runs land lower, but the ratio holds.
+
+Your turn. A 70-billion-parameter model at 4 bits takes about 40 gigabytes. Pause and estimate: does it fit on the Mac, and what's its tokens-per-second ceiling?

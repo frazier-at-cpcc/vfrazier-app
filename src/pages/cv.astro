@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { professionalDevelopmentTeaching } from '../data/professional-development';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { education, certifications, awards, service } from '../data/credentials';
 
@@ -13,7 +14,7 @@ const groupedCourses = courses.reduce<Record<string, typeof courses>>((acc, c) =
   (acc[c.data.institution] ||= []).push(c);
   return acc;
 }, {});
-const institutionsOrder = ['Central Piedmont', 'UNC Charlotte', 'Wingate', 'Wake Tech', 'Wayne CC'];
+const institutionsOrder = ['Central Piedmont', 'UNC Charlotte', 'Wingate', 'Wake Tech', 'Wayne CC', 'East Carolina University', 'Point University'];
 
 const currentRoles = [
   { years: 'July 2025 – present', title: 'Department Chair, Network Management, Cybersecurity, and Cloud & Virtualization', org: 'Central Piedmont Community College', areas: ['Cybersecurity', 'Cloud & Networking', 'IT Support'] },
@@ -195,6 +196,18 @@ function fmtDate(d: Date) {
           </ul>
         </div>
       ))}
+    </section>
+
+    <section>
+      <h2>Professional development teaching</h2>
+      <ul class="dev-list">
+        {professionalDevelopmentTeaching.map((course) => (
+          <li>
+            <div class="dev-title"><a href={course.url}>{course.title}</a></div>
+            <p>{course.organization} · {course.term}. {course.description}</p>
+          </li>
+        ))}
+      </ul>
     </section>
 
     <section>
