@@ -1,0 +1,4 @@
+import{I as e,L as t,S as n,X as r,w as i,z as a}from"./index-BupHVHYQ.js";import"./legacy-BQf8i0rz.js";import{d as o,h as s,i as c,n as l,r as u,t as d}from"./s5-DhYjIPp7.js";import{t as f}from"./WorksheetBuilder-CNFOt9c8.js";var p={title:`Checking the Portfolio`},m=i(`<h1>Checking the Portfolio</h1> <p>A teaching <strong>portfolio</strong> collects the artifacts that let another instructor run, reset, assess, and troubleshoot a redesigned activity.
+  It has eight items.
+  Mark each one done, in progress, or missing, and note what remains for any item that is not done.
+  A short, honest checklist tells a peer reviewer where to spend time.</p> <div class="s5-inline"><!></div>`,1);function h(i){var p=m(),h=a(t(p),4),g=e(h);f(g,{get title(){return c},get filename(){return l},get storageKey(){return u},get fields(){return d},get example(){return o},get render(){return s},noun:`checklist`}),r(h),n(i,p)}export{h as default,p as pageConfig};
