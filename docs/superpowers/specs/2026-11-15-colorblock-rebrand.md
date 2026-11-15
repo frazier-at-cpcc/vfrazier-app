@@ -71,7 +71,14 @@ in `tokens.css`, so every page (including the standalone resource pages) still r
   circle, circle) on a sun field. Page header bands carry a quarter circle and square in
   the top-right corner (`.cb-band::before/::after`), and the square is dropped below 860px.
 - **The four-block stripe** (violet | sun | coral | teal) is the brand signature: top of every
-  page, footer edge, the 2×2 brand mark (`BrandMark.astro`), the favicon, and the OG image.
+  page and the footer edge.
+- **Logo mark** (`src/assets/logo.svg`, rendered by `BrandMark.astro`; copied to
+  `public/favicon.svg`; used in the OG image). A 2×2 of color blocks, each holding an icon,
+  that reads left to right, top to bottom as the site's story, "From music classroom to AI lab":
+  music notes (violet) → graduation cap (teal, teaching) → server (coral quarter-round) →
+  AI sparkle (sun, research). Icons are drawn by hand on a 24-unit grid, not taken from an
+  icon set, so there is no attribution requirement. Use it at 40px or larger; below about
+  24px the icons blur into texture and only the color blocks read.
 - **Numbered section squares.** `SectionHead` takes a `tone` for its number block; pick one
   that contrasts with the band it sits on.
 - **Highlighter → solid block.** `HighlightPhrase` is a flat sun block; the hero "AI lab." is a
