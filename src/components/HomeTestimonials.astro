@@ -6,12 +6,15 @@ import TestimonialCard from './TestimonialCard.astro';
 const tms = (await getCollection('testimonials'))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 4);
+
+// Each card's quote block takes one of the four identity colors.
+const tones = ['violet', 'coral', 'teal', 'sun'] as const;
 ---
 <section class="section">
   <div class="inner">
-    <SectionHead number="02" label="Testimonials" title="What people say." moreLabel="View on LinkedIn" moreHref="https://www.linkedin.com/in/fraziersmith/details/recommendations/" />
+    <SectionHead number="02" label="Testimonials" title="What people say." moreLabel="View on LinkedIn" moreHref="https://www.linkedin.com/in/fraziersmith/details/recommendations/" tone="coral" />
     <div class="grid">
-      {tms.map((t) => (
+      {tms.map((t, i) => (
         <TestimonialCard
           name={t.data.name}
           role={t.data.role}
@@ -19,6 +22,7 @@ const tms = (await getCollection('testimonials'))
           highlightedPhrase={t.data.highlightedPhrase}
           initials={t.data.initials}
           placeholder={t.data.placeholder}
+          tone={tones[i % tones.length]}
         />
       ))}
     </div>
@@ -26,8 +30,8 @@ const tms = (await getCollection('testimonials'))
 </section>
 
 <style>
-  .section { padding: var(--space-section) 0; border-top: 2px solid var(--ink); }
+  .section { padding: var(--space-section) 0; background: var(--paper); }
   .inner { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-page-x); }
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
   @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
 </style>

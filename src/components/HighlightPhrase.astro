@@ -1,5 +1,5 @@
 ---
-// Wraps a substring of `text` in a yellow highlighter <em>.
+// Wraps a substring of `text` in a solid sun block <em>.
 // If `phrase` is not in `text`, renders text unchanged.
 interface Props { text: string; phrase: string; }
 const { text, phrase } = Astro.props;
@@ -17,9 +17,12 @@ const after = split ? text.slice(idx + phrase.length) : '';
 
 <style>
   em.hl {
-    background: var(--highlight);
+    background: var(--sun);
+    color: var(--ink);
     font-style: normal;
     font-weight: 700;
-    padding: 0 3px;
+    padding: 1px 4px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
   }
 </style>

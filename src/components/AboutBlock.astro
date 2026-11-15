@@ -6,13 +6,15 @@ import teachingMusic from '../assets/teaching-music.jpg';
 ---
 <section class="section">
   <div class="inner">
-    <SectionHead number="03" label="About" title="Music classroom to AI lab." />
+    <SectionHead number="03" label="About" title="Music classroom to AI lab." tone="violet" />
     <div class="about">
       <div class="photo">
         <div class="frame">
           <Image src={teachingMusic} alt="Frazier Smith conducting a music ensemble — a literal music classroom, before the AI lab" widths={[360, 540, 720]} sizes="(max-width: 720px) 280px, 400px" />
         </div>
-        <div class="badge">Classroom <span class="accent">→</span> Enterprise <span class="accent">→</span> Classroom</div>
+        <div class="badge">
+          <span class="step a">Classroom</span><span class="arr" aria-hidden="true">→</span><span class="step b">Enterprise</span><span class="arr" aria-hidden="true">→</span><span class="step c">Classroom</span>
+        </div>
       </div>
       <div class="text">
         <p>Through college, while majoring in music education, I worked in campus ed-tech. My first job after graduating kicked off a decade in enterprise instructional design and technical training — building and delivering courses for working engineers. I came back to higher ed by adjuncting at a community college, grew that into a full-time role, then department chair, and circled back to my alma mater to teach applied AI.</p>
@@ -27,52 +29,59 @@ import teachingMusic from '../assets/teaching-music.jpg';
 </section>
 
 <style>
-  .section { padding: var(--space-section) 0; border-top: 2px solid var(--ink); }
-  .inner { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-page-x); }
-  .about { display: grid; grid-template-columns: 360px 1fr; gap: 50px; align-items: start; }
-  .photo { position: relative; }
-  .frame {
-    background: var(--highlight);
-    border: 2.5px solid var(--ink);
-    padding: 16px;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-about);
+  .section {
+    padding: var(--space-section) 0;
+    background: var(--sun);
+    color: var(--ink);
   }
+  .inner { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-page-x); }
+  .about { display: grid; grid-template-columns: 400px 1fr; gap: 0; align-items: start; background: var(--white); }
+  .photo { background: var(--ink); }
   .frame img {
     display: block;
     width: 100%;
-    border-radius: var(--radius-sm);
-    border: 2px solid var(--ink);
     height: auto;
   }
   .badge {
-    position: absolute;
-    bottom: -18px;
-    left: 30px;
-    background: var(--ink);
-    color: var(--page);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
     font-size: 11px;
     font-weight: 800;
-    padding: 8px 14px;
-    border-radius: var(--radius-pill);
-    letter-spacing: .06em;
+    letter-spacing: .08em;
     text-transform: uppercase;
   }
-  .badge .accent { color: var(--accent-light); }
+  .badge .step { padding: 12px 12px; flex: 1 1 auto; text-align: center; }
+  .badge .step.a { background: var(--violet); color: var(--white); }
+  .badge .step.b { background: var(--teal); color: var(--ink); }
+  .badge .step.c { background: var(--coral); color: var(--ink); }
+  .badge .arr { display: flex; align-items: center; padding: 0 8px; color: var(--sun); background: var(--ink); }
+  .text { padding: 36px 40px 30px; }
   .text p { font-size: 16px; line-height: 1.65; margin: 0 0 14px; color: var(--ink-2); }
   .pullquote {
-    font-size: 22px;
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-size: 23px;
     font-weight: 800;
     line-height: 1.25;
-    padding: 18px 0;
-    border-top: 2px solid var(--ink);
-    border-bottom: 2px solid var(--ink);
-    margin: 20px 0;
-    letter-spacing: -.015em;
+    padding: 22px 24px;
+    margin: 22px 0;
+    letter-spacing: -.01em;
+    background: var(--violet);
+    color: var(--white);
   }
-  .more { color: var(--accent); font-weight: 700; }
+  .more {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 800;
+    font-size: 14px;
+    padding: 12px 18px;
+    margin-top: 6px;
+  }
+  .more:hover { background: var(--violet); color: var(--white); }
   @media (max-width: 860px) {
-    .about { grid-template-columns: 1fr; gap: 36px; }
-    .photo { max-width: 320px; }
+    .about { grid-template-columns: 1fr; }
+    .text { padding: 26px 22px 22px; }
   }
 </style>

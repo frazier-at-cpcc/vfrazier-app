@@ -1,0 +1,23 @@
+---
+// The colorblock brand mark: one square per identity
+// (speaking violet, research sun, writing coral, teaching teal).
+interface Props { size?: number; }
+const { size = 22 } = Astro.props;
+---
+<span class="mark" style={`--s:${size}px`} aria-hidden="true">
+  <span class="v"></span><span class="s"></span><span class="c"></span><span class="t"></span>
+</span>
+
+<style>
+  .mark {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    width: var(--s);
+    height: var(--s);
+    flex-shrink: 0;
+  }
+  .v { background: var(--violet); }
+  .s { background: var(--sun); }
+  .c { background: var(--coral); border-radius: 0 0 0 100%; }
+  .t { background: var(--teal); }
+</style>

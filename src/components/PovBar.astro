@@ -1,24 +1,50 @@
 ---
-// One-line thesis bar at the very top of every page.
+// One-line thesis bar at the very top of every page, under the four-block stripe.
 ---
 <aside class="pov">
-  <span class="arrow" aria-hidden="true">▸</span>
-  Entry-level IT work is being rewritten by AI faster than community-college curriculum can absorb.
-  <span class="hl">I'm working on closing that gap.</span>
+  <span class="tag">POV</span>
+  <span class="text">
+    Entry-level IT work is being rewritten by AI faster than community-college curriculum can absorb.
+    <span class="hl">I'm working on closing that gap.</span>
+  </span>
 </aside>
 
 <style>
   .pov {
     background: var(--ink);
-    color: var(--page);
-    padding: 14px 24px;
+    color: var(--paper);
     font-size: 14px;
     line-height: 1.4;
     font-weight: 600;
-    text-align: center;
     letter-spacing: -.005em;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    position: relative;
+    padding-top: 6px;
   }
-  .pov .hl { color: var(--highlight); }
-  .pov .arrow { color: var(--accent-light); margin-right: 6px; }
-  @media (max-width: 720px) { .pov { font-size: 13px; padding: 12px 16px; } }
+  .pov::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 6px;
+    background: var(--stripe);
+  }
+  .tag {
+    background: var(--sun);
+    color: var(--ink);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .16em;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .text { padding: 12px 18px; }
+  .hl { color: var(--sun); }
+  @media (max-width: 720px) {
+    .pov { font-size: 13px; justify-content: flex-start; }
+    .text { padding: 11px 14px; }
+  }
 </style>

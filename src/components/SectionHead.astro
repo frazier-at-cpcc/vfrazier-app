@@ -1,50 +1,89 @@
 ---
+type Tone = 'violet' | 'sun' | 'coral' | 'teal' | 'ink' | 'paper';
 interface Props {
   number: string;
   label: string;
   title: string;
   moreLabel?: string;
   moreHref?: string;
+  /** Fill of the number block. Pick one that contrasts with the section band. */
+  tone?: Tone;
 }
-const { number, label, title, moreLabel, moreHref } = Astro.props;
+const { number, label, title, moreLabel, moreHref, tone = 'ink' } = Astro.props;
+const tones: Record<Tone, [string, string]> = {
+  violet: ['var(--violet)', 'var(--white)'],
+  sun: ['var(--sun)', 'var(--ink)'],
+  coral: ['var(--coral)', 'var(--ink)'],
+  teal: ['var(--teal)', 'var(--ink)'],
+  ink: ['var(--ink)', 'var(--paper)'],
+  paper: ['var(--paper)', 'var(--ink)'],
+};
+const [bg, fg] = tones[tone];
 ---
 <div class="head">
-  <span class="badge">{number} / {label}</span>
-  <h2>{title}</h2>
+  <span class="num" style={`background:${bg};color:${fg}`}>{number}</span>
+  <div class="titles">
+    <span class="label">{label}</span>
+    <h2>{title}</h2>
+  </div>
   {moreLabel && moreHref && <a class="more" href={moreHref}>{moreLabel}</a>}
 </div>
 
 <style>
   .head {
     display: flex;
-    align-items: baseline;
-    gap: 18px;
-    margin-bottom: 36px;
+    align-items: stretch;
+    gap: 20px;
+    margin-bottom: 40px;
     flex-wrap: wrap;
+    color: inherit;
   }
-  .badge {
+  .num {
+    width: 76px;
+    min-height: 76px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 0 0 6px 8px;
+    font-family: var(--font-display);
+    font-stretch: 125%;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .titles { display: flex; flex-direction: column; justify-content: flex-end; }
+  .label {
     font-size: 11px;
-    letter-spacing: .15em;
+    letter-spacing: .16em;
     text-transform: uppercase;
     font-weight: 800;
-    background: var(--ink);
-    color: var(--page);
-    padding: 4px 10px;
-    border-radius: 4px;
+    margin-bottom: 6px;
   }
   h2 {
-    font-size: 40px;
+    font-size: 44px;
     margin: 0;
-    font-weight: 800;
-    letter-spacing: -.025em;
+    font-weight: 900;
+    letter-spacing: -.02em;
     line-height: 1;
   }
   .more {
     margin-left: auto;
+    align-self: flex-end;
     font-size: 13px;
-    font-weight: 700;
-    color: var(--accent);
+    font-weight: 800;
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    padding: 4px 6px;
   }
   .more::after { content: ' →'; }
-  @media (max-width: 720px) { h2 { font-size: 30px; } }
+  .more:hover { background: var(--ink); color: var(--paper); text-decoration: none; }
+  @media (max-width: 720px) {
+    .head { gap: 14px; }
+    .num { width: 56px; min-height: 56px; font-size: 22px; }
+    h2 { font-size: 30px; }
+    .more { margin-left: 70px; }
+  }
 </style>

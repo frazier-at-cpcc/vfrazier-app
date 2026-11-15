@@ -1,4 +1,5 @@
 ---
+type Fill = 'white' | 'paper' | 'lilac' | 'mint' | 'blush' | 'butter';
 interface Props {
   tag: string;
   title: string;
@@ -6,58 +7,82 @@ interface Props {
   featured?: boolean;
   nsfFunded?: boolean;
   href?: string;
+  /** Block fill. Featured cards are always sun. */
+  fill?: Fill;
 }
-const { tag, title, excerpt, featured = false, nsfFunded = false, href } = Astro.props;
+const { tag, title, excerpt, featured = false, nsfFunded = false, href, fill = 'white' } = Astro.props;
 const ContentEl = href ? 'a' : 'article';
+const fillClass = featured ? 'f-sun' : `f-${fill}`;
 ---
-<ContentEl class:list={['card', featured && 'featured']} href={href}>
+<ContentEl class:list={['card', fillClass, featured && 'featured']} href={href}>
   <span class="tag">
     {tag}
     {nsfFunded && <span class="nsf">NSF</span>}
   </span>
   <h3>{title}</h3>
   <p>{excerpt}</p>
+  {href && <span class="go" aria-hidden="true">→</span>}
 </ContentEl>
 
 <style>
   .card {
-    display: block;
-    background: var(--card);
-    border: 2px solid var(--ink);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    padding: 30px 30px 26px;
     color: var(--ink);
+    min-height: 240px;
+    transition: background-color .15s, color .15s;
   }
-  .card.featured { background: var(--highlight-soft); }
-  a.card:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); transition: transform .12s, box-shadow .12s; }
+  .f-white { background: var(--white); }
+  .f-paper { background: var(--paper); }
+  .f-lilac { background: var(--lilac); }
+  .f-mint { background: var(--mint); }
+  .f-blush { background: var(--blush); }
+  .f-butter { background: var(--butter); }
+  .f-sun { background: var(--sun); }
+  a.card:hover { background: var(--ink); color: var(--paper); }
+  a.card:hover p { color: var(--footer-text); }
+  a.card:hover .go { background: var(--sun); color: var(--ink); }
   .tag {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 10px;
-    letter-spacing: .12em;
+    letter-spacing: .14em;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     font-weight: 800;
-    color: var(--accent);
   }
+  .tag::before { content: ''; width: 10px; height: 10px; background: var(--violet); flex-shrink: 0; }
+  a.card:hover .tag::before { background: var(--sun); }
   .nsf {
-    display: inline-block;
     background: var(--ink);
-    color: var(--highlight);
+    color: var(--sun);
     font-size: 9px;
     font-weight: 800;
-    padding: 2px 6px;
-    border-radius: 3px;
+    padding: 3px 6px;
     letter-spacing: .1em;
-    margin-left: 6px;
-    vertical-align: middle;
   }
   h3 {
-    font-size: 19px;
-    margin: 0 0 10px;
+    font-size: 21px;
+    margin: 0 0 12px;
     font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: -.015em;
+    line-height: 1.15;
+    letter-spacing: -.01em;
   }
-  p { font-size: 13px; line-height: 1.55; margin: 0; color: #3a2c1a; }
+  p { font-size: 14px; line-height: 1.55; margin: 0; color: var(--ink-2); }
+  .go {
+    margin-top: auto;
+    align-self: flex-end;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 800;
+    font-size: 18px;
+    transform: translateY(6px);
+  }
 </style>

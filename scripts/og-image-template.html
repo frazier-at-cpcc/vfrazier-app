@@ -3,156 +3,142 @@
 <head>
 <meta charset="utf-8" />
 <style>
-  @import url('https://rsms.me/inter/inter.css');
+  /* Fonts load from node_modules so the render works offline. */
+  @font-face {
+    font-family: 'Inter Variable';
+    font-weight: 100 900;
+    src: url('../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2-variations');
+  }
+  @font-face {
+    font-family: 'Archivo Variable';
+    font-weight: 100 900;
+    font-stretch: 62% 125%;
+    src: url('../node_modules/@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2') format('woff2-variations');
+  }
+  :root {
+    --ink: #15110d; --paper: #f6f1e8; --violet: #5b21b6; --sun: #ffd60a;
+    --coral: #ff7a59; --teal: #3ccfa9; --ink-2: #3a2f24; --footer-text: #e3dacb;
+  }
   * { box-sizing: border-box; margin: 0; }
-  html, body { width: 1200px; height: 630px; font-family: 'Inter', system-ui, sans-serif; background: #ebe9e6; color: #1a1209; }
+  html, body { width: 1200px; height: 630px; font-family: 'Inter Variable', system-ui, sans-serif; background: var(--paper); color: var(--ink); }
   .card {
     width: 1200px;
     height: 630px;
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 60px;
-    padding: 70px;
+    grid-template-columns: 1fr 470px;
     position: relative;
     overflow: hidden;
   }
-  .card::before {
-    content: '';
+  .stripe {
     position: absolute;
-    top: -80px;
-    right: 320px;
-    width: 200px;
-    height: 200px;
-    background: #ffd60a;
-    border-radius: 50%;
-    opacity: 0.65;
+    inset: 0 0 auto 0;
+    height: 12px;
+    z-index: 2;
+    background: linear-gradient(90deg, var(--violet) 0 25%, var(--sun) 25% 50%, var(--coral) 50% 75%, var(--teal) 75% 100%);
   }
-  .card::after {
-    content: '';
-    position: absolute;
-    bottom: -50px;
-    left: 40%;
-    width: 140px;
-    height: 140px;
-    background: #6d28d9;
-    border-radius: 50%;
-    opacity: 0.15;
-  }
-  .text { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; }
+  .text { padding: 70px 50px 60px 70px; display: flex; flex-direction: column; justify-content: center; }
   .eyebrow {
     display: inline-block;
-    background: #1a1209;
-    color: #ebe9e6;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 18px;
-    font-weight: 700;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 9px 14px;
+    font-size: 16px;
+    font-weight: 800;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     align-self: flex-start;
-    margin-bottom: 28px;
+    margin-bottom: 30px;
   }
   h1 {
-    font-size: 86px;
-    line-height: 0.94;
-    font-weight: 800;
-    letter-spacing: -0.03em;
+    font-family: 'Archivo Variable', sans-serif;
+    font-stretch: 112%;
+    font-size: 78px;
+    line-height: 0.98;
+    font-weight: 900;
+    letter-spacing: -0.025em;
     margin-bottom: 28px;
   }
   h1 .hl {
-    background: #ffd60a;
-    padding: 0 10px;
+    display: inline-block;
+    background: var(--violet);
+    color: #fff;
+    padding: 0 14px 4px;
+    margin-top: 10px;
   }
   .lede {
-    font-size: 26px;
+    font-size: 24px;
     line-height: 1.35;
-    font-weight: 500;
-    color: #2a1d10;
-    margin-bottom: 24px;
+    font-weight: 600;
+    color: var(--ink-2);
+    margin-bottom: 30px;
   }
   .domain {
     display: inline-flex;
     align-items: center;
-    background: #6d28d9;
-    color: #ebe9e6;
-    padding: 10px 18px;
-    border-radius: 99px;
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+    gap: 14px;
+    font-family: 'Archivo Variable', sans-serif;
+    font-stretch: 118%;
+    font-size: 26px;
+    font-weight: 850;
     align-self: flex-start;
   }
-  .domain::before {
-    content: '';
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    background: #ffd60a;
-    border-radius: 50%;
-    margin-right: 12px;
-  }
-  .right {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .frame {
-    background: #6d28d9;
-    border: 4px solid #1a1209;
-    border-radius: 16px;
-    padding: 16px;
-    box-shadow: 14px 14px 0 #1a1209;
-    width: 320px;
-    position: relative;
-  }
-  .frame img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    border: 3px solid #1a1209;
-  }
-  .stamp {
-    position: absolute;
-    top: -24px;
-    right: -34px;
-    background: #ffd60a;
-    border: 3px solid #1a1209;
-    padding: 9px 14px;
-    border-radius: 10px;
-    font-size: 13px;
+  .mark { display: inline-grid; grid-template-columns: 1fr 1fr; width: 30px; height: 30px; }
+  .mark span:nth-child(1) { background: var(--violet); }
+  .mark span:nth-child(2) { background: var(--sun); }
+  .mark span:nth-child(3) { background: var(--coral); border-radius: 0 0 0 100%; }
+  .mark span:nth-child(4) { background: var(--teal); }
+
+  .field { background: var(--sun); display: flex; align-items: flex-end; padding-left: 36px; }
+  .collage { display: grid; grid-template-columns: 300px 100px; grid-template-rows: repeat(3, 150px) auto; }
+  .photo { grid-area: 1 / 1 / 4 / 2; }
+  .photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .shape { position: relative; overflow: hidden; }
+  .shape::before { content: ''; position: absolute; }
+  .s1 { background: var(--coral); }
+  .s1::before { inset: 0; background: var(--paper); border-radius: 0 0 0 100%; }
+  .s2 { background: var(--teal); }
+  .s2::before { left: 0; right: 0; bottom: 0; height: 50%; background: var(--paper); border-radius: 999px 999px 0 0; }
+  .s3 { background: var(--violet); }
+  .s3::before { width: 62px; height: 62px; top: 44px; left: 19px; background: var(--sun); border-radius: 50%; }
+  .focus {
+    grid-column: 1 / -1;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 18px 16px;
+    font-family: 'Archivo Variable', sans-serif;
+    font-stretch: 112%;
     font-weight: 800;
+    font-size: 20px;
     line-height: 1.2;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    transform: rotate(6deg);
-    text-align: center;
-    max-width: 200px;
-    box-shadow: 4px 4px 0 #1a1209;
   }
-  .stamp .top {
+  .focus .top {
     display: block;
-    font-size: 10px;
-    color: #6d28d9;
-    margin-bottom: 3px;
-    letter-spacing: 0.12em;
+    font-family: 'Inter Variable', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--sun);
+    margin-bottom: 4px;
   }
 </style>
 </head>
 <body>
   <div class="card">
+    <div class="stripe"></div>
     <div class="text">
       <span class="eyebrow">Dept Chair · NSF Co-PI · ex-VMware</span>
       <h1>From music<br/>classroom to<br/><span class="hl">AI lab.</span></h1>
       <p class="lede">AI &amp; IT educator. Learning design leader. Speaker on the things in between.</p>
-      <span class="domain">vfrazier.app</span>
+      <span class="domain"><span class="mark"><span></span><span></span><span></span><span></span></span>vfrazier.app</span>
     </div>
-    <div class="right">
-      <div class="frame">
-        <span class="stamp"><span class="top">Research focus</span>AI × Entry-Level Workforce</span>
-        <img src="../src/assets/headshot.jpg" alt="Dr. Frazier A. Smith" />
+    <div class="field">
+      <div class="collage">
+        <div class="photo"><img src="../src/assets/headshot.jpg" alt="Dr. Frazier A. Smith" /></div>
+        <span class="shape s1"></span>
+        <span class="shape s2"></span>
+        <span class="shape s3"></span>
+        <div class="focus"><span class="top">Research focus</span>AI × Entry-Level Workforce</div>
       </div>
     </div>
   </div>

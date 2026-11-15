@@ -130,6 +130,12 @@ review, curriculum development) are inline arrays/markup in `src/pages/cv.astro`
 
 ## Design system quick reference
 
+> **On branch `claude/colorblock-rebrand`:** the site is restyled as a colorblock theme
+> (four identity colors, full-bleed bands, no borders/shadows, Archivo display face).
+> The source of truth for that look is
+> `docs/superpowers/specs/2026-11-15-colorblock-rebrand.md`; the notes below describe
+> the current production ("sticker-pack") look on `main`.
+
 Tokens live in `src/styles/tokens.css`. The look is deliberately editorial/"sticker-pack":
 
 - Warm stone background (`--page #ebe9e6`), ink text (`--ink #1a1209`), purple accent

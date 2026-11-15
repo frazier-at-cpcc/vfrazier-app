@@ -11,10 +11,10 @@ import { education, certifications, awards, service } from '../data/credentials'
 const career = (await getCollection('career')).sort((a, b) => a.data.order - b.data.order);
 ---
 <BaseLayout title="About — Frazier Smith" current="about">
-  <header class="page-header">
+  <header class="page-header cb-band">
     <div class="container hdr">
       <div>
-        <span class="kicker">About</span>
+        <span class="cb-kicker">About</span>
         <h1>Music classroom to AI lab.</h1>
         <p class="lede">I lead the Network, Cybersecurity, and Cloud department at Central Piedmont; serve as graduate faculty at UNC Charlotte; teach Applied Innovation in Wingate's Honors program; and co-PI an NSF ATE grant building one of NC's first associate-degree AI programs.</p>
         <div class="cv-row">
@@ -98,33 +98,33 @@ const career = (await getCollection('career')).sort((a, b) => a.data.order - b.d
 
 <style>
   .container { max-width: var(--container-max); margin: 0 auto; padding-left: var(--space-page-x); padding-right: var(--space-page-x); }
-  .page-header { padding: 70px 0 50px; border-bottom: 2px solid var(--ink); }
+  .page-header { padding: 70px 0 50px; }
   .hdr { display: grid; grid-template-columns: 1.4fr 1fr; gap: 50px; align-items: center; }
-  .kicker { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 800; background: var(--ink); color: var(--page); padding: 4px 10px; border-radius: 4px; }
-  h1 { font-size: 60px; line-height: 1; margin: 18px 0 18px; font-weight: 800; letter-spacing: -.035em; }
-  .lede { font-size: 17px; line-height: 1.55; color: var(--ink-2); margin-bottom: 22px; }
+  h1 { font-size: 56px; line-height: 1.02; margin: 18px 0 18px; font-weight: 900; letter-spacing: -.025em; }
+  .lede { font-size: 17px; line-height: 1.55; color: inherit; margin-bottom: 22px; }
   .cv-row { display: flex; gap: 10px; flex-wrap: wrap; }
   .cv-btn { padding: 11px 18px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; display: inline-block; }
   .cv-btn.primary { background: var(--ink); color: var(--page); }
   .cv-btn.ghost { background: transparent; border: 2px solid var(--ink); color: var(--ink); padding: 9px 16px; }
-  .photo img { border-radius: var(--radius-lg); border: 2.5px solid var(--ink); box-shadow: var(--shadow-card); width: 100%; height: auto; }
+  .photo img { width: 100%; height: auto; display: block; box-shadow: 16px 16px 0 0 var(--violet); }
 
   .section { padding: 50px 0 0; }
   .section.last { padding-bottom: 80px; }
   .section h2 { font-size: 28px; font-weight: 800; margin: 0 0 18px; letter-spacing: -.02em; }
   .section p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px; max-width: 75ch; }
-  .thesis { font-size: 18px; font-weight: 600; padding: 18px; background: var(--card); border: 2px solid var(--accent); border-radius: var(--radius-lg); margin-top: 18px; }
+  .thesis { font-size: 18px; font-weight: 600; padding: 20px 22px; background: var(--violet); color: var(--white); margin-top: 18px; }
   .pathways { list-style: none; display: grid; gap: 14px; margin: 14px 0 18px; padding: 0; }
   .pathways li {
     background: var(--card);
-    border: 2px solid var(--ink);
-    border-radius: var(--radius-lg);
     padding: 16px 20px;
     font-size: 15px;
     line-height: 1.55;
     color: var(--ink-2);
-    border-left: 6px solid var(--accent);
+    border-left: 10px solid var(--violet);
   }
+  .pathways li:nth-child(4n+2) { border-left-color: var(--coral); }
+  .pathways li:nth-child(4n+3) { border-left-color: var(--teal); }
+  .pathways li:nth-child(4n+4) { border-left-color: var(--sun); }
   .pathways strong { color: var(--ink); font-weight: 800; font-size: 15px; }
 
   .career, .edu { list-style: none; display: grid; gap: 6px; }
