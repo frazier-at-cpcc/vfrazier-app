@@ -42,6 +42,9 @@ Navigation order in the header: **Home · Speaking · Writing · Talks · Teachi
 
 ## 3. Visual Design System
 
+> **Superseded 2026-11-15** by the colorblock rebrand: see
+> `2026-11-15-colorblock-rebrand.md`. Kept for history.
+
 ### Palette
 
 | Token | Hex | Use |
@@ -334,3 +337,4 @@ These don't block the spec but will be confirmed during build:
 Changes made after initial launch that extend the approved IA/nav rather than replacing it. Logged here so this spec stays the accurate source of truth.
 
 - **`/resources` (added 2026-07).** A seventh nav item — **Home · Speaking · Writing · Talks · Teaching · Resources · About** plus the "Book a talk →" pill — listing free, self-published study materials, templates, and tools (e.g., AWS Academy study guides). Content collection: `resources` (`src/content/resources/*.yaml`), fields `title`, `description`, `url`, `kind` (enum: Study Guide/Template/Tool/Dataset/Repository), `audience?`, `order`. Same card motif as `/speaking`'s topic cards; empty-state copy if the collection is ever emptied.
+- **Colorblock rebrand (2026-11-15).** Replaces §3 (visual system) with the colorblock theme in `2026-11-15-colorblock-rebrand.md`: four identity colors, full-bleed bands, Archivo display face, and a four-block icon logo. IA, nav, content model, and copy are unchanged, except that the home Teaching section now features only Central Piedmont, UNC Charlotte, and Wingate, and the `/teaching` H1 reads "Teaching across IT disciplines."

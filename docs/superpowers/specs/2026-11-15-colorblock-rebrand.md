@@ -1,7 +1,7 @@
 # vfrazier.app: Colorblock Rebrand (Exploration)
 
-**Status:** exploration on branch `claude/colorblock-rebrand`. Not adopted. If adopted, this
-replaces §3 (Visual Design System) of `2026-05-11-portfolio-site-design.md`. IA, content
+**Status:** adopted 2026-11-15 (PR #41). This replaces §3 (Visual Design System) of
+`2026-05-11-portfolio-site-design.md`. IA, content
 model, copy, and the conversion target (speaking invitations) are unchanged.
 
 ---
@@ -98,8 +98,8 @@ in `tokens.css`, so every page (including the standalone resource pages) still r
 - **Font weight.** Archivo's Latin wdth file is ~90 KB (woff2). That is a real cost against
   the §7 budget (< 200 KB gzipped excluding hero). If adopted, consider instancing it down
   to wdth 112–125 / wght 800–900 with fonttools, or dropping the wdth axis.
-- **CV PDF.** `/cv` inherits the new tokens and display face, but `public/cv.pdf` was not
-  regenerated. Run `npm run cv:pdf` if this is adopted.
+- **CV PDF.** Regenerated when this was adopted; `/cv` prints with the new display face and
+  violet section labels.
 - **Standalone resource pages** (`src/pages/resources/*.astro`) only inherit tokens; they
   were not redesigned.
 - **Headshot resolution.** The source is 300×450, so the collage is sized to show it at

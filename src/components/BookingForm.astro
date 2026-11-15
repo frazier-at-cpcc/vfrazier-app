@@ -1,33 +1,13 @@
 ---
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x00000000000000000000AA';
 ---
-<form class="form" method="POST" action="/api/book" id="book">
-  <div class="form-error" id="form-error" hidden>
+<form class="form" method="POST" action="/api/book" id="book-form">
+  <div class="form-error" id="form-error" role="alert" tabindex="-1" hidden>
     <strong>Your inquiry didn't send.</strong>
     <span id="form-error-detail">Something went wrong.</span>
-    You can try again below — or skip the form and email me directly:
-    <a href="mailto:frazier@vfrazier.app">frazier@vfrazier.app</a>
+    <span id="form-error-next">You can try again below, or skip the form and email me directly.</span>
+    <a class="form-mailto" id="form-mailto" href="mailto:frazier@vfrazier.app">Email frazier@vfrazier.app →</a>
   </div>
-  <script is:inline>
-    (function () {
-      var code = new URLSearchParams(location.search).get('error');
-      if (!code) return;
-      var messages = {
-        missing: 'A required field was empty — please fill every field marked with *.',
-        verification: 'The bot check could not be verified. Please try again — the checkbox needs to finish before you submit.',
-        invalid: 'The submission was flagged as automated. If you are human, try again or email me.',
-        config: 'The form backend is misconfigured on my end (code: config).',
-        internal: 'The form backend hit an unexpected error (code: internal).',
-      };
-      var detail = messages[code] || (code.indexOf('email-') === 0
-        ? 'Your message passed all checks but email delivery failed on my end (code: ' + code + ').'
-        : 'Unexpected error (code: ' + code + ').');
-      var box = document.getElementById('form-error');
-      var span = document.getElementById('form-error-detail');
-      if (span) span.textContent = detail;
-      if (box) box.hidden = false;
-    })();
-  </script>
   <div class="row">
     <label>
       <span>Your name<span class="req">*</span></span>
@@ -78,6 +58,90 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
 
   <button type="submit" class="submit">Send inquiry →</button>
   <p class="legal">Goes straight to frazier@vfrazier.app. Reply within ~2 business days.</p>
+
+  <script is:inline>
+    // Progressive enhancement. Without JS the form posts normally and the
+    // server redirects back with ?error=<code>. With JS it posts in the
+    // background, so on any failure the visitor's text stays in the form and
+    // "Email it instead" opens their mail app with the inquiry pre-filled.
+    // A broken backend can no longer lose an inquiry.
+    (function () {
+      // The speaking page wraps this form in <section id="book"> (the #book anchor), so the form has its own id.
+      var form = document.getElementById('book-form');
+      var box = document.getElementById('form-error');
+      var detail = document.getElementById('form-error-detail');
+      var next = document.getElementById('form-error-next');
+      var mailto = document.getElementById('form-mailto');
+      var button = form.querySelector('.submit');
+      var label = button.textContent;
+      var messages = {
+        missing: 'A required field was empty — please fill every field marked with *.',
+        verification: 'The bot check could not be verified. Wait for the checkbox to finish, then try again.',
+        invalid: 'The submission was flagged as automated. If you are human, try again or email me.',
+        config: 'The form backend is misconfigured on my end (code: config).',
+        internal: 'The form backend hit an unexpected error (code: internal).',
+        network: 'Your browser could not reach the form backend (code: network).',
+      };
+      function describe(code) {
+        return messages[code] || (code.indexOf('email-') === 0
+          ? 'Your message passed all checks but email delivery failed on my end (code: ' + code + ').'
+          : 'Unexpected error (code: ' + code + ').');
+      }
+      function val(name) {
+        var el = form.elements.namedItem(name);
+        return el && 'value' in el ? String(el.value).trim() : '';
+      }
+      function mailtoHref() {
+        var org = val('organization');
+        var date = val('event_date');
+        var subject = 'Speaking inquiry' + (org ? ' — ' + org : '') + (date ? ' (' + date + ')' : '');
+        var body = [
+          'Name: ' + val('name'),
+          'Email: ' + val('email'),
+          'Organization: ' + org,
+          'Event date: ' + date,
+          'Topic: ' + val('topic_interest'),
+          '',
+          val('message'),
+        ].join('\n');
+        return 'mailto:frazier@vfrazier.app?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      }
+      function show(code, keptTyped) {
+        detail.textContent = describe(code);
+        if (keptTyped) {
+          next.textContent = 'What you typed is still below. Send it by email instead (your email app opens with everything filled in), or try again.';
+          mailto.href = mailtoHref();
+          mailto.textContent = 'Email it instead →';
+        }
+        box.hidden = false;
+        box.focus();
+      }
+
+      var code = new URLSearchParams(location.search).get('error');
+      if (code) show(code, false);
+
+      if (!window.fetch || !window.FormData) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        button.disabled = true;
+        button.textContent = 'Sending…';
+        fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+          .then(function (res) {
+            return res.json().catch(function () { return {}; }).then(function (data) {
+              if (res.ok && data.ok) { location.assign('/speaking/thanks'); return; }
+              show(data.code || 'http-' + res.status, true);
+            });
+          })
+          .catch(function () { show('network', true); })
+          .then(function () {
+            button.disabled = false;
+            button.textContent = label;
+            // Turnstile tokens are single-use; get a fresh one for the retry.
+            if (window.turnstile) { try { window.turnstile.reset(); } catch (err) {} }
+          });
+      });
+    })();
+  </script>
 </form>
 
 <style>
@@ -93,6 +157,18 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
     color: var(--ink-2);
   }
   .form-error a { color: var(--accent); font-weight: 700; text-decoration: underline; }
+  .form-error span { display: block; margin-top: 4px; }
+  .form-error .form-mailto {
+    display: inline-block;
+    margin-top: 12px;
+    background: var(--ink);
+    color: var(--page);
+    padding: 10px 16px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+  }
+  .form-error .form-mailto:hover { background: var(--accent); }
+  .form-error:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
   .row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
   label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; }
   label .req { color: var(--accent); margin-left: 3px; }
