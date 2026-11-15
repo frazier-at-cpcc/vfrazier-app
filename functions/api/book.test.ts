@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { onRequestPost } from './book';
+import { onRequestGet, onRequestPost } from './book';
 
 const buildContext = (
   body: Record<string, unknown>,
@@ -164,5 +164,25 @@ describe('booking form handler', () => {
     expect(res.status).toBe(500);
     const body = (await res.json()) as { code: string };
     expect(body.code).toBe('config');
+  });
+});
+
+describe('booking form status check (GET)', () => {
+  const getCtx = (env: Record<string, string>) =>
+    ({ request: new Request('https://vfrazier.app/api/book'), env }) as any;
+
+  it('reports ok when both secrets are present, without exposing values', async () => {
+    const res = await onRequestGet(getCtx({ RESEND_API_KEY: 're_live_secret', TURNSTILE_SECRET_KEY: 'ts_secret' }));
+    expect(res.status).toBe(200);
+    expect(res.headers.get('Cache-Control')).toBe('no-store');
+    const text = await res.text();
+    expect(JSON.parse(text)).toEqual({ ok: true, resend: true, turnstile: true });
+    expect(text).not.toContain('re_live_secret');
+    expect(text).not.toContain('ts_secret');
+  });
+
+  it('flags a missing or blank secret', async () => {
+    const res = await onRequestGet(getCtx({ RESEND_API_KEY: '  ', TURNSTILE_SECRET_KEY: 'ts_secret' }));
+    expect(await res.json()).toEqual({ ok: false, resend: false, turnstile: true });
   });
 });
