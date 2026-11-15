@@ -13,7 +13,7 @@ const career = (await getCollection('career')).sort((a, b) => a.data.order - b.d
 <BaseLayout title="About — Frazier Smith" current="about">
   <header class="page-header cb-band">
     <div class="container hdr">
-      <div>
+      <div class="hdr-text">
         <span class="cb-kicker">About</span>
         <h1>Music classroom to AI lab.</h1>
         <p class="lede">I lead the Network, Cybersecurity, and Cloud department at Central Piedmont; serve as graduate faculty at UNC Charlotte; teach Applied Innovation in Wingate's Honors program; and co-PI an NSF ATE grant building one of NC's first associate-degree AI programs.</p>
@@ -22,30 +22,38 @@ const career = (await getCollection('career')).sort((a, b) => a.data.order - b.d
           <a href="/cv.pdf" class="cv-btn ghost">Download PDF</a>
         </div>
       </div>
+      {/* The source headshot is 300px wide; show it at native size, never upscaled. */}
       <div class="photo">
-        <Image src={headshot} alt="Dr. Frazier A. Smith" widths={[280, 420, 560]} sizes="(max-width: 720px) 220px, 320px" />
+        <Image src={headshot} alt="Dr. Frazier A. Smith" widths={[300]} sizes="300px" />
       </div>
     </div>
   </header>
 
-  <section class="container section">
-    <h2>Classroom → Enterprise → Classroom</h2>
-    <p>Through college at Wingate — where I majored in music education — I served as the campus Educational Technology Specialist. After graduating in 2014, my first post-college role was on Belk's eLearning team. That kicked off a decade in enterprise instructional design and technical training, with stops at CPI Security, SnapAV, Anomali, Carbon Black, VMware, Broadcom, and Fast Lane. The work was always teaching — just teaching working engineers instead of students.</p>
-    <p>I came back to higher ed in 2023 by adjuncting at Central Piedmont. That grew into a full-time instructor role, and then into Department Chair in 2025. From there I returned to Wingate — my alma mater — as adjunct in the Honors program, this time to co-teach applied AI.</p>
-    <p>Along the way: I led a 12-person content team at VMware responsible for sixteen courses across vSphere, VMware Cloud, and HCX — work that drove $40M in customer revenue in 2022. I modernized the team's process from ADDIE to a SAM-based, agile approach suited to the pace of SaaS. As senior instructor, I led the Carbon Black and VMware on AWS portfolio with a global instructor rating consistently above 4.95.</p>
-    <p>Today I chair an IT department at Central Piedmont spanning three program areas:</p>
-    <ul class="pathways">
-      <li><strong>Cybersecurity</strong> — AAS and certificate programs covering security fundamentals, network defense, ethical hacking, and incident response. Industry alignment with Palo Alto Networks and CompTIA Security+.</li>
-      <li><strong>Cloud &amp; Networking</strong> — Cisco-aligned networking through CCNA, plus AWS, Azure, and Red Hat Linux. Students work in a live on-campus data center as part of the curriculum.</li>
-      <li><strong>IT Support</strong> — Help desk, end-user computing, hardware, and operating systems. CompTIA A+ and ITIL-aligned, with stackable credentials into Cybersecurity or Cloud &amp; Networking.</li>
-    </ul>
-    <p>Across all three I've built employer collaborations with Red Hat and Palo Alto Networks, redesigned entry-level courses around AI-augmented work, and mentored student data-center workers connecting classroom content to live infrastructure.</p>
-    <p class="thesis">My research focus: <HighlightPhrase text="how AI is reshaping entry-level IT work, and what post-secondary CTE has to do about it." phrase="entry-level IT work" /></p>
+  <section class="container block story">
+    <div class="story-text">
+      <h2 class="sq sq-violet">Classroom → Enterprise → Classroom</h2>
+      <p>Through college at Wingate — where I majored in music education — I served as the campus Educational Technology Specialist. After graduating in 2014, my first post-college role was on Belk's eLearning team. That kicked off a decade in enterprise instructional design and technical training, with stops at CPI Security, SnapAV, Anomali, Carbon Black, VMware, Broadcom, and Fast Lane. The work was always teaching — just teaching working engineers instead of students.</p>
+      <p>I came back to higher ed in 2023 by adjuncting at Central Piedmont. That grew into a full-time instructor role, and then into Department Chair in 2025. From there I returned to Wingate — my alma mater — as adjunct in the Honors program, this time to co-teach applied AI.</p>
+      <p>Along the way: I led a 12-person content team at VMware responsible for sixteen courses across vSphere, VMware Cloud, and HCX — work that drove $40M in customer revenue in 2022. I modernized the team's process from ADDIE to a SAM-based, agile approach suited to the pace of SaaS. As senior instructor, I led the Carbon Black and VMware on AWS portfolio with a global instructor rating consistently above 4.95.</p>
+    </div>
+    <aside class="focus" aria-label="Research focus">
+      <p><span class="focus-label">My research focus:</span> <HighlightPhrase text="how AI is reshaping entry-level IT work, and what post-secondary CTE has to do about it." phrase="entry-level IT work" /></p>
+    </aside>
   </section>
 
-  <section class="container section">
-    <h2>Career history</h2>
-    <ul class="career">
+  <section class="container block programs">
+    <p class="intro">Today I chair an IT department at Central Piedmont spanning three program areas:</p>
+    <ul class="pathways">
+      <li class="p-violet"><strong>Cybersecurity</strong><span>AAS and certificate programs covering security fundamentals, network defense, ethical hacking, and incident response. Industry alignment with Palo Alto Networks and CompTIA Security+.</span></li>
+      <li class="p-coral"><strong>Cloud &amp; Networking</strong><span>Cisco-aligned networking through CCNA, plus AWS, Azure, and Red Hat Linux. Students work in a live on-campus data center as part of the curriculum.</span></li>
+      <li class="p-teal"><strong>IT Support</strong><span>Help desk, end-user computing, hardware, and operating systems. CompTIA A+ and ITIL-aligned, with stackable credentials into Cybersecurity or Cloud &amp; Networking.</span></li>
+    </ul>
+    <p class="outro">Across all three I've built employer collaborations with Red Hat and Palo Alto Networks, redesigned entry-level courses around AI-augmented work, and mentored student data-center workers connecting classroom content to live infrastructure.</p>
+  </section>
+
+  <section class="container block">
+    <h2 class="sq sq-coral">Career history</h2>
+    <ul class="rows">
       {career.map((c) => (
         <li>
           <span class="years">{c.data.years}</span>
@@ -56,9 +64,9 @@ const career = (await getCollection('career')).sort((a, b) => a.data.order - b.d
     </ul>
   </section>
 
-  <section class="container section">
-    <h2>Education</h2>
-    <ul class="edu">
+  <section class="container block">
+    <h2 class="sq sq-teal">Education</h2>
+    <ul class="rows">
       {education.map((e) => (
         <li>
           <span class="years">{e.date}</span>
@@ -69,23 +77,24 @@ const career = (await getCollection('career')).sort((a, b) => a.data.order - b.d
     </ul>
   </section>
 
-  <section class="container section">
-    <h2>Certifications</h2>
-    <ul class="bullets">
-      {certifications.map((c) => <li>{c}</li>)}
-    </ul>
+  <section class="container block split">
+    <div class="list-block certs">
+      <h2>Certifications</h2>
+      <ul class="squares">
+        {certifications.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+    <div class="list-block awards">
+      <h2>Honors &amp; Awards</h2>
+      <ul class="squares">
+        {awards.map((a) => <li>{a}</li>)}
+      </ul>
+    </div>
   </section>
 
-  <section class="container section">
-    <h2>Honors &amp; Awards</h2>
-    <ul class="bullets">
-      {awards.map((a) => <li>{a}</li>)}
-    </ul>
-  </section>
-
-  <section class="container section last">
-    <h2>Service &amp; Leadership</h2>
-    <ul class="service">
+  <section class="container block last">
+    <h2 class="sq sq-violet">Service &amp; Leadership</h2>
+    <ul class="rows service">
       {service.map((s) => (
         <li>
           <span class="years">{s.years}</span>
@@ -98,52 +107,149 @@ const career = (await getCollection('career')).sort((a, b) => a.data.order - b.d
 
 <style>
   .container { max-width: var(--container-max); margin: 0 auto; padding-left: var(--space-page-x); padding-right: var(--space-page-x); }
-  .page-header { padding: 70px 0 50px; }
-  .hdr { display: grid; grid-template-columns: 1.4fr 1fr; gap: 50px; align-items: center; }
+
+  /* Header: sun band, photo sits flush on the band's bottom edge */
+  .page-header { padding: 64px 0 0; }
+  .page-header::after { display: none; }
+  .hdr { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 72px; align-items: end; }
+  .hdr-text { align-self: center; padding-bottom: 64px; }
   h1 { font-size: 56px; line-height: 1.02; margin: 18px 0 18px; font-weight: 900; letter-spacing: -.025em; }
-  .lede { font-size: 17px; line-height: 1.55; color: inherit; margin-bottom: 22px; }
-  .cv-row { display: flex; gap: 10px; flex-wrap: wrap; }
-  .cv-btn { padding: 11px 18px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; display: inline-block; }
-  .cv-btn.primary { background: var(--ink); color: var(--page); }
-  .cv-btn.ghost { background: transparent; border: 2px solid var(--ink); color: var(--ink); padding: 9px 16px; }
-  .photo img { width: 100%; height: auto; display: block; box-shadow: 16px 16px 0 0 var(--violet); }
-
-  .section { padding: 50px 0 0; }
-  .section.last { padding-bottom: 80px; }
-  .section h2 { font-size: 28px; font-weight: 800; margin: 0 0 18px; letter-spacing: -.02em; }
-  .section p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px; max-width: 75ch; }
-  .thesis { font-size: 18px; font-weight: 600; padding: 20px 22px; background: var(--violet); color: var(--white); margin-top: 18px; }
-  .pathways { list-style: none; display: grid; gap: 14px; margin: 14px 0 18px; padding: 0; }
-  .pathways li {
-    background: var(--card);
-    padding: 16px 20px;
-    font-size: 15px;
-    line-height: 1.55;
-    color: var(--ink-2);
-    border-left: 10px solid var(--violet);
+  .lede { font-size: 17px; line-height: 1.55; color: inherit; margin-bottom: 26px; max-width: 60ch; }
+  .cv-row { display: flex; flex-wrap: wrap; }
+  .cv-btn { padding: 14px 20px; font-size: 14px; font-weight: 800; display: inline-block; transition: background-color .12s, color .12s; }
+  .cv-btn.primary { background: var(--ink); color: var(--paper); }
+  .cv-btn.ghost { background: var(--white); color: var(--ink); }
+  .cv-btn:hover { background: var(--violet); color: var(--white); }
+  .photo { position: relative; width: 300px; justify-self: end; }
+  .photo::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    bottom: 0;
+    width: 28px;
+    height: 62%;
+    background: var(--violet);
   }
-  .pathways li:nth-child(4n+2) { border-left-color: var(--coral); }
-  .pathways li:nth-child(4n+3) { border-left-color: var(--teal); }
-  .pathways li:nth-child(4n+4) { border-left-color: var(--sun); }
-  .pathways strong { color: var(--ink); font-weight: 800; font-size: 15px; }
+  .photo img { display: block; width: 100%; height: auto; }
 
-  .career, .edu { list-style: none; display: grid; gap: 6px; }
-  .career li, .edu li { display: grid; grid-template-columns: 130px 1fr 1fr; gap: 18px; padding: 10px 0; border-bottom: 1px dashed #c8c4be; font-size: 14px; }
+  /* Body sections: vertical rhythm only, so the container keeps its side padding */
+  .block { padding-top: 64px; }
+  .block.last { padding-bottom: 88px; }
+  h2 {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -.015em;
+    line-height: 1.1;
+    margin: 0 0 22px;
+  }
+  .sq { display: flex; align-items: flex-start; gap: 14px; }
+  .sq::before { content: ''; width: 18px; height: 18px; flex-shrink: 0; background: var(--sq); }
+  .sq-violet { --sq: var(--violet); }
+  .sq-coral { --sq: var(--coral); }
+  .sq-teal { --sq: var(--teal); }
+
+  /* Story + research focus */
+  .story { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 56px; align-items: start; }
+  .story-text p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin: 0 0 16px; }
+  .focus {
+    position: sticky;
+    top: 24px;
+    background: var(--violet);
+    color: var(--white);
+    padding: 30px 28px 92px;
+    overflow: hidden;
+  }
+  .focus::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 72px;
+    height: 72px;
+    background: var(--sun);
+    border-radius: 100% 0 0 0;
+  }
+  .focus p {
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin: 0;
+    color: var(--white);
+  }
+  .focus-label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--sun);
+    margin-bottom: 12px;
+  }
+
+  /* Program areas: one block per identity color, edge to edge */
+  .intro { font-size: 17px; line-height: 1.6; color: var(--ink-2); margin: 0 0 18px; }
+  .pathways { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 0 22px; padding: 0; }
+  .pathways li { padding: 28px 26px 30px; font-size: 15px; line-height: 1.55; display: flex; flex-direction: column; gap: 10px; }
+  .pathways strong {
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-size: 21px;
+    font-weight: 850;
+    line-height: 1.15;
+  }
+  .p-violet { background: var(--violet); color: var(--white); }
+  .p-coral { background: var(--coral); color: var(--ink); }
+  .p-teal { background: var(--teal); color: var(--ink); }
+  .outro { font-size: 17px; line-height: 1.7; color: var(--ink-2); max-width: 75ch; margin: 0; }
+
+  /* Career, education, service tables */
+  .rows { list-style: none; padding: 0; margin: 0; background: var(--white); }
+  .rows li {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 24px;
+    padding: 14px 22px;
+    font-size: 14px;
+    line-height: 1.45;
+    align-items: baseline;
+  }
+  .rows li + li { border-top: 1px solid #ebe4d7; }
+  .rows.service li { grid-template-columns: 150px minmax(0, 1fr); }
   .years { font-weight: 800; }
-  .title { font-weight: 600; }
-  .title .honors { color: var(--accent); font-weight: 700; font-style: normal; }
+  .title { font-weight: 650; }
+  .title .honors { color: var(--violet); font-weight: 750; font-style: normal; }
   .org { color: var(--muted); }
+  .service .body { color: var(--ink-2); }
 
-  .bullets { padding-left: 22px; }
-  .bullets li { font-size: 15px; line-height: 1.65; color: var(--ink-2); margin-bottom: 6px; }
+  /* Certifications + awards side by side */
+  .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .list-block { padding: 30px 30px 32px; }
+  .certs { background: var(--mint); }
+  .awards { background: var(--butter); }
+  .list-block h2 { font-size: 24px; margin-bottom: 18px; }
+  .squares { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .squares li { position: relative; padding-left: 20px; font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+  .squares li::before { content: ''; position: absolute; left: 0; top: .5em; width: 8px; height: 8px; background: var(--ink); }
 
-  .service { list-style: none; display: grid; gap: 6px; padding: 0; }
-  .service li { display: grid; grid-template-columns: 160px 1fr; gap: 18px; padding: 10px 0; border-bottom: 1px dashed #c8c4be; font-size: 14px; }
-  .service .body { color: var(--ink-2); line-height: 1.5; }
-
+  @media (max-width: 960px) {
+    .story { grid-template-columns: minmax(0, 1fr) 280px; gap: 36px; }
+  }
   @media (max-width: 860px) {
-    .hdr { grid-template-columns: 1fr; }
+    .page-header { padding-top: 44px; }
+    .hdr { grid-template-columns: 1fr; gap: 0; }
+    .hdr-text { padding-bottom: 36px; }
     h1 { font-size: 40px; }
-    .career li, .edu li, .service li { grid-template-columns: 1fr; gap: 2px; padding-bottom: 12px; }
+    .photo { justify-self: start; width: min(240px, 70%); margin-left: 28px; }
+    .block { padding-top: 48px; }
+    .block.last { padding-bottom: 64px; }
+    h2 { font-size: 26px; }
+    .story { grid-template-columns: 1fr; gap: 28px; }
+    .focus { position: relative; top: auto; }
+    .pathways { grid-template-columns: 1fr; }
+    .split { grid-template-columns: 1fr; }
+    .rows li, .rows.service li { grid-template-columns: 1fr; gap: 2px; padding: 14px 18px; }
   }
 </style>
