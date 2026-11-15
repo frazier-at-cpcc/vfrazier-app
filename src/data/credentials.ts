@@ -76,6 +76,7 @@ export const service: ServiceEntry[] = [
       'member since 2025; authored the Curriculum Management and Program Review Committee charter, its RACI model, and program evaluation instruments aligned to SACSCOC and NC Community College System standards',
   },
   { years: '2026 – 2027', body: 'Faculty Readiness Chair, Canvas Implementation Taskforce, Central Piedmont Community College' },
+  { years: '2027 – 2029', body: 'ACI (Academic Continuous Improvement) Committee Member, Central Piedmont Community College' },
   {
     years: '2017 – present',
     body: 'Advisory Board member, Highland School of Technology (Gastonia, NC)',
