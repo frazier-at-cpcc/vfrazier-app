@@ -33,6 +33,10 @@ for IA, palette, typography, and component motifs.
 - **Booking backend:** Cloudflare Pages Function at `functions/api/book.ts` (Resend
   email + Turnstile bot check). Not an Astro endpoint — Pages picks it up automatically,
   so no Astro adapter is used.
+  `GET /api/book` returns `{ ok, resend, turnstile }` (booleans only): check it after any
+  deploy or secret change; `ok: false` means the form will reject every submission. With
+  JS on, the form posts in the background and on any failure keeps the visitor's text and
+  offers a pre-filled "Email it instead" mailto, so a broken backend can't lose an inquiry.
 - **Node:** >= 22.12.0.
 
 ## Commands

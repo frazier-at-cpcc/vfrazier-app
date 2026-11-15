@@ -97,6 +97,19 @@ async function sendEmail(apiKey: string, payload: Record<RequiredField, string>)
   return null;
 }
 
+// Status check: GET /api/book reports whether the form is configured, as
+// booleans only (never values). Production once ran without RESEND_API_KEY and
+// nothing showed it until a visitor submitted; this makes a misconfigured
+// deploy visible with one request.
+export async function onRequestGet(ctx: Context): Promise<Response> {
+  const resend = cleanSecret(ctx.env.RESEND_API_KEY).length > 0;
+  const turnstile = cleanSecret(ctx.env.TURNSTILE_SECRET_KEY).length > 0;
+  return new Response(JSON.stringify({ ok: resend && turnstile, resend, turnstile }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+  });
+}
+
 export async function onRequestPost(ctx: Context): Promise<Response> {
   try {
     const resendKey = cleanSecret(ctx.env.RESEND_API_KEY);
