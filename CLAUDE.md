@@ -134,16 +134,23 @@ review, curriculum development) are inline arrays/markup in `src/pages/cv.astro`
 
 ## Design system quick reference
 
-Tokens live in `src/styles/tokens.css`. The look is deliberately editorial/"sticker-pack":
+Tokens live in `src/styles/tokens.css`. The look is **colorblock** (adopted 2026-11-15; the
+full rules, palette, and contrast table are in
+`docs/superpowers/specs/2026-11-15-colorblock-rebrand.md`, which replaces §3 of the original spec):
 
-- Warm stone background (`--page #ebe9e6`), ink text (`--ink #1a1209`), purple accent
-  (`--accent #6d28d9`), yellow highlighter (`--highlight #ffd60a`).
-- Hard 2px black borders + solid (no-blur) drop shadows on cards and framed images.
-- Yellow highlighter behind key phrases (see `HighlightPhrase.astro`).
-- Numbered section labels (`01 / Speaking`).
-- Inter, weights 500–800. No dark mode (intentional — see spec §9).
+- Four identities, four colors: speaking `--violet #5b21b6`, writing `--coral #ff7a59`,
+  teaching `--teal #3ccfa9`, research/about `--sun #ffd60a`; neutrals `--ink #15110d` and
+  `--paper #f6f1e8`. `BaseLayout` sets `data-identity` on `<body>` from the nav key, and
+  `.cb-band` page headers take their color from it.
+- Full-bleed color bands and edge-to-edge block mosaics. No outlines, no drop shadows,
+  square corners (the `--shadow-*` and `--radius-*` tokens are none/0).
+- Coral and teal carry ink text only; violet carries white/paper only.
+- Archivo Variable (wide, 800–900) for `h1`–`h3`; Inter for body. No dark mode (spec §9).
+- Logo: `src/assets/logo.svg` (rendered by `BrandMark.astro`, copied to
+  `public/favicon.svg`). Re-run `npm run og` if it changes.
 
-Accessibility targets: body text ≥ 7:1 contrast, 3px purple focus outlines, skip link,
+Accessibility targets: every text/background pairing ≥ 7:1 (sun-on-violet, 6.36:1, is for
+large text and labels only), focus ring is a 3px ink outline over a sun halo, skip link,
 respects `prefers-reduced-motion`. Preserve these when editing.
 
 ## Conventions & guardrails

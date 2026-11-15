@@ -1,23 +1,31 @@
 ---
+import BrandMark from './BrandMark.astro';
+
 interface Props { current?: string; }
 const { current = '' } = Astro.props;
 
+// Each link carries its identity color; hover and active fill the link with it.
 const links = [
-  { href: '/', label: 'Home', key: 'home' },
-  { href: '/speaking', label: 'Speaking', key: 'speaking' },
-  { href: '/writing', label: 'Writing', key: 'writing' },
-  { href: '/talks', label: 'Talks', key: 'talks' },
-  { href: '/teaching', label: 'Teaching', key: 'teaching' },
-  { href: '/resources', label: 'Resources', key: 'resources' },
-  { href: '/about', label: 'About', key: 'about' },
+  { href: '/', label: 'Home', key: 'home', bg: 'var(--ink)', fg: 'var(--paper)' },
+  { href: '/speaking', label: 'Speaking', key: 'speaking', bg: 'var(--violet)', fg: 'var(--white)' },
+  { href: '/writing', label: 'Writing', key: 'writing', bg: 'var(--coral)', fg: 'var(--ink)' },
+  { href: '/talks', label: 'Talks', key: 'talks', bg: 'var(--violet)', fg: 'var(--white)' },
+  { href: '/teaching', label: 'Teaching', key: 'teaching', bg: 'var(--teal)', fg: 'var(--ink)' },
+  { href: '/resources', label: 'Resources', key: 'resources', bg: 'var(--teal)', fg: 'var(--ink)' },
+  { href: '/about', label: 'About', key: 'about', bg: 'var(--sun)', fg: 'var(--ink)' },
 ];
 ---
 <nav class="nav" aria-label="Primary">
-  <a href="/" class="brand">Dr. Frazier Smith</a>
+  <a href="/" class="brand"><BrandMark size={40} /><span>Frazier Smith</span></a>
   <ul class="links">
     {links.map((l) => (
       <li>
-        <a href={l.href} class={current === l.key ? 'active' : ''}>{l.label}</a>
+        <a
+          href={l.href}
+          class={current === l.key ? 'active' : ''}
+          aria-current={current === l.key ? 'page' : undefined}
+          style={`--c:${l.bg};--on:${l.fg}`}
+        >{l.label}</a>
       </li>
     ))}
   </ul>
@@ -28,44 +36,68 @@ const links = [
   .nav {
     display: flex;
     align-items: center;
-    padding: 18px 40px;
-    border-bottom: 2px solid var(--ink);
+    padding-left: 40px;
     font-size: 14px;
-    background: var(--page);
+    background: var(--paper);
+    min-height: 64px;
+    border-bottom: 3px solid var(--ink);
   }
   .brand {
-    background: var(--ink);
-    color: var(--page);
-    padding: 5px 12px;
-    border-radius: var(--radius-sm);
-    font-weight: 800;
-    letter-spacing: -.02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-stretch: 118%;
+    font-weight: 850;
+    font-size: 17px;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    white-space: nowrap;
   }
   .links {
     display: flex;
-    gap: 24px;
+    gap: 2px;
     margin-left: auto;
     list-style: none;
-    font-weight: 600;
+    font-weight: 650;
   }
+  .links a {
+    display: block;
+    padding: 8px 11px;
+    color: var(--ink);
+    transition: background-color .12s, color .12s;
+  }
+  .links a:hover,
   .links a.active {
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 5px;
-    text-decoration-color: var(--accent);
+    background: var(--c);
+    color: var(--on);
   }
   .book {
-    margin-left: 28px;
-    background: var(--accent);
-    color: var(--page);
-    padding: 9px 16px;
-    border-radius: var(--radius-pill);
-    font-weight: 700;
-    font-size: 13px;
+    margin-left: 24px;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    background: var(--violet);
+    color: var(--white);
+    padding: 0 26px;
+    font-weight: 800;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: background-color .12s, color .12s;
   }
+  .book:hover { background: var(--sun); color: var(--ink); }
   @media (max-width: 860px) {
-    .nav { padding: 14px 20px; flex-wrap: wrap; gap: 12px; }
-    .links { gap: 16px; margin-left: 0; flex-basis: 100%; order: 3; font-size: 13px; }
-    .book { margin-left: auto; font-size: 12px; padding: 7px 12px; }
+    .nav { flex-wrap: wrap; padding-left: 20px; }
+    .brand { padding: 14px 0; }
+    .links {
+      order: 3;
+      flex-basis: 100%;
+      flex-wrap: wrap;
+      margin-left: -12px;
+      padding: 0 20px 10px 0;
+      font-size: 13px;
+    }
+    .links a { padding: 6px 8px; }
+    .book { margin-left: auto; font-size: 13px; padding: 0 16px; }
   }
 </style>

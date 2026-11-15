@@ -19,37 +19,51 @@ const { date, title, description, href, readingMin } = Astro.props;
 
 <style>
   .row {
-    padding: 22px 24px;
     display: grid;
-    grid-template-columns: 100px 1fr auto;
-    gap: 24px;
-    align-items: center;
-    border-bottom: 1.5px solid var(--ink);
+    grid-template-columns: 110px 1fr auto;
+    align-items: stretch;
+    background: var(--white);
     color: var(--ink);
+    transition: background-color .12s, color .12s;
   }
-  .row:last-child { border-bottom: none; }
-  .row:hover { background: var(--page); }
+  .row:hover { background: var(--ink); color: var(--paper); }
+  .row:hover p { color: var(--footer-text); }
+  .row:hover .read { background: var(--sun); color: var(--ink); }
   .date {
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: .08em;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 22px 16px;
+    display: flex;
+    align-items: center;
   }
+  .row:hover .date { background: var(--violet); color: var(--white); }
+  .body { padding: 22px 24px; }
   h4 {
     font-size: 17px;
     margin: 0 0 4px;
-    font-weight: 700;
+    font-weight: 750;
     letter-spacing: -.01em;
   }
   p { font-size: 13px; margin: 0; color: var(--muted); }
   .read {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--accent);
+    font-size: 12px;
+    font-weight: 800;
+    background: var(--lilac);
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    white-space: nowrap;
   }
-  .read::after { content: ' →'; }
+  .read::after { content: ' →'; white-space: pre; }
   @media (max-width: 720px) {
-    .row { grid-template-columns: 1fr; gap: 6px; }
-    .read { justify-self: start; }
+    .row { grid-template-columns: 1fr; }
+    .date { padding: 10px 16px; }
+    .body { padding: 14px 16px 6px; }
+    .read { justify-self: start; padding: 8px 16px; margin: 0 0 14px 16px; }
   }
 </style>

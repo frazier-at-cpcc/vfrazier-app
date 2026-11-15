@@ -1,0 +1,14 @@
+---
+// The colorblock logo mark (src/assets/logo.svg): four blocks reading
+// music notes → graduation cap → server → AI sparkle. Decorative next to
+// the wordmark, so it is hidden from assistive tech.
+import Logo from '../assets/logo.svg';
+
+interface Props { size?: number; }
+const { size = 40 } = Astro.props;
+---
+<Logo class="mark" width={size} height={size} aria-hidden="true" focusable="false" />
+
+<style>
+  .mark { display: block; flex-shrink: 0; }
+</style>

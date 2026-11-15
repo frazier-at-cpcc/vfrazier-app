@@ -5,9 +5,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const resources = (await getCollection('resources')).sort((a, b) => a.data.order - b.data.order);
 ---
 <BaseLayout title="Resources — Frazier Smith" description="Free study materials, templates, and tools for students and educators, published by Dr. Frazier A. Smith." current="resources">
-  <header class="page-header">
+  <header class="page-header cb-band">
     <div class="container">
-      <span class="kicker">Resources</span>
+      <span class="cb-kicker">Resources</span>
       <h1>Things I've made public.</h1>
       <p class="lede">Study materials, templates, and tools — free to use, adapt, and fork.</p>
     </div>
@@ -49,23 +49,23 @@ const resources = (await getCollection('resources')).sort((a, b) => a.data.order
 
 <style>
   .container { max-width: var(--container-max); margin: 0 auto; padding-left: var(--space-page-x); padding-right: var(--space-page-x); }
-  .page-header { padding: 70px 0 40px; border-bottom: 2px solid var(--ink); }
-  .kicker { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 800; background: var(--ink); color: var(--page); padding: 4px 10px; border-radius: 4px; }
-  h1 { font-size: 60px; line-height: 1; margin: 18px 0 18px; font-weight: 800; letter-spacing: -.035em; }
-  .lede { font-size: 17px; line-height: 1.55; max-width: 70ch; color: var(--ink-2); }
+  .page-header { padding: 70px 0 40px; }
+  h1 { font-size: 60px; line-height: 1.02; margin: 18px 0 18px; font-weight: 900; letter-spacing: -.025em; max-width: 17ch; }
+  .lede { font-size: 17px; line-height: 1.55; max-width: 70ch; color: inherit; }
   .list-wrap { padding: 50px 0 80px; }
 
   .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .card {
     display: block;
     background: var(--card);
-    border: 2px solid var(--ink);
-    border-radius: var(--radius-lg);
+    border-top: 10px solid var(--teal);
     padding: 24px;
-    box-shadow: var(--shadow-card);
     color: var(--ink);
   }
-  .card.hover:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); transition: transform .12s, box-shadow .12s; }
+  .card:nth-child(4n+2) { border-top-color: var(--violet); }
+  .card:nth-child(4n+3) { border-top-color: var(--coral); }
+  .card:nth-child(4n+4) { border-top-color: var(--sun); }
+  .card.hover:hover { box-shadow: inset 0 0 0 3px var(--ink); }
   .linkrow { display: flex; gap: 16px; flex-wrap: wrap; }
   .linkrow .link:hover { text-decoration: underline; text-underline-offset: 3px; }
   .kind {
@@ -82,7 +82,7 @@ const resources = (await getCollection('resources')).sort((a, b) => a.data.order
   .audience { display: block; font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 12px; }
   .link { font-size: 13px; font-weight: 700; color: var(--accent); }
 
-  .empty { padding: 32px 24px; background: var(--card); border: 2px dashed var(--ink); border-radius: var(--radius-lg); text-align: center; color: var(--muted); }
+  .empty { padding: 32px 24px; background: var(--white); box-shadow: inset 0 0 0 2px var(--muted); text-align: center; color: var(--muted); }
 
   @media (max-width: 720px) {
     h1 { font-size: 40px; }

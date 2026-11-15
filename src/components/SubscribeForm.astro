@@ -28,8 +28,7 @@ const action = `https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_U
 <style>
   .subscribe {
     padding: var(--space-section) 0;
-    border-top: 2px solid var(--ink);
-    background: var(--accent-soft);
+    background: var(--lilac);
   }
   .inner {
     max-width: 640px;
@@ -45,11 +44,9 @@ const action = `https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_U
     letter-spacing: .14em;
     text-transform: uppercase;
     font-weight: 800;
-    color: var(--accent);
-    background: var(--card);
-    border: 1.5px solid var(--accent);
-    padding: 5px 12px;
-    border-radius: var(--radius-pill);
+    color: var(--white);
+    background: var(--violet);
+    padding: 7px 12px;
   }
   .kicker i { font-size: 12px; }
   h2 {
@@ -84,20 +81,20 @@ const action = `https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_U
     font-weight: 500;
   }
   .form button {
-    background: var(--ink);
-    color: var(--page);
-    border: 2px solid var(--ink);
+    background: var(--violet);
+    color: var(--white);
+    border: 2px solid var(--violet);
     padding: 12px 20px;
     border-radius: var(--radius-sm);
     font-weight: 700;
     font-size: 14px;
     white-space: nowrap;
     cursor: pointer;
-    transition: transform .12s, box-shadow .12s;
+    transition: background-color .12s, border-color .12s;
   }
-  .form button:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--accent); }
+  .form button:hover { background: var(--ink); border-color: var(--ink); }
   .alt { font-size: 12px; color: var(--muted); margin: 0; }
-  .alt a { color: var(--accent); text-decoration: underline; font-weight: 600; }
+  .alt a { color: var(--ink); text-decoration: underline; font-weight: 600; }
   .visually-hidden {
     position: absolute;
     clip: rect(0 0 0 0);

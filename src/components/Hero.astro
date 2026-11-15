@@ -20,116 +20,98 @@ import headshot from '../assets/headshot.jpg';
 
     <div class="ctas">
       <a href="/speaking#book" class="cta primary">Book me to speak →</a>
-      <a href="/writing" class="cta ghost">Read recent writing</a>
+      <a href="/writing" class="cta secondary">Read recent writing</a>
     </div>
 
     <ul class="affil" aria-label="Affiliations">
-      <li>Central Piedmont</li><li class="dot" aria-hidden="true"></li>
-      <li>UNC Charlotte</li><li class="dot" aria-hidden="true"></li>
-      <li>Wingate Honors</li><li class="dot" aria-hidden="true"></li>
+      <li>Central Piedmont</li><li class="sq v" aria-hidden="true"></li>
+      <li>UNC Charlotte</li><li class="sq c" aria-hidden="true"></li>
+      <li>Wingate Honors</li><li class="sq t" aria-hidden="true"></li>
       <li>NSF ATE GAIT</li>
     </ul>
   </div>
 
-  <div class="portrait">
-    <div class="img-wrap">
-      <span class="stamp">
+  <div class="field">
+    <div class="collage">
+      <div class="photo">
+        <Image src={headshot} alt="Dr. Frazier A. Smith" widths={[300]} sizes="300px" />
+      </div>
+      <span class="shape s1" aria-hidden="true"></span>
+      <span class="shape s2" aria-hidden="true"></span>
+      <span class="shape s3" aria-hidden="true"></span>
+      <div class="focus">
+        <span class="name">Dr. Frazier A. Smith</span>
         <span class="top">Research focus</span>
         AI × Entry-Level Workforce
-      </span>
-      <Image src={headshot} alt="Dr. Frazier A. Smith" widths={[280, 420, 560]} sizes="(max-width: 720px) 220px, 320px" />
+      </div>
     </div>
-    <div class="caption">Dr. Frazier A. <span class="accent">Smith</span></div>
   </div>
 </section>
 
 <style>
   .hero {
-    padding: 70px var(--space-page-x);
     display: grid;
-    grid-template-columns: 1.25fr 1fr;
-    gap: 56px;
-    align-items: center;
-    position: relative;
-    max-width: var(--container-max);
-    margin: 0 auto;
+    grid-template-columns: minmax(0, 1fr) clamp(440px, 40vw, 600px);
+    border-bottom: 3px solid var(--ink);
   }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: 50px;
-    right: 40px;
-    width: 70px;
-    height: 70px;
-    background: var(--highlight);
-    border-radius: 50%;
-    opacity: .8;
-    z-index: 0;
+  .hero-text {
+    padding: 72px 56px 72px max(var(--space-page-x), calc((100vw - var(--container-max)) / 2 + var(--space-page-x)));
   }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: 30px;
-    left: 55%;
-    width: 60px;
-    height: 60px;
-    background: var(--accent);
-    border-radius: 50%;
-    opacity: .15;
-    z-index: 0;
-  }
-  .hero-text { position: relative; z-index: 1; }
 
   .eyebrow {
     font-size: 11px;
     letter-spacing: .15em;
     text-transform: uppercase;
-    margin-bottom: 18px;
-    font-weight: 700;
+    margin-bottom: 22px;
+    font-weight: 800;
     background: var(--ink);
-    color: var(--page);
+    color: var(--paper);
     display: inline-block;
-    padding: 4px 10px;
-    border-radius: 4px;
+    padding: 6px 10px;
   }
   h1 {
-    font-size: 60px;
-    line-height: .96;
-    margin: 0 0 22px;
-    font-weight: 800;
-    letter-spacing: -.035em;
+    font-size: 62px;
+    line-height: .98;
+    margin: 0 0 26px;
+    font-weight: 900;
+    letter-spacing: -.025em;
   }
-  h1 .hl { background: var(--highlight); padding: 0 6px; }
+  h1 .hl {
+    background: var(--violet);
+    color: var(--white);
+    padding: 0 10px 2px;
+    display: inline-block;
+    margin-top: 8px;
+  }
   .thesis {
     font-size: 22px;
     line-height: 1.35;
     margin: 0 0 18px;
     font-weight: 600;
     letter-spacing: -.015em;
-    color: var(--ink);
-    max-width: 640px;
+    max-width: 600px;
   }
   .lede {
     font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 28px;
-    font-weight: 500;
+    line-height: 1.55;
+    margin-bottom: 30px;
     color: var(--ink-2);
+    max-width: 600px;
   }
-  .ctas { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+  .ctas { display: flex; gap: 0; margin-bottom: 30px; flex-wrap: wrap; }
   .cta {
-    padding: 13px 22px;
-    border-radius: var(--radius-pill);
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .01em;
+    padding: 16px 24px;
+    font-size: 14px;
+    font-weight: 800;
+    transition: background-color .12s, color .12s;
   }
-  .cta.primary { background: var(--ink); color: var(--page); }
-  .cta.ghost { background: transparent; border: 2px solid var(--ink); color: var(--ink); }
+  .cta.primary { background: var(--violet); color: var(--white); }
+  .cta.secondary { background: var(--coral); color: var(--ink); }
+  .cta:hover { background: var(--ink); color: var(--paper); }
 
   .affil {
     display: flex;
-    gap: 16px;
+    gap: 14px;
     font-size: 11px;
     color: var(--muted);
     flex-wrap: wrap;
@@ -137,66 +119,90 @@ import headshot from '../assets/headshot.jpg';
     font-weight: 700;
     list-style: none;
   }
-  .affil .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+  .affil .sq { width: 8px; height: 8px; }
+  .sq.v { background: var(--violet); }
+  .sq.c { background: var(--coral); }
+  .sq.t { background: var(--teal); }
 
-  .portrait { position: relative; z-index: 1; max-width: 320px; justify-self: end; }
-  .img-wrap {
-    background: var(--accent);
-    border: 2.5px solid var(--ink);
-    border-radius: 14px;
-    padding: 14px;
-    box-shadow: var(--shadow-hero);
-    position: relative;
+  /* Right side: a full-bleed sun field holding a block collage */
+  .field {
+    background: var(--sun);
+    display: flex;
+    align-items: flex-end;
+    padding: 56px 0 0 48px;
   }
-  .img-wrap img {
+  .collage {
+    display: grid;
+    grid-template-columns: 300px 100px;
+    grid-template-rows: repeat(3, 150px) auto;
+  }
+  .photo { grid-area: 1 / 1 / 4 / 2; background: var(--ink); }
+  .photo img {
     display: block;
     width: 100%;
-    border-radius: var(--radius-sm);
-    border: 2px solid var(--ink);
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
   }
-  .stamp {
-    position: absolute;
-    top: -22px;
-    right: -28px;
-    background: var(--highlight);
-    border: 2px solid var(--ink);
-    padding: 8px 12px;
-    border-radius: 8px;
+  .shape { position: relative; overflow: hidden; }
+  .shape::before { content: ''; position: absolute; }
+  /* coral cell, paper quarter circle hinged on the top-right corner */
+  .s1 { background: var(--coral); }
+  .s1::before { inset: 0; background: var(--paper); border-radius: 0 0 0 100%; }
+  /* teal cell, paper half circle rising from the bottom */
+  .s2 { background: var(--teal); }
+  .s2::before { left: 0; right: 0; bottom: 0; height: 50%; background: var(--paper); border-radius: 999px 999px 0 0; }
+  /* violet cell, sun circle */
+  .s3 { background: var(--violet); }
+  .s3::before { width: 62%; aspect-ratio: 1; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--sun); border-radius: 50%; }
+
+  .focus {
+    grid-column: 1 / -1;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 18px 18px;
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-weight: 800;
+    font-size: 17px;
+    line-height: 1.2;
+  }
+  .focus .name {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--footer-text);
+    margin-bottom: 10px;
+    letter-spacing: .02em;
+  }
+  .focus .top {
+    display: block;
+    font-family: var(--font-sans);
     font-size: 10px;
     font-weight: 800;
-    line-height: 1.25;
+    letter-spacing: .14em;
     text-transform: uppercase;
-    letter-spacing: .04em;
-    transform: rotate(6deg);
-    z-index: 2;
-    max-width: 160px;
-    text-align: center;
-    box-shadow: 3px 3px 0 var(--ink);
+    color: var(--sun);
+    margin-bottom: 4px;
   }
-  .stamp .top {
-    display: block;
-    font-size: 8px;
-    color: var(--accent);
-    margin-bottom: 2px;
-    letter-spacing: .12em;
-  }
-  .caption {
-    background: var(--ink);
-    color: var(--page);
-    font-size: 11px;
-    font-weight: 700;
-    text-align: center;
-    padding: 8px 12px;
-    margin-top: 12px;
-    border-radius: var(--radius-sm);
-    letter-spacing: .04em;
-  }
-  .caption .accent { color: var(--accent-light); }
 
-  @media (max-width: 860px) {
-    .hero { grid-template-columns: 1fr; padding-top: 40px; padding-bottom: 40px; gap: 36px; }
-    .portrait { justify-self: start; max-width: 240px; }
-    h1 { font-size: 44px; }
+  @media (max-width: 960px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-text { padding: 44px var(--space-page-x) 40px; }
+    h1 { font-size: 46px; }
+    .field { padding: 40px var(--space-page-x) 0; justify-content: flex-start; }
+    .collage {
+      width: 100%;
+      max-width: 400px;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+      grid-template-rows: repeat(3, auto) auto;
+    }
+    .photo { aspect-ratio: 2 / 3; }
+  }
+  @media (max-width: 420px) {
+    h1 { font-size: 40px; }
+    .thesis { font-size: 20px; }
+    .cta { flex: 1 1 auto; text-align: center; }
   }
 </style>

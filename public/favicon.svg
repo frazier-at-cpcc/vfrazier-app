@@ -1,5 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#6d28d9"/>
-  <path d="M19 14h26v10H29v8h14v10H29v18H19V14z" fill="#ebe9e6"/>
-  <rect x="40" y="44" width="8" height="8" rx="1.5" fill="#ffd60a"/>
+  <!-- Colorblock mark. Reads left-to-right, top-to-bottom as the site's story:
+       music notes → graduation cap → server → AI sparkle
+       ("From music classroom to AI lab"). Icons are drawn on a 24-unit grid. -->
+
+  <!-- top-left: violet, music notes -->
+  <rect width="32" height="32" fill="#5b21b6"/>
+  <g transform="translate(6.4 6.4) scale(.8)" fill="#fff">
+    <path d="M8 5 20 2v4L8 9z"/>
+    <rect x="8" y="5" width="2.4" height="13.5"/>
+    <rect x="17.6" y="2" width="2.4" height="14"/>
+    <ellipse cx="6.6" cy="18.6" rx="3.8" ry="2.9" transform="rotate(-20 6.6 18.6)"/>
+    <ellipse cx="16.2" cy="16.1" rx="3.8" ry="2.9" transform="rotate(-20 16.2 16.1)"/>
+  </g>
+
+  <!-- top-right: teal, graduation cap -->
+  <rect x="32" width="32" height="32" fill="#3ccfa9"/>
+  <g transform="translate(38.4 6.4) scale(.8)" fill="#15110d">
+    <path d="M12 3 23 8 12 13 1 8z"/>
+    <path d="M6 12.3 12 15l6-2.7V16c0 2-2.7 3.5-6 3.5S6 18 6 16z"/>
+    <rect x="19.6" y="9.2" width="1.6" height="5.8"/>
+    <circle cx="20.4" cy="16.3" r="1.6"/>
+  </g>
+
+  <!-- bottom-left: coral quarter round, server -->
+  <path d="M0 32h32v32A32 32 0 0 1 0 32z" fill="#ff7a59"/>
+  <g transform="translate(9.5 35) scale(.75)">
+    <g fill="#15110d">
+      <rect x="3" y="2.5" width="18" height="4.6"/>
+      <rect x="3" y="9.7" width="18" height="4.6"/>
+      <rect x="3" y="16.9" width="18" height="4.6"/>
+    </g>
+    <g fill="#ff7a59">
+      <circle cx="6.4" cy="4.8" r="1.2"/>
+      <circle cx="6.4" cy="12" r="1.2"/>
+      <circle cx="6.4" cy="19.2" r="1.2"/>
+      <rect x="11" y="4.2" width="7" height="1.2"/>
+      <rect x="11" y="11.4" width="7" height="1.2"/>
+      <rect x="11" y="18.6" width="7" height="1.2"/>
+    </g>
+  </g>
+
+  <!-- bottom-right: sun, AI sparkle -->
+  <rect x="32" y="32" width="32" height="32" fill="#ffd60a"/>
+  <g transform="translate(38.4 38.4) scale(.8)" fill="#15110d">
+    <path d="M10 5c.8 5.6 3.4 8.2 9 9-5.6.8-8.2 3.4-9 9-.8-5.6-3.4-8.2-9-9 5.6-.8 8.2-3.4 9-9z"/>
+    <path d="M19 1c.4 2.6 1.4 3.6 4 4-2.6.4-3.6 1.4-4 4-.4-2.6-1.4-3.6-4-4 2.6-.4 3.6-1.4 4-4z"/>
+  </g>
 </svg>

@@ -1,12 +1,14 @@
 ---
+type Tone = 'ink' | 'white' | 'violet' | 'sun' | 'lilac';
 interface Props {
   name: string;
   role: string;
   courses: string[];
+  tone?: Tone;
 }
-const { name, role, courses } = Astro.props;
+const { name, role, courses, tone = 'white' } = Astro.props;
 ---
-<article class="inst">
+<article class:list={['inst', `t-${tone}`]}>
   <div class="name">{name}</div>
   <div class="role">{role}</div>
   <ul class="courses">
@@ -15,23 +17,39 @@ const { name, role, courses } = Astro.props;
 </article>
 
 <style>
-  .inst {
-    background: var(--card);
-    border: 2px solid var(--ink);
-    border-radius: var(--radius-lg);
-    padding: 22px;
-    box-shadow: var(--shadow-card);
+  .inst { padding: 26px 24px; min-height: 200px; }
+  /* --fg body text, --em role label, --sq bullet square */
+  .t-white { background: var(--white); --fg: var(--ink); --em: var(--violet); --sq: var(--violet); }
+  .t-lilac { background: var(--lilac); --fg: var(--ink); --em: var(--ink); --sq: var(--violet); }
+  .t-sun { background: var(--sun); --fg: var(--ink); --em: var(--ink); --sq: var(--violet); }
+  .t-ink { background: var(--ink); --fg: var(--paper); --em: var(--sun); --sq: var(--teal); }
+  .t-violet { background: var(--violet); --fg: var(--white); --em: var(--sun); --sq: var(--sun); }
+  .inst { color: var(--fg); }
+  .name {
+    font-family: var(--font-display);
+    font-stretch: 112%;
+    font-size: 18px;
+    font-weight: 850;
+    margin-bottom: 4px;
+    letter-spacing: -.01em;
   }
-  .name { font-size: 16px; font-weight: 800; margin-bottom: 4px; letter-spacing: -.01em; }
   .role {
     font-size: 11px;
-    font-weight: 700;
-    color: var(--accent);
+    font-weight: 800;
+    color: var(--em);
     text-transform: uppercase;
     letter-spacing: .08em;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
-  .courses { list-style: none; font-size: 12px; line-height: 1.6; color: var(--ink-2); }
-  .courses li { margin-bottom: 3px; font-weight: 600; }
-  .courses li::before { content: '✦ '; color: var(--accent); }
+  .courses { list-style: none; font-size: 13px; line-height: 1.5; }
+  .courses li { margin-bottom: 6px; font-weight: 600; padding-left: 16px; position: relative; }
+  .courses li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: .45em;
+    width: 7px;
+    height: 7px;
+    background: var(--sq);
+  }
 </style>

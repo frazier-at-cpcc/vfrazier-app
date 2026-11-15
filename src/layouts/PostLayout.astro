@@ -41,9 +41,9 @@ const articleJsonLd = {
 <BaseLayout title={`${title} — Frazier Smith`} description={description} current="writing">
   <script type="application/ld+json" is:inline set:html={JSON.stringify(articleJsonLd)} />
   <article class="post container">
-    <header class="post-header">
+    <header class="post-header cb-band">
       <a class="back" href="/writing">← All writing</a>
-      <span class="cat">{category}</span>
+      <span class="cat cb-kicker">{category}</span>
       <h1>{title}</h1>
       <div class="meta">
         <time datetime={pubDate.toISOString()}>{dateStr}</time>
@@ -63,27 +63,21 @@ const articleJsonLd = {
 </BaseLayout>
 
 <style>
-  .container { max-width: 800px; margin: 0 auto; padding: 60px var(--space-page-x); }
-  .post-header { margin-bottom: 40px; }
-  .back { font-size: 13px; color: var(--accent); font-weight: 700; }
-  .cat {
-    display: inline-block;
-    margin: 22px 0 14px;
-    font-size: 11px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    font-weight: 800;
-    color: var(--accent);
-  }
-  h1 { font-size: 48px; line-height: 1.05; font-weight: 800; letter-spacing: -.03em; margin-bottom: 14px; }
-  .meta { font-size: 13px; color: var(--muted); display: flex; gap: 8px; font-weight: 600; }
+  .container { max-width: 800px; margin: 0 auto; padding: 0 var(--space-page-x) 60px; }
+  .post-header { margin-bottom: 48px; padding: 36px 0 40px; }
+  /* the band runs full-bleed, but the corner shapes would sit on the title in an 800px column */
+  .post-header::before, .post-header::after { display: none; }
+  .back { font-size: 13px; color: inherit; font-weight: 800; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .cat { display: table; margin: 22px 0 16px; }
+  h1 { font-size: 48px; line-height: 1.05; font-weight: 900; letter-spacing: -.02em; margin-bottom: 14px; }
+  .meta { font-size: 13px; color: inherit; display: flex; gap: 8px; font-weight: 600; }
   .post-footer {
     margin-top: 60px;
     padding-top: 24px;
-    border-top: 2px solid var(--ink);
+    border-top: 6px solid var(--coral);
     font-size: 14px;
     color: var(--ink-2);
   }
-  .post-footer a { color: var(--accent); font-weight: 700; }
+  .post-footer a { color: var(--violet); font-weight: 700; }
   @media (max-width: 720px) { h1 { font-size: 32px; } }
 </style>

@@ -17,43 +17,38 @@ const groupedByInst = allCurrent.reduce<Record<string, string[]>>((acc, c) => {
   return acc;
 }, {});
 
+// The home page features only the three primary institutions. Every other
+// institution's current courses still appear on /teaching and /cv.
 const roleMap: Record<string, string> = {
   'Central Piedmont': 'Dept Chair · Instructor',
   'UNC Charlotte': 'Graduate Faculty',
   Wingate: 'Adjunct · Honors',
-  'Wake Tech': 'Adjunct',
-  'Wayne CC': 'Adjunct',
-  'East Carolina University': 'Instructor',
-  'Point University': 'Instructor',
 };
-const institutions: Array<{ name: string; role: string; courses: string[] }> = [
-  'Central Piedmont',
-  'UNC Charlotte',
-  'Wingate',
-  'Wake Tech',
-  'Wayne CC',
-  'East Carolina University',
-  'Point University',
-].filter((name) => groupedByInst[name]?.length).map((name) => ({
-  name,
-  role: roleMap[name],
-  courses: groupedByInst[name] ?? [],
-}));
+const institutions: Array<{ name: string; role: string; courses: string[] }> = Object.keys(roleMap)
+  .filter((name) => groupedByInst[name]?.length)
+  .map((name) => ({
+    name,
+    role: roleMap[name],
+    courses: groupedByInst[name] ?? [],
+  }));
+
+// Edge-to-edge mosaic on the teal band; neighbors never share a fill.
+const tones = ['ink', 'white', 'violet'] as const;
 ---
 <section class="section">
   <div class="inner">
-    <SectionHead number="05" label="Teaching" title="Where I teach." moreLabel="All courses" moreHref="/teaching" />
+    <SectionHead number="05" label="Teaching" title="Where I teach." moreLabel="All courses" moreHref="/teaching" tone="violet" />
     <div class="grid">
-      {institutions.map((i) => (
-        <InstitutionCard name={i.name} role={i.role} courses={i.courses} />
+      {institutions.map((i, idx) => (
+        <InstitutionCard name={i.name} role={i.role} courses={i.courses} tone={tones[idx % tones.length]} />
       ))}
     </div>
   </div>
 </section>
 
 <style>
-  .section { padding: var(--space-section) 0; border-top: 2px solid var(--ink); }
+  .section { padding: var(--space-section) 0; background: var(--teal); color: var(--ink); }
   .inner { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-page-x); }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
   @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
 </style>

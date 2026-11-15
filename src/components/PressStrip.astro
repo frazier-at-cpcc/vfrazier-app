@@ -28,27 +28,29 @@ const items = (await getCollection('press')).sort(
 
 <style>
   .press {
-    border-top: 2px solid var(--ink);
-    border-bottom: 2px solid var(--ink);
-    background: var(--card);
+    background: var(--ink);
+    color: var(--paper);
   }
   .inner {
-    padding: 28px var(--space-page-x);
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 30px;
-    align-items: center;
+    align-items: stretch;
     max-width: var(--container-max);
     margin: 0 auto;
+    padding-right: var(--space-page-x);
   }
   .label {
     font-size: 10px;
     letter-spacing: .14em;
     text-transform: uppercase;
     font-weight: 800;
-    color: var(--accent);
+    color: var(--ink);
+    background: var(--teal);
     white-space: nowrap;
     line-height: 1.4;
+    padding: 24px var(--space-page-x);
+    display: flex;
+    align-items: center;
   }
   .items {
     display: flex;
@@ -56,37 +58,38 @@ const items = (await getCollection('press')).sort(
     align-items: center;
     flex-wrap: wrap;
     list-style: none;
+    padding: 22px 0 22px 30px;
   }
   .item {
     font-size: 13px;
     font-weight: 700;
-    color: var(--ink);
     display: flex;
     align-items: baseline;
     gap: 8px;
   }
   .item .src {
     font-size: 10px;
-    color: var(--accent);
+    color: var(--sun);
     text-transform: uppercase;
     letter-spacing: .08em;
   }
   .item .badge-yr {
-    background: var(--highlight);
+    background: var(--sun);
+    color: var(--ink);
     padding: 1px 5px;
-    border-radius: 3px;
     font-size: 10px;
     margin-left: 4px;
   }
   .item a {
-    color: var(--ink);
-    border-bottom: 1.5px solid transparent;
+    color: var(--paper);
+    border-bottom: 2px solid transparent;
     transition: border-color .15s, color .15s;
   }
-  .item a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-  .item a i { font-size: 10px; color: var(--accent); margin-left: 4px; vertical-align: baseline; }
+  .item a:hover { border-bottom-color: var(--coral); }
+  .item a i { font-size: 10px; color: var(--coral); margin-left: 4px; vertical-align: baseline; }
   @media (max-width: 720px) {
-    .inner { grid-template-columns: 1fr; gap: 14px; padding-top: 22px; padding-bottom: 22px; }
-    .items { gap: 16px; }
+    .inner { grid-template-columns: 1fr; padding-right: 0; }
+    .label { padding: 12px var(--space-page-x); }
+    .items { gap: 16px; padding: 18px var(--space-page-x); }
   }
 </style>

@@ -1,44 +1,75 @@
+/*
+ * Colorblock theme (exploration branch: claude/colorblock-rebrand).
+ * See docs/superpowers/specs/2026-11-15-colorblock-rebrand.md.
+ *
+ * Four identities, four colors: speaking = violet, writing = coral,
+ * teaching = teal, research/about = sun. Ink and paper are the neutrals.
+ * Every text/background pairing below is at or above 7:1.
+ */
 :root {
-  /* Palette */
-  --ink: #1a1209;
-  --ink-2: #2a1d10;
-  --muted: #5c4a30;
-  --page: #ebe9e6;
-  --card: #ffffff;
-  --accent: #6d28d9;
-  --accent-soft: #efe6ff;
-  --accent-light: #c4b3ff;
-  --accent-deep: #3a1d70;
-  --highlight: #ffd60a;
-  --highlight-soft: #fffae0;
-  --border: #1a1209;
-  --footer-text: #d4c9b4;
-  --footer-dim: #8a7558;
+  /* Block colors */
+  --violet: #5b21b6;       /* speaking: white text 8.98:1, paper 7.98:1 */
+  --violet-deep: #3b1480;
+  --sun: #ffd60a;          /* research / about: ink 13.31:1 */
+  --coral: #ff7a59;        /* writing: ink 7.32:1 (ink text only) */
+  --teal: #3ccfa9;         /* teaching: ink 9.56:1 (ink text only) */
+
+  /* Tints for blocks that sit inside a colored field (all ink-text) */
+  --lilac: #d8ccff;
+  --blush: #ffcfc2;
+  --mint: #c8f1e4;
+  --butter: #fff0a3;
+
+  /* Neutrals */
+  --ink: #15110d;
+  --ink-2: #3a2f24;        /* 11.58:1 on paper */
+  --muted: #5a4d3e;        /* 7.27:1 on paper */
+  --paper: #f6f1e8;
+  --white: #ffffff;
+
+  /* Legacy names, remapped so every page keeps resolving */
+  --page: var(--paper);
+  --card: var(--white);
+  --accent: var(--violet);
+  --accent-soft: var(--lilac);
+  --accent-light: var(--lilac);
+  --accent-deep: var(--violet-deep);
+  --highlight: var(--sun);
+  --highlight-soft: var(--butter);
+  --border: var(--ink);
+  --footer-text: #e3dacb;  /* 13.56:1 on ink */
+  --footer-dim: #b0a293;   /* 7.55:1 on ink */
 
   /* Typography */
   --font-sans: 'Inter Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-display: 'Archivo Variable', 'Inter Variable', system-ui, sans-serif;
+  --display-stretch: 112%;
 
-  /* Sizing */
+  /* Sizing: colorblock is square-cornered */
   --container-max: 1100px;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 12px;
-  --radius-pill: 99px;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-pill: 0;
 
-  /* Shadows */
-  --shadow-card: 4px 4px 0 var(--ink);
-  --shadow-card-accent: 4px 4px 0 var(--accent);
-  --shadow-hero: 10px 10px 0 var(--ink);
-  --shadow-about: 8px 8px 0 var(--accent);
+  /* No drop shadows: blocks meet edge to edge instead */
+  --shadow-card: none;
+  --shadow-card-accent: none;
+  --shadow-hero: none;
+  --shadow-about: none;
 
   /* Spacing */
-  --space-section: 70px;
+  --space-section: 80px;
   --space-page-x: 40px;
+
+  /* The four-block stripe, used as the brand signature */
+  --stripe: linear-gradient(90deg,
+    var(--violet) 0 25%, var(--sun) 25% 50%, var(--coral) 50% 75%, var(--teal) 75% 100%);
 }
 
 @media (max-width: 720px) {
   :root {
-    --space-section: 48px;
-    --space-page-x: 22px;
+    --space-section: 56px;
+    --space-page-x: 20px;
   }
 }
