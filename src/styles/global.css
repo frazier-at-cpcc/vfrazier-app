@@ -15,11 +15,13 @@ body {
   --id-chip-bg: var(--sun);
   --id-chip-fg: var(--ink);
   --id-art: var(--coral);
+  --id-alt: var(--sun);
 }
-body[data-identity='speaking'] { --id-bg: var(--violet); --id-fg: var(--white); --id-chip-bg: var(--sun); --id-chip-fg: var(--ink); --id-art: var(--sun); }
-body[data-identity='writing']  { --id-bg: var(--coral);  --id-fg: var(--ink);   --id-chip-bg: var(--ink); --id-chip-fg: var(--paper); --id-art: var(--violet); }
-body[data-identity='teaching'] { --id-bg: var(--teal);   --id-fg: var(--ink);   --id-chip-bg: var(--ink); --id-chip-fg: var(--paper); --id-art: var(--sun); }
-body[data-identity='research'] { --id-bg: var(--sun);    --id-fg: var(--ink);   --id-chip-bg: var(--ink); --id-chip-fg: var(--paper); --id-art: var(--coral); }
+/* --id-art and --id-alt are the outer and inner rings of the header-band arcs. */
+body[data-identity='speaking'] { --id-bg: var(--violet); --id-fg: var(--white); --id-chip-bg: var(--sun); --id-chip-fg: var(--ink); --id-art: var(--sun); --id-alt: var(--coral); }
+body[data-identity='writing']  { --id-bg: var(--coral);  --id-fg: var(--ink);   --id-chip-bg: var(--ink); --id-chip-fg: var(--paper); --id-art: var(--violet); --id-alt: var(--sun); }
+body[data-identity='teaching'] { --id-bg: var(--teal);   --id-fg: var(--ink);   --id-chip-bg: var(--ink); --id-chip-fg: var(--paper); --id-art: var(--sun); --id-alt: var(--violet); }
+body[data-identity='research'] { --id-bg: var(--sun);    --id-fg: var(--ink);   --id-chip-bg: var(--ink); --id-chip-fg: var(--paper); --id-art: var(--coral); --id-alt: var(--violet); }
 
 h1, h2, h3 {
   font-family: var(--font-display);
@@ -58,44 +60,38 @@ select:focus-visible,
 /*
  * Full-bleed color band for page headers. The element stays inside the
  * container; border-image paints its fill out to both viewport edges without
- * adding scrollable overflow. A geometric cluster sits on the right edge.
+ * adding scrollable overflow.
+ *
+ * Corner art: concentric quarter-arcs hinged on the top-right corner, drawn
+ * as one radial gradient (outer ring --id-art, then paper, then --id-alt,
+ * with the band color at the center). The size steps down with the viewport
+ * so the arcs never sit under the headline.
  */
 .cb-band {
+  --arc: 280px;
   position: relative;
   background: var(--id-bg);
   color: var(--id-fg);
   border-image: conic-gradient(var(--id-bg) 0 0) fill 0 / 0 / 0 100vw;
   isolation: isolate;
 }
-.cb-band::before,
-.cb-band::after {
+.cb-band::before {
   content: '';
   position: absolute;
   z-index: -1;
   pointer-events: none;
-}
-.cb-band::before {
-  /* quarter circle anchored to the top-right corner */
   top: 0;
   right: 0;
-  width: 168px;
-  height: 168px;
-  background: var(--id-art);
-  border-radius: 0 0 0 100%;
-}
-.cb-band::after {
-  /* square block under it */
-  top: 168px;
-  right: 0;
-  width: 84px;
-  height: 84px;
-  background: var(--id-chip-bg);
+  width: var(--arc);
+  height: var(--arc);
+  /* Stops sit 0.4% apart so each ring edge is antialiased instead of jagged. */
+  background: radial-gradient(circle var(--arc) at 100% 0,
+    var(--id-bg) 0 20.5%, var(--id-alt) 20.9% 47%,
+    var(--paper) 47.4% 73.4%, var(--id-art) 73.8% 99.6%, transparent 100%);
 }
 .cb-band > * { position: relative; }
-@media (max-width: 860px) {
-  .cb-band::before { width: 96px; height: 96px; }
-  .cb-band::after { display: none; }
-}
+@media (max-width: 1100px) { .cb-band { --arc: 200px; } }
+@media (max-width: 860px) { .cb-band { --arc: 96px; } }
 
 /* Kicker chip that reads on any identity band */
 .cb-kicker {

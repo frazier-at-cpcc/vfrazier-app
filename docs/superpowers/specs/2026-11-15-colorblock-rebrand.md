@@ -68,8 +68,10 @@ in `tokens.css`, so every page (including the standalone resource pages) still r
 - **Edge-to-edge mosaics.** Home speaking cards (2×2) and home teaching cards (3-up) sit with
   zero gap; fills alternate so no two neighbors match. Cards invert to ink on hover.
 - **Bauhaus geometry.** The hero headshot is set in a block collage (quarter circle, half
-  circle, circle) on a sun field. Page header bands carry a quarter circle and square in
-  the top-right corner (`.cb-band::before/::after`), and the square is dropped below 860px.
+  circle, circle) on a sun field. Page header bands carry concentric quarter-arcs hinged on the
+  top-right corner (`.cb-band::before`, one radial gradient): outer ring `--id-art`, then paper,
+  then `--id-alt`, with the band color at the center. They are 280px wide, 200px at 1100px
+  and below, and 96px at 860px and below, so they never sit under the headline.
 - **The four-block stripe** (violet | sun | coral | teal) is the brand signature: top of every
   page and the footer edge.
 - **Logo mark** (`src/assets/logo.svg`, rendered by `BrandMark.astro`; copied to

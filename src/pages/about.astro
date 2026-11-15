@@ -110,7 +110,6 @@ const career = (await getCollection('career')).sort((a, b) => a.data.order - b.d
 
   /* Header: sun band, photo sits flush on the band's bottom edge */
   .page-header { padding: 64px 0 0; }
-  .page-header::after { display: none; }
   .hdr { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 72px; align-items: end; }
   .hdr-text { align-self: center; padding-bottom: 64px; }
   h1 { font-size: 56px; line-height: 1.02; margin: 18px 0 18px; font-weight: 900; letter-spacing: -.025em; }
