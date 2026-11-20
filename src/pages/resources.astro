@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ResourceSubscribe from '../components/ResourceSubscribe.astro';
 
 const resources = (await getCollection('resources')).sort((a, b) => a.data.order - b.data.order);
 ---
@@ -45,6 +46,8 @@ const resources = (await getCollection('resources')).sort((a, b) => a.data.order
       <p class="empty">Nothing published here yet — check back soon.</p>
     )}
   </section>
+
+  <ResourceSubscribe />
 </BaseLayout>
 
 <style>

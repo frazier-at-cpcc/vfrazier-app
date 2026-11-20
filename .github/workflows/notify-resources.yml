@@ -1,0 +1,18 @@
+name: Notify resource subscribers
+on:
+  push:
+    branches: [main]
+    paths: ['src/content/resources/**']
+concurrency: notify-resources
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/notify-new-resources.mjs "${{ github.event.before }}" "${{ github.sha }}"
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}

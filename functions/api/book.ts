@@ -23,11 +23,11 @@ function escapeHtml(s: string): string {
 // Secrets pasted into the Cloudflare dashboard sometimes carry a trailing
 // newline or space; an untrimmed value in an Authorization header throws at
 // Headers construction, which surfaces as an opaque 502 to the visitor.
-function cleanSecret(v: string | undefined): string {
+export function cleanSecret(v: string | undefined): string {
   return (v ?? '').trim();
 }
 
-function wantsJson(req: Request): boolean {
+export function wantsJson(req: Request): boolean {
   return (req.headers.get('Accept') ?? '').includes('application/json');
 }
 
@@ -46,7 +46,7 @@ function fail(ctx: Context, code: string, status: number, message: string): Resp
   return Response.redirect(back.toString(), 303);
 }
 
-async function verifyTurnstile(token: string, secret: string, ip: string): Promise<boolean> {
+export async function verifyTurnstile(token: string, secret: string, ip: string): Promise<boolean> {
   const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

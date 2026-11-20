@@ -37,6 +37,13 @@ for IA, palette, typography, and component motifs.
   deploy or secret change; `ok: false` means the form will reject every submission. With
   JS on, the form posts in the background and on any failure keeps the visitor's text and
   offers a pre-filled "Email it instead" mailto, so a broken backend can't lose an inquiry.
+- **Resource update emails:** `src/components/ResourceSubscribe.astro` on `/resources` posts to
+  `functions/api/subscribe.ts` (Turnstile, then adds the address to the Resend audience
+  "Resource updates", id in `RESOURCES_AUDIENCE_ID`). On a push to `main` that adds a file under
+  `src/content/resources/`, `.github/workflows/notify-resources.yml` runs
+  `scripts/notify-new-resources.mjs`, which waits until the new card appears in the live
+  `/resources.json` and then sends one Resend broadcast. Edits to existing cards send nothing.
+  Needs the `RESEND_API_KEY` Actions secret. `DRY_RUN=1` prints the email instead of sending.
 - **Node:** >= 22.12.0.
 
 ## Commands
