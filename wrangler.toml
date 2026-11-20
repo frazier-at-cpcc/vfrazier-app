@@ -10,3 +10,11 @@ pages_build_output_dir = "dist"
 #                               form silently falls back to Cloudflare's public test
 #                               sitekey, which shows a "For testing only" banner and
 #                               will not validate as a real challenge server-side.
+
+# LMS (/lms, see docs/lms.md). Uncomment after `npx wrangler d1 create vfrazier-lms`
+# and paste the database_id it prints. Until then /lms answers 503 and the rest of
+# the site is unaffected.
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "vfrazier-lms"
+# database_id = ""
