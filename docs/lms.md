@@ -18,7 +18,7 @@ The person whose email matches `ADMIN_EMAIL` launches with the `Instructor` role
 ## Setup
 
 1. Create the database: `npx wrangler d1 create vfrazier-lms`.
-2. Uncomment the `[[d1_databases]]` block at the end of `wrangler.toml` and paste the `database_id` that step 1 printed.
+2. Set `database_id` in the `[[d1_databases]]` block of `wrangler.toml` to the value that step 1 printed. The production database is `ef872999-5ce4-47d2-818c-3e37b429be87`.
 3. Apply the schema: `npx wrangler d1 migrations apply vfrazier-lms --remote`.
 4. In Cloudflare Zero Trust, add a self-hosted Access application for the domain `vfrazier.app` with the path `lms/u`. Attach a policy that allows the people who take the course, and choose the login methods, such as Google or a one-time PIN.
 5. Copy the Application Audience (AUD) tag from the application overview that step 4 created.
@@ -30,7 +30,8 @@ The person whose email matches `ADMIN_EMAIL` launches with the `Instructor` role
    npx wrangler pages secret put ADMIN_EMAIL --project-name vfrazier-app          # the instructor's Access email
    ```
 
-7. Deploy the branch. Until the database is bound, `/lms` answers 503 and the rest of the site is unaffected.
+7. Repeat step 6 with `--env preview` to give preview deployments the same values.
+8. Deploy the branch.
 
 The Access application covers `/lms/u` only. The outcome service at `/lms/lti/outcome` must stay outside it, because tools call that endpoint server to server without an Access session.
 
