@@ -5,6 +5,8 @@ urlLabel: 'Current deck, November 2026 (PDF)'
 links:
   - label: 'Original deck (PDF)'
     url: https://vfrazier.app/pull-the-lever.pdf
+  - label: 'Live audience poll app (GitHub)'
+    url: https://github.com/frazier-at-cpcc/lever-vote
 kind: Guide
 audience: Educators and event organizers running the workshop
 order: 4
