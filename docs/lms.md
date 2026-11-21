@@ -27,6 +27,7 @@ Members of the provider group named by `INSTRUCTOR_GROUP`, which defaults to `lm
    - Redirect URIs: `https://vfrazier.app/lms/auth/callback` as a strict match. Add `https://.*\.vfrazier-app\.pages\.dev/lms/auth/callback` as a regular expression match to allow preview deployments.
    - Signing key: the Authentik self-signed certificate or another RSA key. The function verifies ID tokens against the provider's JSON Web Key Set (JWKS), so a provider without a signing key fails every sign-in.
    - Scopes: `openid`, `email`, and `profile`.
+   - Grant types: `authorization_code`. A provider created through the API starts with an empty list, and Authentik then answers every sign-in with `invalid_request`.
 5. Create an application with the slug `lms` and attach the provider from step 4. Its issuer is `https://<authentik host>/application/o/lms/`.
 6. Create the group `lms-instructors` and add the instructor to it. Bind the application to the groups or users who take the course.
 7. Set the values the function reads. Each command prompts for its value, so the value stays out of shell history:
@@ -40,6 +41,8 @@ Members of the provider group named by `INSTRUCTOR_GROUP`, which defaults to `lm
 
 8. Repeat step 7 with `--env preview` to give preview deployments the same values.
 9. Deploy the branch.
+
+The production provider is Authentik at `https://auth.vfrazier.app`, and its issuer is `https://auth.vfrazier.app/application/o/lms/`.
 
 The provider must be reachable from the public internet. The browser redirects to it for sign-in, and the function fetches its discovery document, signing keys, and token endpoint from Cloudflare.
 
