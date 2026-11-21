@@ -1,9 +1,10 @@
-// Minimal LMS: Cloudflare Access sign-in, an activity list, LTI 1.1 launches
-// signed with OAuth 1.0a, and a Basic Outcomes gradebook.
+// Minimal LMS: OpenID Connect sign-in (Authentik or any OIDC provider), an
+// activity list, LTI 1.1 launches signed with OAuth 1.0a, and a Basic Outcomes gradebook.
 //
-//   /lms/u/*            browser routes, behind Cloudflare Access
+//   /lms/u/*            browser routes, need a session cookie
+//   /lms/auth/callback  OIDC redirect URI; /lms/auth/logout clears the session
 //   /lms/lti/outcome    POX grade passback, public, OAuth-verified per tool
-import { createRemoteJWKSet, jwtVerify } from 'jose';
+import { SignJWT, base64url, createRemoteJWKSet, jwtVerify, type JWTPayload } from 'jose';
 
 export interface Stmt {
   bind(...values: unknown[]): Stmt;
@@ -14,12 +15,14 @@ export interface Stmt {
 
 export interface Env {
   DB?: { prepare(sql: string): Stmt };
-  ACCESS_TEAM_DOMAIN?: string; // https://<team>.cloudflareaccess.com
-  ACCESS_AUD?: string; // Application Audience (AUD) tag of the Access app
-  ADMIN_EMAIL?: string; // this person launches as Instructor and sees every grade
+  OIDC_ISSUER?: string; // e.g. https://auth.example.org/application/o/lms/
+  OIDC_CLIENT_ID?: string;
+  OIDC_CLIENT_SECRET?: string;
+  SESSION_SECRET?: string; // random string, signs the session cookie
+  INSTRUCTOR_GROUP?: string; // members launch as Instructor and see every grade; default lms-instructors
 }
 
-type Person = { sub: string; email: string; instructor: boolean };
+type Person = { sub: string; email: string; name: string; instructor: boolean };
 type Activity = { id: number; title: string; launch_url: string; consumer_key: string; shared_secret: string };
 type Db = NonNullable<Env['DB']>;
 
@@ -85,33 +88,133 @@ function parseOAuthHeader(header: string | null): Record<string, string> | null 
   return out;
 }
 
-// ---------------------------------------------------------- Cloudflare Access
+// ------------------------------------------------------------- OIDC sign-in
 
-const accessKeys = new Map<string, ReturnType<typeof createRemoteJWKSet>>();
+type Provider = {
+  issuer: string;
+  authorization_endpoint: string;
+  token_endpoint: string;
+  end_session_endpoint?: string;
+  keys: ReturnType<typeof createRemoteJWKSet>;
+};
+const providers = new Map<string, Promise<Provider>>();
 
-/**
- * Verify the Access JWT rather than trusting the email header: requests to the
- * `*.pages.dev` hostnames never pass through Access, so a header alone is forgeable.
- */
-async function accessPerson(request: Request, env: Env): Promise<Person | null> {
-  const token = request.headers.get('Cf-Access-Jwt-Assertion');
-  if (!token || !env.ACCESS_TEAM_DOMAIN || !env.ACCESS_AUD) return null;
-  const team = env.ACCESS_TEAM_DOMAIN.replace(/\/+$/, '');
-  let keys = accessKeys.get(team);
-  if (!keys) accessKeys.set(team, (keys = createRemoteJWKSet(new URL(`${team}/cdn-cgi/access/certs`))));
+function provider(issuer: string): Promise<Provider> {
+  let p = providers.get(issuer);
+  if (!p) {
+    p = fetch(new URL('.well-known/openid-configuration', issuer.replace(/\/?$/, '/')))
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`OIDC discovery returned ${r.status}`))))
+      .then((d: any) => ({ ...d, keys: createRemoteJWKSet(new URL(d.jwks_uri)) }));
+    p.catch(() => providers.delete(issuer));
+    providers.set(issuer, p);
+  }
+  return p;
+}
+
+const SESSION = 'lms_session';
+const LOGIN = 'lms_login';
+const rand = () => base64url.encode(crypto.getRandomValues(new Uint8Array(32)));
+const readCookie = (req: Request, name: string) =>
+  new RegExp(`(?:^|;\\s*)${name}=([^;]+)`).exec(req.headers.get('Cookie') ?? '')?.[1];
+const cookie = (name: string, value: string, path: string, maxAge: number) =>
+  `${name}=${value}; Path=${path}; Max-Age=${maxAge}; HttpOnly; Secure; SameSite=Lax`;
+
+const seal = (payload: JWTPayload, env: Env, ttl: string) =>
+  new SignJWT(payload).setProtectedHeader({ alg: 'HS256' }).setExpirationTime(ttl).sign(enc(env.SESSION_SECRET!));
+
+async function unseal(token: string | undefined, env: Env): Promise<JWTPayload | null> {
+  if (!token) return null;
   try {
-    const { payload } = await jwtVerify(token, keys, {
-      issuer: team,
-      audience: env.ACCESS_AUD,
-      algorithms: ['RS256'],
-    });
-    const email = typeof payload.email === 'string' ? payload.email : '';
-    if (!payload.sub || !email) return null;
-    const admin = (env.ADMIN_EMAIL ?? '').trim().toLowerCase();
-    return { sub: payload.sub, email, instructor: admin !== '' && email.toLowerCase() === admin };
+    return (await jwtVerify(token, enc(env.SESSION_SECRET!), { algorithms: ['HS256'] })).payload;
   } catch {
     return null;
   }
+}
+
+async function sessionPerson(request: Request, env: Env): Promise<Person | null> {
+  const s = await unseal(readCookie(request, SESSION), env);
+  if (s?.use !== 'session' || typeof s.sub !== 'string' || typeof s.email !== 'string') return null;
+  return { sub: s.sub, email: s.email, name: String(s.name ?? s.email), instructor: s.instructor === true };
+}
+
+/** Authorization code flow with PKCE. State, nonce, and verifier ride in a signed 10-minute cookie. */
+async function startLogin(url: URL, env: Env): Promise<Response> {
+  const op = await provider(env.OIDC_ISSUER!);
+  const state = rand();
+  const nonce = rand();
+  const verifier = rand();
+  const challenge = base64url.encode(new Uint8Array(await crypto.subtle.digest('SHA-256', enc(verifier))));
+  const auth = new URL(op.authorization_endpoint);
+  for (const [k, v] of Object.entries({
+    response_type: 'code',
+    client_id: env.OIDC_CLIENT_ID!,
+    redirect_uri: `${url.origin}/lms/auth/callback`,
+    scope: 'openid email profile',
+    state,
+    nonce,
+    code_challenge: challenge,
+    code_challenge_method: 'S256',
+  }))
+    auth.searchParams.set(k, v);
+  const login = await seal({ use: 'login', state, nonce, verifier, ret: url.pathname }, env, '10m');
+  return new Response(null, {
+    status: 302,
+    headers: { Location: auth.href, 'Set-Cookie': cookie(LOGIN, login, '/lms/auth', 600) },
+  });
+}
+
+async function finishLogin(request: Request, url: URL, env: Env): Promise<Response> {
+  const login = await unseal(readCookie(request, LOGIN), env);
+  const code = url.searchParams.get('code');
+  if (login?.use !== 'login' || !code || url.searchParams.get('state') !== login.state) {
+    return page('Sign-in failed', '<p>The sign-in request expired or did not match. <a href="/lms/u/">Sign in again</a>.</p>', 400);
+  }
+  const op = await provider(env.OIDC_ISSUER!);
+  const res = await fetch(op.token_endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'authorization_code',
+      code,
+      redirect_uri: `${url.origin}/lms/auth/callback`,
+      code_verifier: String(login.verifier),
+      client_id: env.OIDC_CLIENT_ID!,
+      client_secret: env.OIDC_CLIENT_SECRET!,
+    }),
+  });
+  const idToken = res.ok ? ((await res.json()) as { id_token?: string }).id_token : undefined;
+  let c: JWTPayload | null = null;
+  try {
+    if (idToken) c = (await jwtVerify(idToken, op.keys, { issuer: op.issuer, audience: env.OIDC_CLIENT_ID })).payload;
+  } catch {}
+  if (!c || c.nonce !== login.nonce || !c.sub || typeof c.email !== 'string') {
+    return page('Sign-in failed', '<p>The identity provider did not return a valid identity. <a href="/lms/u/">Sign in again</a>.</p>', 401);
+  }
+  const groups = Array.isArray(c.groups) ? c.groups : [];
+  // ponytail: the role is fixed for the 8-hour session; a group change applies at the next sign-in.
+  const session = await seal(
+    {
+      use: 'session',
+      sub: c.sub,
+      email: c.email,
+      name: typeof c.name === 'string' && c.name ? c.name : c.email,
+      instructor: groups.includes(env.INSTRUCTOR_GROUP || 'lms-instructors'),
+    },
+    env,
+    '8h',
+  );
+  const headers = new Headers({ Location: `${url.origin}${String(login.ret)}` });
+  headers.append('Set-Cookie', cookie(SESSION, session, '/lms', 8 * 3600));
+  headers.append('Set-Cookie', cookie(LOGIN, '', '/lms/auth', 0));
+  return new Response(null, { status: 302, headers });
+}
+
+async function logout(url: URL, env: Env): Promise<Response> {
+  const op = await provider(env.OIDC_ISSUER!).catch(() => null);
+  return new Response(null, {
+    status: 302,
+    headers: { Location: op?.end_session_endpoint ?? `${url.origin}/`, 'Set-Cookie': cookie(SESSION, '', '/lms', 0) },
+  });
 }
 
 // ---------------------------------------------------------------- responses
@@ -168,7 +271,8 @@ async function activityList(db: Db, me: Person): Promise<Response> {
     .join('');
   return page(
     'Activities',
-    `<p>Signed in as ${esc(me.email)}.${me.instructor ? ' <a href="/lms/u/grades">Gradebook</a>' : ''}</p>` +
+    `<p>Signed in as ${esc(me.name)}.${me.instructor ? ' <a href="/lms/u/grades">Gradebook</a>' : ''}` +
+      ` <a href="/lms/auth/logout">Sign out</a></p>` +
       (rows
         ? `<table><thead><tr><th>Activity</th><th>Your score</th></tr></thead><tbody>${rows}</tbody></table>`
         : '<p>No activities are available.</p>'),
@@ -225,9 +329,8 @@ async function launch(db: Db, me: Person, id: number, origin: string): Promise<R
     context_title: 'vfrazier.app LMS',
     user_id: me.sub,
     roles: me.instructor ? 'Instructor' : 'Learner',
-    // ponytail: Access JWTs carry no display name, so the email stands in for it.
     lis_person_contact_email_primary: me.email,
-    lis_person_name_full: me.email,
+    lis_person_name_full: me.name,
     lis_outcome_service_url: `${origin}/lms/lti/outcome`,
     lis_result_sourcedid: `${a.id}:${me.sub}`,
     launch_presentation_document_target: 'window',
@@ -336,10 +439,21 @@ export async function handle(request: Request, env: Env): Promise<Response> {
       ? outcome(request, db, url.origin)
       : new Response('Method not allowed', { status: 405, headers: { Allow: 'POST' } });
   }
-  if (path !== '/lms/u' && !path.startsWith('/lms/u/')) return new Response('Not found', { status: 404 });
+  const auth = path === '/lms/auth/callback' || path === '/lms/auth/logout';
+  if (!auth && path !== '/lms/u' && !path.startsWith('/lms/u/')) return new Response('Not found', { status: 404 });
+  if (!env.OIDC_ISSUER || !env.OIDC_CLIENT_ID || !env.OIDC_CLIENT_SECRET || !env.SESSION_SECRET) {
+    return page('Sign-in is not configured', '<p>The LMS has no identity provider configured.</p>', 503);
+  }
 
-  const me = await accessPerson(request, env);
-  if (!me) return page('Sign in required', '<p>Sign in through Cloudflare Access to use the LMS.</p>', 401);
+  let me: Person | null;
+  try {
+    if (path === '/lms/auth/callback') return await finishLogin(request, url, env);
+    if (path === '/lms/auth/logout') return await logout(url, env);
+    me = await sessionPerson(request, env);
+    if (!me) return await startLogin(url, env);
+  } catch {
+    return page('Sign-in unavailable', '<p>The identity provider did not respond. Try again shortly.</p>', 502);
+  }
   if (path === '/lms/u') return activityList(db, me);
   if (path === '/lms/u/grades') return gradebook(db, me);
   const m = /^\/lms\/u\/launch\/(\d+)$/.exec(path);

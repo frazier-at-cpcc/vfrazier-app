@@ -75,7 +75,7 @@ functions/
   api/book.ts       Booking form handler (Resend + Turnstile)
   api/book.test.ts  Unit tests for the handler
   lms/[[path]].ts   Catch-all for /lms, delegating to lib/lms.ts
-lib/lms.ts          Minimal LMS: Access sign-in, LTI 1.1 launch, Basic Outcomes gradebook (docs/lms.md)
+lib/lms.ts          Minimal LMS: OIDC sign-in, LTI 1.1 launch, Basic Outcomes gradebook (docs/lms.md)
 migrations/         D1 schema for the LMS
 public/             cv.pdf, favicon, og-default.png (served as-is)
 scripts/            render-og.mjs, render-cv-pdf.mjs (Playwright/Chromium renderers)
