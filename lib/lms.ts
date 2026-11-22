@@ -258,7 +258,7 @@ async function activityList(db: Db, me: Person): Promise<Response> {
     .prepare(
       `SELECT a.id, a.title, g.score FROM activity a
        LEFT JOIN grade g ON g.activity_id = a.id AND g.person_sub = ?
-       ORDER BY a.title`,
+       ORDER BY a.id`,
     )
     .bind(me.sub)
     .all<{ id: number; title: string; score: number | null }>();
